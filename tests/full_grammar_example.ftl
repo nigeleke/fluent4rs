@@ -126,21 +126,23 @@ installing = Installing { -brand-name }.
 emails =
     { $unreadEmails ->
         [one] You have one unread email.
-       *[other] You have { $unreadEmails } unread emails.
+       *[two] You have two unread emails.
+        [other] You have { $unreadEmails } unread emails.
     }
 
 your-score =
     { NUMBER($score, minimumFractionDigits: 1) ->
         [0.0]   You scored zero points. What happened?
-       *[other] You scored { NUMBER($score, minimumFractionDigits: 1) } points.
+       *[0.5]   You scored half a point. What happened?
+        [other] You scored { NUMBER($score, minimumFractionDigits: 1) } points.
     }
 
 your-rank = { NUMBER($pos, type: "ordinal") ->
    [1] You finished first!
    [one] You finished {$pos}st
-   [two] You finished {$pos}nd
+  *[two] You finished {$pos}nd
    [few] You finished {$pos}rd
-  *[other] You finished {$pos}th
+   [other] You finished {$pos}th
 }
 
 login-input = Predefined value
