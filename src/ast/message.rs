@@ -44,6 +44,6 @@ impl Message {
 
 impl std::fmt::Display for Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} = {}\n", self.identifier, self.attributes)
+        writeln!(f, "{} = {}", self.identifier, self.attributes)
     }
 }

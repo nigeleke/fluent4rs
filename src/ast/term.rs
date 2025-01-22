@@ -25,6 +25,6 @@ impl std::fmt::Display for Term {
             .map(|a| a.to_string())
             .collect::<Vec<_>>()
             .join("");
-        write!(f, "-{} = {}{}\n", self.identifier, self.pattern, attributes)
+        writeln!(f, "-{} = {}{}", self.identifier, self.pattern, attributes)
     }
 }

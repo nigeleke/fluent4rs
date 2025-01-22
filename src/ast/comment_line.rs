@@ -13,6 +13,6 @@ impl CommentLine {
 impl std::fmt::Display for CommentLine {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let comment = self.comment.as_ref().map_or("".into(), |c| format!(" {c}"));
-        write!(f, "{}{}\n", self.lead, comment)
+        writeln!(f, "{}{}", self.lead, comment)
     }
 }

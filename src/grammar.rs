@@ -38,7 +38,7 @@ fn message<'a>() -> Parser<'a, Message> {
         + sym('=')
         + blank_inline().opt()
         + ((pattern() + attribute().repeat(0..)).map(|(p, a)| MessageAttributes::Patterned(p, a))
-            | attribute().repeat(1..).map(|a| MessageAttributes::Plain(a))))
+            | attribute().repeat(1..).map(MessageAttributes::Plain)))
     .map(|((((i, _), _), _), a)| Message::new(i, a))
     .name(stringify!(message))
 }
@@ -396,13 +396,13 @@ fn unicode_escape<'a>() -> Parser<'a, String> {
 //                       | special_escape
 //                       | unicode_escape
 fn quoted_char<'a>() -> Parser<'a, String> {
-    (!special_quoted_char() + !line_end()) * any_char() | special_escape() | unicode_escape()
+    ((!special_quoted_char() + !line_end()) * any_char()) | special_escape() | unicode_escape()
 }
 
 /* Numbers */
 // digits              ::= [0-9]+
 fn digits<'a>() -> Parser<'a, String> {
-    is_a(|c| c.is_digit(10))
+    is_a(|c| c.is_ascii_digit())
         .repeat(1..)
         .collect()
         .map(String::from)

@@ -36,6 +36,6 @@ impl std::fmt::Display for VariantList {
             .map(|v| v.to_string())
             .collect::<Vec<_>>()
             .join("");
-        write!(f, "{}{}{}\n", pre_default, the_default, post_default)
+        writeln!(f, "{}{}{}", pre_default, the_default, post_default)
     }
 }
