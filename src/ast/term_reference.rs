@@ -27,16 +27,11 @@ impl std::fmt::Display for TermReference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "-{}{}{}{}",
+            "-{}{}{}",
             self.identifier,
             self.attribute_accessor
                 .as_ref()
                 .map_or("".to_string(), |aa| aa.to_string()),
-            if self.call_arguments.is_some() {
-                " "
-            } else {
-                ""
-            },
             self.call_arguments
                 .as_ref()
                 .map_or("".to_string(), |ca| ca.to_string())

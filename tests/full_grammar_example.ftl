@@ -246,3 +246,23 @@ log-time2 = Entry time: { DATETIME($date) }
 today = Today is { $day }
 
 today = Today is { DATETIME($day, weekday: "short") }
+
+block-placeable =
+
+{ "string literal" }
+
+attribute-reference = { today.day }
+
+-term-reference = { today.day }
+
+inline-expression-number-literal = { 1 }
+
+inline-expression-number-literal = { -123 }
+
+inline-expression-number-literal = { 3.14 }
+
+inline-expression-inline-placeable = { { 123 } }
+
+plain-message-with-attributes =
+    .one = One
+    .two = Two
