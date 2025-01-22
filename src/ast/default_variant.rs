@@ -14,3 +14,9 @@ impl DefaultVariant {
         }
     }
 }
+
+impl std::fmt::Display for DefaultVariant {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "\n *[{}] {}", self.variant_key, self.pattern)
+    }
+}

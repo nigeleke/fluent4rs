@@ -14,19 +14,14 @@ impl std::fmt::Display for MessageAttributes {
                     .iter()
                     .map(|a| a.to_string())
                     .collect::<Vec<_>>()
-                    .join(" ");
-                format!(
-                    "{}{}{}",
-                    pattern,
-                    attributes.is_empty().then_some("").unwrap_or(" "),
-                    attributes
-                )
+                    .join("");
+                format!("{}{}", pattern, attributes)
             }
             Self::Plain(attributes) => attributes
                 .iter()
                 .map(|a| a.to_string())
                 .collect::<Vec<_>>()
-                .join(" "),
+                .join(""),
         };
         write!(f, "{value}")
     }

@@ -16,7 +16,7 @@ impl SelectExpression {
 }
 
 impl std::fmt::Display for SelectExpression {
-    fn fmt(&self, _f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        unimplemented!()
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{} -> {}", self.inline_expression, self.variant_list)
     }
 }

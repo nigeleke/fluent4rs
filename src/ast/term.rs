@@ -24,14 +24,7 @@ impl std::fmt::Display for Term {
             .iter()
             .map(|a| a.to_string())
             .collect::<Vec<_>>()
-            .join(" ");
-        write!(
-            f,
-            "-{} = {}{}{}\n",
-            self.identifier,
-            self.pattern,
-            attributes.is_empty().then_some("").unwrap_or(" "),
-            attributes
-        )
+            .join("");
+        write!(f, "-{} = {}{}\n", self.identifier, self.pattern, attributes)
     }
 }

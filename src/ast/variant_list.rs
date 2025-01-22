@@ -20,3 +20,22 @@ impl VariantList {
         }
     }
 }
+
+impl std::fmt::Display for VariantList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let pre_default = self
+            .pre_default
+            .iter()
+            .map(|v| v.to_string())
+            .collect::<Vec<_>>()
+            .join("");
+        let the_default = self.default.to_string();
+        let post_default = self
+            .post_default
+            .iter()
+            .map(|v| v.to_string())
+            .collect::<Vec<_>>()
+            .join("");
+        write!(f, "{}{}{}\n", pre_default, the_default, post_default)
+    }
+}

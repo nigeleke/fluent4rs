@@ -122,3 +122,125 @@ help-menu-save = Click { menu-save } to save the file.
 
 -brand-name = Firefox
 installing = Installing { -brand-name }.
+
+emails =
+    { $unreadEmails ->
+        [one] You have one unread email.
+       *[other] You have { $unreadEmails } unread emails.
+    }
+
+your-score =
+    { NUMBER($score, minimumFractionDigits: 1) ->
+        [0.0]   You scored zero points. What happened?
+       *[other] You scored { NUMBER($score, minimumFractionDigits: 1) } points.
+    }
+
+your-rank = { NUMBER($pos, type: "ordinal") ->
+   [1] You finished first!
+   [one] You finished {$pos}st
+   [two] You finished {$pos}nd
+   [few] You finished {$pos}rd
+  *[other] You finished {$pos}th
+}
+
+login-input = Predefined value
+    .placeholder = email@example.com
+    .aria-label = Login input value
+    .title = Type your login email
+
+-brand-name = Firefox
+
+about = About { -brand-name }.
+update-successful = { -brand-name } has been updated.
+
+# A contrived example to demonstrate how variables
+# can be passed to terms.
+-https = https://{ $host }
+visit = Visit { -https(host: "example.com") } for more information.
+
+-brand-name =
+    { $case ->
+       *[nominative] Firefox
+        [locative] Firefoksie
+    }
+
+# "About Firefox."
+about = Informacje o { -brand-name(case: "locative") }.
+
+-brand-name =
+    { $case ->
+       *[nominative] Firefox
+        [locative] Firefoksie
+    }
+
+# "Firefox has been successfully updated."
+update-successful = { -brand-name } został pomyślnie zaktualizowany.
+
+-brand-name = Aurora
+    .gender = feminine
+
+update-successful =
+    { -brand-name.gender ->
+        [masculine] { -brand-name } został zaktualizowany.
+        [feminine] { -brand-name } została zaktualizowana.
+       *[other] Program { -brand-name } został zaktualizowany.
+    }
+
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+### Localization for Server-side strings of Firefox Screenshots
+
+## Global phrases shared across pages
+
+my-shots = My Shots
+home-link = Home
+screenshots-description =
+    Screenshots made simple. Take, save, and
+    share screenshots without leaving Firefox.
+
+## Creating page
+
+# Note: { $title } is a placeholder for the title of the web page
+# captured in the screenshot. The default, for pages without titles, is
+# creating-page-title-default.
+creating-page-title = Creating { $title }
+creating-page-title-default = page
+creating-page-wait-message = Saving your shot…
+
+emails = You have { $unreadEmails } unread emails.
+emails2 = You have { NUMBER($unreadEmails) } unread emails.
+
+last-notice =
+    Last checked: { DATETIME($lastChecked, day: "numeric", month: "long") }.
+
+today-is = Today is { DATETIME($date) }
+
+dpi-ratio = Your DPI ratio is { NUMBER($ratio, minimumFractionDigits: 2) }
+
+today-is = Today is { DATETIME($date, month: "long", year: "numeric", day: "numeric") }
+
+emails = Number of unread emails { $unreadEmails }
+
+emails2 = Number of unread emails { NUMBER($unreadEmails) }
+
+liked-count = { $num ->
+        [0]     No likes yet.
+        [one]   One person liked your message
+       *[other] { $num } people liked your message
+    }
+
+liked-count2 = { NUMBER($num) ->
+        [0]     No likes yet.
+        [one]   One person liked your message
+       *[other] { $num } people liked your message
+    }
+
+log-time = Entry time: { $date }
+
+log-time2 = Entry time: { DATETIME($date) }
+
+today = Today is { $day }
+
+today = Today is { DATETIME($day, weekday: "short") }

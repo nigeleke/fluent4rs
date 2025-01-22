@@ -16,7 +16,7 @@ impl Attribute {
 }
 
 impl std::fmt::Display for Attribute {
-    fn fmt(&self, _f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        unimplemented!()
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "\n    .{} = {}", self.identifier, self.pattern)
     }
 }
