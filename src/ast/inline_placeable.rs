@@ -12,6 +12,6 @@ impl std::fmt::Display for InlinePlaceable {
             Self::SelectExpression(expression) => expression.to_string(),
             Self::InlineExpression(expression) => expression.to_string(),
         };
-        write!(f, "{value}")
+        write!(f, "{{ {value} }}")
     }
 }

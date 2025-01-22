@@ -19,12 +19,12 @@ impl std::fmt::Display for InlineExpression {
         let value = match self {
             Self::StringLiteral(literal) => literal.to_string(),
             Self::NumberLiteral(literal) => literal.to_string(),
-            Self::FunctionReference(_reference) => unimplemented!(),
-            Self::MessageReference(_reference) => unimplemented!(),
+            Self::FunctionReference(reference) => reference.to_string(),
+            Self::MessageReference(reference) => reference.to_string(),
             Self::TermReference(reference) => reference.to_string(),
             Self::VariableReference(reference) => reference.to_string(),
             Self::InlinePlaceable(inline) => inline.to_string(),
         };
-        write!(f, "{{ {value} }}")
+        write!(f, "{value}")
     }
 }

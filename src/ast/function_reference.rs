@@ -14,3 +14,9 @@ impl FunctionReference {
         }
     }
 }
+
+impl std::fmt::Display for FunctionReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}{}", self.identifier, self.call_arguments)
+    }
+}

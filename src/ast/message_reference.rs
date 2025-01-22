@@ -14,3 +14,21 @@ impl MessageReference {
         }
     }
 }
+
+impl std::fmt::Display for MessageReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "{}{}{}",
+            self.identifier,
+            if self.attribute_accessor.is_some() {
+                " "
+            } else {
+                ""
+            },
+            self.attribute_accessor
+                .as_ref()
+                .map_or("".to_string(), |aa| aa.to_string())
+        )
+    }
+}

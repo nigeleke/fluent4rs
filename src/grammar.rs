@@ -369,25 +369,18 @@ fn indented_char<'a>() -> Parser<'a, String> {
  * the \" escape sequence. The literal backslash can be inserted with \\. The
  * literal opening brace ({) is allowed in string literals because they may not
  * comprise placeables.
- *//* String literals
- *
- * For special-purpose content, quoted string literals can be used where text
- * elements are not a good fit. String literals are delimited with double
- * quotes and may not contain line breaks. String literals use the backslash
- * (\) as the escape character. The literal double quote can be inserted via
- * the \" escape sequence. The literal backslash can be inserted with \\. The
- * literal opening brace ({) is allowed in string literals because they may not
- * comprise placeables.
  */
 // special_quoted_char ::= "\""
 //                       | "\\"
 fn special_quoted_char<'a>() -> Parser<'a, String> {
-    (sym('\"') | sym('\\')).map(|c| c.to_string())
+    (sym('"') | sym('\\')).map(|c| c.to_string())
 }
 
 // special_escape      ::= "\\" special_quoted_char
 fn special_escape<'a>() -> Parser<'a, String> {
-    (sym('\\') + special_quoted_char()).map(|(bs, sqc)| format!("{}{}", bs, sqc))
+    (sym('\\') + special_quoted_char())
+        .collect()
+        .map(String::from)
 }
 
 // unicode_escape      ::= ("\\u" /[0-9a-fA-F]{4}/)
@@ -395,14 +388,15 @@ fn special_escape<'a>() -> Parser<'a, String> {
 fn unicode_escape<'a>() -> Parser<'a, String> {
     ((seq("\\u") + is_a(|c| c.is_ascii_hexdigit()).repeat(4))
         | (seq("\\U") + is_a(|c| c.is_ascii_hexdigit()).repeat(6)))
-    .map(|(u, hs)| format!("{}{}", u, String::from_iter(hs)))
+    .collect()
+    .map(String::from)
 }
 
 // quoted_char         ::= (any_char - special_quoted_char - line_end)
 //                       | special_escape
 //                       | unicode_escape
 fn quoted_char<'a>() -> Parser<'a, String> {
-    (any_char() - special_quoted_char() - line_end()) | special_escape() | unicode_escape()
+    (!special_quoted_char() + !line_end()) * any_char() | special_escape() | unicode_escape()
 }
 
 /* Numbers */
@@ -410,7 +404,8 @@ fn quoted_char<'a>() -> Parser<'a, String> {
 fn digits<'a>() -> Parser<'a, String> {
     is_a(|c| c.is_digit(10))
         .repeat(1..)
-        .map(|c| format!("{}", String::from_iter(c)))
+        .collect()
+        .map(String::from)
 }
 
 /* Whitespace */
