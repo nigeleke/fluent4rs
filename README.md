@@ -27,6 +27,5 @@ translation needs, the reader is referred back to that crate.
 ## Development
 
 ```bash
-cargo build
 cargo test
 ```
