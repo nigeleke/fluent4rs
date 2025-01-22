@@ -1,4 +1,4 @@
-//! Derived from https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf
+//! Derived from [Project Fluent](https://github.com/projectfluent/) [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
 
 use crate::ast::prelude::*;
 
