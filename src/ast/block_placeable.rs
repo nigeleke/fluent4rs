@@ -1,16 +1,22 @@
 use super::prelude::InlinePlaceable;
 
 #[derive(Clone, Debug, PartialEq)]
-pub struct BlockPlaceable(InlinePlaceable);
+pub struct BlockPlaceable {
+    blank_block: String,
+    inline_placeable: InlinePlaceable,
+}
 
-impl From<InlinePlaceable> for BlockPlaceable {
-    fn from(value: InlinePlaceable) -> Self {
-        Self(value)
+impl BlockPlaceable {
+    pub fn new(blank_block: String, inline_placeable: InlinePlaceable) -> Self {
+        Self {
+            blank_block,
+            inline_placeable,
+        }
     }
 }
 
 impl std::fmt::Display for BlockPlaceable {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.0)
+        write!(f, "{}{}", self.blank_block, self.inline_placeable)
     }
 }

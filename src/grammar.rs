@@ -12,7 +12,6 @@ pub fn resource<'a>() -> Parser<'a, Resource> {
         | junk().map(ResourceItem::Junk))
     .repeat(0..)
     .map(Resource::from)
-    .name(stringify!(resource))
 }
 
 /* Entries are the main building blocks of Fluent. They define translations and
@@ -25,10 +24,9 @@ pub fn resource<'a>() -> Parser<'a, Resource> {
 //                       | (Term line_end)
 //                       | CommentLine
 fn entry<'a>() -> Parser<'a, Entry> {
-    ((message() + line_end()).map(|(m, _)| Entry::Message(m))
+    (message() + line_end()).map(|(m, _)| Entry::Message(m))
         | (term() + line_end()).map(|(t, _)| Entry::Term(t))
-        | (comment_line()).map(Entry::CommentLine))
-    .name(stringify!(entry))
+        | (comment_line()).map(Entry::CommentLine)
 }
 
 // Message             ::= Identifier blank_inline? "=" blank_inline? ((Pattern Attribute*) | (Attribute+))
@@ -40,7 +38,6 @@ fn message<'a>() -> Parser<'a, Message> {
         + ((pattern() + attribute().repeat(0..)).map(|(p, a)| MessageAttributes::Patterned(p, a))
             | attribute().repeat(1..).map(MessageAttributes::Plain)))
     .map(|((((i, _), _), _), a)| Message::new(i, a))
-    .name(stringify!(message))
 }
 
 // Term                ::= "-" Identifier blank_inline? "=" blank_inline? Pattern Attribute*
@@ -53,7 +50,6 @@ fn term<'a>() -> Parser<'a, Term> {
         + pattern()
         + attribute().repeat(0..))
     .map(|((((((_, i), _), _), _), p), a)| Term::new(i, p, a))
-    .name(stringify!(term))
 }
 
 /* Adjacent comment lines of the same comment type are joined together during
@@ -67,13 +63,11 @@ fn comment_line<'a>() -> Parser<'a, CommentLine> {
         let comment = space_comment.map(|(_, c)| c.join(""));
         CommentLine::new(lead.into(), comment)
     })
-    .name(stringify!(comment_line))
 }
 
 // comment_char        ::= any_char - line_end
 fn comment_char<'a>() -> Parser<'a, String> {
     (!line_end() * any()).map(String::from)
-    // .name(stringify!(comment_char))
 }
 
 /* Junk represents unparsed content.
@@ -91,7 +85,6 @@ fn junk<'a>() -> Parser<'a, Junk> {
         junk.append(tail.as_mut());
         Junk::from(junk.as_slice())
     })
-    .name(stringify!(junk))
 }
 
 // junk_line           ::= /[^\n]*/ ("\u000A" | EOF)
@@ -99,7 +92,6 @@ fn junk_line<'a>() -> Parser<'a, String> {
     (none_of("\n").repeat(0..) + (sym('\u{000a}')))
         .collect()
         .map(String::from)
-        .name(stringify!(junk_line))
 }
 
 /* Attributes of Messages and Terms. */
@@ -114,15 +106,12 @@ fn attribute<'a>() -> Parser<'a, Attribute> {
         + blank_inline().opt()
         + pattern())
     .map(|(((((((_, _), _), i), _), _), _), p)| Attribute::new(i, p))
-    .name(stringify!(attribute))
 }
 
 /* Patterns are values of Messages, Terms, Attributes and Variants. */
 // Pattern             ::= PatternElement+
 fn pattern<'a>() -> Parser<'a, Pattern> {
-    (pattern_element().repeat(1..))
-        .map(|pes| Pattern::from(pes.as_slice()))
-        .name(stringify!(pattern))
+    (pattern_element().repeat(1..)).map(|pes| Pattern::from(pes.as_slice()))
 }
 
 /* TextElement and Placeable can occur inline or as block.
@@ -134,19 +123,15 @@ fn pattern<'a>() -> Parser<'a, Pattern> {
 //                       | inline_placeable
 //                       | block_placeable
 fn pattern_element<'a>() -> Parser<'a, PatternElement> {
-    (inline_text().map(PatternElement::InlineText)
+    inline_text().map(PatternElement::InlineText)
         | block_text().map(PatternElement::BlockText)
         | call(inline_placeable).map(PatternElement::InlinePlaceable)
-        | block_placeable().map(PatternElement::BlockPlaceable))
-    .name(stringify!(pattern_element))
+        | block_placeable().map(PatternElement::BlockPlaceable)
 }
 
 // inline_text         ::= text_char+
 fn inline_text<'a>() -> Parser<'a, InlineText> {
-    (text_char().repeat(1..))
-        .collect()
-        .map(InlineText::from)
-        .name(stringify!(inline_text))
+    (text_char().repeat(1..)).collect().map(InlineText::from)
 }
 
 // block_text          ::= blank_block blank_inline indented_char inline_text?
@@ -154,7 +139,6 @@ fn block_text<'a>() -> Parser<'a, BlockText> {
     (blank_block() + blank_inline() + indented_char() + inline_text().opt())
         .collect()
         .map(BlockText::from)
-        .name(stringify!(block_text))
 }
 
 // inline_placeable    ::= "{" blank? (SelectExpression | InlineExpression) blank? "}"
@@ -166,14 +150,12 @@ fn inline_placeable<'a>() -> Parser<'a, InlinePlaceable> {
         + blank().opt()
         + sym('}'))
     .map(|((((_, _), ip), _), _)| ip)
-    .name(stringify!(inline_placeable))
 }
 
 // block_placeable     ::= blank_block blank_inline? inline_placeable
 fn block_placeable<'a>() -> Parser<'a, BlockPlaceable> {
-    (blank_block() + blank_inline().opt() + call(inline_placeable))
-        .map(|((_, _), ip)| BlockPlaceable::from(ip))
-        .name(stringify!(block_placeable))
+    ((blank_block() + blank_inline().opt()).collect() + call(inline_placeable))
+        .map(|(bb, ip)| BlockPlaceable::new(bb.into(), ip))
 }
 
 /* Rules for validating expressions in Placeables and as selectors of
@@ -315,7 +297,6 @@ fn identifier<'a>() -> Parser<'a, Identifier> {
         + is_a(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-').repeat(0..))
     .collect()
     .map(Identifier::from)
-    .name(stringify!(identifier))
 }
 
 /* Content Characters
@@ -429,7 +410,6 @@ fn blank_block<'a>() -> Parser<'a, String> {
     ((blank_inline().opt() + line_end()).repeat(1..))
         .collect()
         .map(String::from)
-        .name(stringify!(blank_block))
 }
 
 // blank               ::= (blank_inline | line_end)+
