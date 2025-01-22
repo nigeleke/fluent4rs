@@ -1,0 +1,15 @@
+[package]
+name = "fluent4rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pom = { version = "3.4.0", features = ["trace"] }
+thiserror = "2.0.11"
+
+[dev-dependencies]
+pretty_assertions = "1.4.1"
+
+[features]
+default = []
+deep_trace = []
