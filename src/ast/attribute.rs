@@ -1,6 +1,6 @@
 use super::prelude::{Identifier, Pattern};
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Attribute {
     identifier: Identifier,
     pattern: Pattern,
@@ -12,5 +12,11 @@ impl Attribute {
             identifier,
             pattern,
         }
+    }
+}
+
+impl std::fmt::Display for Attribute {
+    fn fmt(&self, _f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        unimplemented!()
     }
 }

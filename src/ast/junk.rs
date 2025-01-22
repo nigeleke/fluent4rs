@@ -1,8 +1,20 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Junk(Vec<String>);
 
 impl From<&[String]> for Junk {
     fn from(value: &[String]) -> Self {
         Self(Vec::from(value))
+    }
+}
+
+impl std::fmt::Display for Junk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let value = self
+            .0
+            .iter()
+            .map(|l| l.to_string())
+            .collect::<Vec<_>>()
+            .join("\n");
+        write!(f, "{value}")
     }
 }

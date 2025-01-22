@@ -1,6 +1,6 @@
 use super::prelude::{AttributeAccessor, Identifier};
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct MessageReference {
     identifier: Identifier,
     attribute_accessor: Option<AttributeAccessor>,

@@ -1,6 +1,6 @@
 use super::prelude::{Identifier, Literal};
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct NamedArgument {
     identifier: Identifier,
     literal: Literal,
@@ -12,5 +12,11 @@ impl NamedArgument {
             identifier,
             literal,
         }
+    }
+}
+
+impl std::fmt::Display for NamedArgument {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}: {}", self.identifier, self.literal)
     }
 }

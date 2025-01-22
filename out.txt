@@ -1,0 +1,788 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+parse: resource (0)
+parse: entry (0)
+parse: message (0)
+parse: identifier (0)
+       identifier (0): error
+       message (0): error
+parse: term (0)
+       term (0): error
+parse: comment_line (0)
+       comment_line (0): ok
+       entry (0): ok
+parse: entry (19)
+parse: message (19)
+parse: identifier (19)
+       identifier (19): error
+       message (19): error
+parse: term (19)
+       term (19): error
+parse: comment_line (19)
+       comment_line (19): error
+       entry (19): error
+parse: blank_block (19)
+       blank_block (19): ok
+parse: entry (20)
+parse: message (20)
+parse: identifier (20)
+       identifier (20): error
+       message (20): error
+parse: term (20)
+       term (20): error
+parse: comment_line (20)
+       comment_line (20): ok
+       entry (20): ok
+parse: entry (88)
+parse: message (88)
+parse: identifier (88)
+       identifier (88): error
+       message (88): error
+parse: term (88)
+       term (88): error
+parse: comment_line (88)
+       comment_line (88): error
+       entry (88): error
+parse: blank_block (88)
+       blank_block (88): ok
+parse: entry (89)
+parse: message (89)
+parse: identifier (89)
+       identifier (89): error
+       message (89): error
+parse: term (89)
+       term (89): error
+parse: comment_line (89)
+       comment_line (89): ok
+       entry (89): ok
+parse: entry (106)
+parse: message (106)
+parse: identifier (106)
+       identifier (106): error
+       message (106): error
+parse: term (106)
+       term (106): error
+parse: comment_line (106)
+       comment_line (106): ok
+       entry (106): ok
+parse: entry (116)
+parse: message (116)
+parse: identifier (116)
+       identifier (116): error
+       message (116): error
+parse: term (116)
+       term (116): error
+parse: comment_line (116)
+       comment_line (116): error
+       entry (116): error
+parse: blank_block (116)
+       blank_block (116): ok
+parse: entry (117)
+parse: message (117)
+parse: identifier (117)
+       identifier (117): ok
+parse: pattern (125)
+parse: pattern_element (125)
+parse: inline_text (125)
+       inline_text (125): ok
+       pattern_element (125): ok
+parse: pattern_element (138)
+parse: inline_text (138)
+       inline_text (138): error
+parse: block_text (138)
+parse: blank_block (138)
+       blank_block (138): ok
+       block_text (138): error
+parse: inline_placeable (138)
+       inline_placeable (138): error
+parse: block_placeable (138)
+parse: blank_block (138)
+       blank_block (138): ok
+parse: inline_placeable (140)
+       inline_placeable (140): error
+       block_placeable (138): error
+       pattern_element (138): error
+       pattern (125): ok
+parse: attribute (138)
+       attribute (138): error
+       message (117): ok
+       entry (117): ok
+parse: entry (139)
+parse: message (139)
+parse: identifier (139)
+       identifier (139): error
+       message (139): error
+parse: term (139)
+       term (139): error
+parse: comment_line (139)
+       comment_line (139): error
+       entry (139): error
+parse: blank_block (139)
+       blank_block (139): ok
+parse: entry (140)
+parse: message (140)
+parse: identifier (140)
+       identifier (140): error
+       message (140): error
+parse: term (140)
+       term (140): error
+parse: comment_line (140)
+       comment_line (140): ok
+       entry (140): ok
+parse: entry (197)
+parse: message (197)
+parse: identifier (197)
+       identifier (197): ok
+parse: pattern (215)
+parse: pattern_element (215)
+parse: inline_text (215)
+       inline_text (215): ok
+       pattern_element (215): ok
+parse: pattern_element (247)
+parse: inline_text (247)
+       inline_text (247): error
+parse: block_text (247)
+parse: blank_block (247)
+       blank_block (247): error
+       block_text (247): error
+parse: inline_placeable (247)
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (250)
+       identifier (250): ok
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (250)
+       identifier (250): ok
+       inline_placeable (247): ok
+       pattern_element (247): ok
+parse: pattern_element (257)
+parse: inline_text (257)
+       inline_text (257): ok
+       pattern_element (257): ok
+parse: pattern_element (258)
+parse: inline_text (258)
+       inline_text (258): error
+parse: block_text (258)
+parse: blank_block (258)
+       blank_block (258): ok
+       block_text (258): error
+parse: inline_placeable (258)
+       inline_placeable (258): error
+parse: block_placeable (258)
+parse: blank_block (258)
+       blank_block (258): ok
+parse: inline_placeable (260)
+       inline_placeable (260): error
+       block_placeable (258): error
+       pattern_element (258): error
+       pattern (215): ok
+parse: attribute (258)
+       attribute (258): error
+       message (197): ok
+       entry (197): ok
+parse: entry (259)
+parse: message (259)
+parse: identifier (259)
+       identifier (259): error
+       message (259): error
+parse: term (259)
+       term (259): error
+parse: comment_line (259)
+       comment_line (259): error
+       entry (259): error
+parse: blank_block (259)
+       blank_block (259): ok
+parse: entry (260)
+parse: message (260)
+parse: identifier (260)
+       identifier (260): error
+       message (260): error
+parse: term (260)
+       term (260): error
+parse: comment_line (260)
+       comment_line (260): ok
+       entry (260): ok
+parse: entry (317)
+parse: message (317)
+parse: identifier (317)
+       identifier (317): ok
+parse: pattern (335)
+parse: pattern_element (335)
+parse: inline_text (335)
+       inline_text (335): ok
+       pattern_element (335): ok
+parse: pattern_element (349)
+parse: inline_text (349)
+       inline_text (349): error
+parse: block_text (349)
+parse: blank_block (349)
+       blank_block (349): error
+       block_text (349): error
+parse: inline_placeable (349)
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (352)
+       identifier (352): ok
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (352)
+       identifier (352): ok
+       inline_placeable (349): ok
+       pattern_element (349): ok
+parse: pattern_element (359)
+parse: inline_text (359)
+       inline_text (359): ok
+       pattern_element (359): ok
+parse: pattern_element (360)
+parse: inline_text (360)
+       inline_text (360): error
+parse: block_text (360)
+parse: blank_block (360)
+       blank_block (360): ok
+       block_text (360): error
+parse: inline_placeable (360)
+       inline_placeable (360): error
+parse: block_placeable (360)
+parse: blank_block (360)
+       blank_block (360): ok
+parse: inline_placeable (362)
+       inline_placeable (362): error
+       block_placeable (360): error
+       pattern_element (360): error
+       pattern (335): ok
+parse: attribute (360)
+       attribute (360): error
+       message (317): ok
+       entry (317): ok
+parse: entry (361)
+parse: message (361)
+parse: identifier (361)
+       identifier (361): error
+       message (361): error
+parse: term (361)
+       term (361): error
+parse: comment_line (361)
+       comment_line (361): error
+       entry (361): error
+parse: blank_block (361)
+       blank_block (361): ok
+parse: entry (362)
+parse: message (362)
+parse: identifier (362)
+       identifier (362): error
+       message (362): error
+parse: term (362)
+parse: identifier (363)
+       identifier (363): ok
+parse: pattern (376)
+parse: pattern_element (376)
+parse: inline_text (376)
+       inline_text (376): ok
+       pattern_element (376): ok
+parse: pattern_element (383)
+parse: inline_text (383)
+       inline_text (383): error
+parse: block_text (383)
+parse: blank_block (383)
+       blank_block (383): ok
+       block_text (383): error
+parse: inline_placeable (383)
+       inline_placeable (383): error
+parse: block_placeable (383)
+parse: blank_block (383)
+       blank_block (383): ok
+parse: inline_placeable (384)
+       inline_placeable (384): error
+       block_placeable (383): error
+       pattern_element (383): error
+       pattern (376): ok
+parse: attribute (383)
+       attribute (383): error
+       term (362): ok
+       entry (362): ok
+parse: entry (384)
+parse: message (384)
+parse: identifier (384)
+       identifier (384): ok
+parse: pattern (397)
+parse: pattern_element (397)
+parse: inline_text (397)
+       inline_text (397): ok
+       pattern_element (397): ok
+parse: pattern_element (408)
+parse: inline_text (408)
+       inline_text (408): error
+parse: block_text (408)
+parse: blank_block (408)
+       blank_block (408): error
+       block_text (408): error
+parse: inline_placeable (408)
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (411)
+       identifier (411): ok
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (411)
+       identifier (411): ok
+       inline_placeable (408): ok
+       pattern_element (408): ok
+parse: pattern_element (423)
+parse: inline_text (423)
+       inline_text (423): ok
+       pattern_element (423): ok
+parse: pattern_element (424)
+parse: inline_text (424)
+       inline_text (424): error
+parse: block_text (424)
+parse: blank_block (424)
+       blank_block (424): ok
+       block_text (424): error
+parse: inline_placeable (424)
+       inline_placeable (424): error
+parse: block_placeable (424)
+parse: blank_block (424)
+       blank_block (424): ok
+parse: inline_placeable (425)
+       inline_placeable (425): error
+       block_placeable (424): error
+       pattern_element (424): error
+       pattern (397): ok
+parse: attribute (424)
+       attribute (424): error
+       message (384): ok
+       entry (384): ok
+parse: entry (425)
+parse: message (425)
+parse: identifier (425)
+       identifier (425): error
+       message (425): error
+parse: term (425)
+       term (425): error
+parse: comment_line (425)
+       comment_line (425): error
+       entry (425): error
+parse: blank_block (425)
+       blank_block (425): error
+parse: junk (425)
+parse: junk_line (425)
+       junk_line (425): error
+       junk (425): error
+       resource (0): ok
+======= AST0
+Resource([Entry(CommentLine(CommentLine { lead: "###", comment: Some("Header comment") })), BlankBlock("\n"), Entry(CommentLine(CommentLine { lead: "##", comment: Some("Examples from: https://projectfluent.org/fluent/guide/index.html") })), BlankBlock("\n"), Entry(CommentLine(CommentLine { lead: "##", comment: Some("Group comment") })), Entry(CommentLine(CommentLine { lead: "#", comment: Some("Comment") })), BlankBlock("\n"), Entry(Message(Message { identifier: Identifier("hello"), attributes: Patterned(Pattern([InlineText(InlineText("Hello, world!"))]), []) })), BlankBlock("\n"), Entry(CommentLine(CommentLine { lead: "#", comment: Some("$title (String) - The title of the bookmark to remove.") })), Entry(Message(Message { identifier: Identifier("remove-bookmark"), attributes: Patterned(Pattern([InlineText(InlineText("Are you sure you want to remove ")), InlinePlaceable(InlineExpression(VariableReference(VariableReference(Identifier("title"))))), InlineText(InlineText("?"))]), []) })), BlankBlock("\n"), Entry(CommentLine(CommentLine { lead: "#", comment: Some("$title (String) - The title of the bookmark to remove.") })), Entry(Message(Message { identifier: Identifier("remove-bookmark"), attributes: Patterned(Pattern([InlineText(InlineText("Really remove ")), InlinePlaceable(InlineExpression(VariableReference(VariableReference(Identifier("title"))))), InlineText(InlineText("?"))]), []) })), BlankBlock("\n"), Entry(Term(Term { identifier: Identifier("brand-name"), pattern: Pattern([InlineText(InlineText("Firefox"))]), attributes: [] })), Entry(Message(Message { identifier: Identifier("installing"), attributes: Patterned(Pattern([InlineText(InlineText("Installing ")), InlinePlaceable(InlineExpression(TermReference(TermReference { identifier: Identifier("brand-name"), attribute_accessor: None, call_arguments: None }))), InlineText(InlineText("."))]), []) }))])
+========
+
+********* FTL1
+"### Header comment\n\n## Examples from: https://projectfluent.org/fluent/guide/index.html\n\n## Group comment\n# Comment\n\nhello = Hello, world!\n\n# $title (String) - The title of the bookmark to remove.\nremove-bookmark = Are you sure you want to remove { $title }?\n\n# $title (String) - The title of the bookmark to remove.\nremove-bookmark = Really remove { $title }?\n\n-brand-name = Firefox\ninstalling = Installing { -brand-name }.\n"
+********
+
+parse: resource (0)
+parse: entry (0)
+parse: message (0)
+parse: identifier (0)
+       identifier (0): error
+       message (0): error
+parse: term (0)
+       term (0): error
+parse: comment_line (0)
+       comment_line (0): ok
+       entry (0): ok
+parse: entry (19)
+parse: message (19)
+parse: identifier (19)
+       identifier (19): error
+       message (19): error
+parse: term (19)
+       term (19): error
+parse: comment_line (19)
+       comment_line (19): error
+       entry (19): error
+parse: blank_block (19)
+       blank_block (19): ok
+parse: entry (20)
+parse: message (20)
+parse: identifier (20)
+       identifier (20): error
+       message (20): error
+parse: term (20)
+       term (20): error
+parse: comment_line (20)
+       comment_line (20): ok
+       entry (20): ok
+parse: entry (88)
+parse: message (88)
+parse: identifier (88)
+       identifier (88): error
+       message (88): error
+parse: term (88)
+       term (88): error
+parse: comment_line (88)
+       comment_line (88): error
+       entry (88): error
+parse: blank_block (88)
+       blank_block (88): ok
+parse: entry (89)
+parse: message (89)
+parse: identifier (89)
+       identifier (89): error
+       message (89): error
+parse: term (89)
+       term (89): error
+parse: comment_line (89)
+       comment_line (89): ok
+       entry (89): ok
+parse: entry (106)
+parse: message (106)
+parse: identifier (106)
+       identifier (106): error
+       message (106): error
+parse: term (106)
+       term (106): error
+parse: comment_line (106)
+       comment_line (106): ok
+       entry (106): ok
+parse: entry (116)
+parse: message (116)
+parse: identifier (116)
+       identifier (116): error
+       message (116): error
+parse: term (116)
+       term (116): error
+parse: comment_line (116)
+       comment_line (116): error
+       entry (116): error
+parse: blank_block (116)
+       blank_block (116): ok
+parse: entry (117)
+parse: message (117)
+parse: identifier (117)
+       identifier (117): ok
+parse: pattern (125)
+parse: pattern_element (125)
+parse: inline_text (125)
+       inline_text (125): ok
+       pattern_element (125): ok
+parse: pattern_element (138)
+parse: inline_text (138)
+       inline_text (138): error
+parse: block_text (138)
+parse: blank_block (138)
+       blank_block (138): ok
+       block_text (138): error
+parse: inline_placeable (138)
+       inline_placeable (138): error
+parse: block_placeable (138)
+parse: blank_block (138)
+       blank_block (138): ok
+parse: inline_placeable (140)
+       inline_placeable (140): error
+       block_placeable (138): error
+       pattern_element (138): error
+       pattern (125): ok
+parse: attribute (138)
+       attribute (138): error
+       message (117): ok
+       entry (117): ok
+parse: entry (139)
+parse: message (139)
+parse: identifier (139)
+       identifier (139): error
+       message (139): error
+parse: term (139)
+       term (139): error
+parse: comment_line (139)
+       comment_line (139): error
+       entry (139): error
+parse: blank_block (139)
+       blank_block (139): ok
+parse: entry (140)
+parse: message (140)
+parse: identifier (140)
+       identifier (140): error
+       message (140): error
+parse: term (140)
+       term (140): error
+parse: comment_line (140)
+       comment_line (140): ok
+       entry (140): ok
+parse: entry (197)
+parse: message (197)
+parse: identifier (197)
+       identifier (197): ok
+parse: pattern (215)
+parse: pattern_element (215)
+parse: inline_text (215)
+       inline_text (215): ok
+       pattern_element (215): ok
+parse: pattern_element (247)
+parse: inline_text (247)
+       inline_text (247): error
+parse: block_text (247)
+parse: blank_block (247)
+       blank_block (247): error
+       block_text (247): error
+parse: inline_placeable (247)
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (250)
+       identifier (250): ok
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (249)
+       identifier (249): error
+parse: identifier (250)
+       identifier (250): ok
+       inline_placeable (247): ok
+       pattern_element (247): ok
+parse: pattern_element (257)
+parse: inline_text (257)
+       inline_text (257): ok
+       pattern_element (257): ok
+parse: pattern_element (258)
+parse: inline_text (258)
+       inline_text (258): error
+parse: block_text (258)
+parse: blank_block (258)
+       blank_block (258): ok
+       block_text (258): error
+parse: inline_placeable (258)
+       inline_placeable (258): error
+parse: block_placeable (258)
+parse: blank_block (258)
+       blank_block (258): ok
+parse: inline_placeable (260)
+       inline_placeable (260): error
+       block_placeable (258): error
+       pattern_element (258): error
+       pattern (215): ok
+parse: attribute (258)
+       attribute (258): error
+       message (197): ok
+       entry (197): ok
+parse: entry (259)
+parse: message (259)
+parse: identifier (259)
+       identifier (259): error
+       message (259): error
+parse: term (259)
+       term (259): error
+parse: comment_line (259)
+       comment_line (259): error
+       entry (259): error
+parse: blank_block (259)
+       blank_block (259): ok
+parse: entry (260)
+parse: message (260)
+parse: identifier (260)
+       identifier (260): error
+       message (260): error
+parse: term (260)
+       term (260): error
+parse: comment_line (260)
+       comment_line (260): ok
+       entry (260): ok
+parse: entry (317)
+parse: message (317)
+parse: identifier (317)
+       identifier (317): ok
+parse: pattern (335)
+parse: pattern_element (335)
+parse: inline_text (335)
+       inline_text (335): ok
+       pattern_element (335): ok
+parse: pattern_element (349)
+parse: inline_text (349)
+       inline_text (349): error
+parse: block_text (349)
+parse: blank_block (349)
+       blank_block (349): error
+       block_text (349): error
+parse: inline_placeable (349)
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (352)
+       identifier (352): ok
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (351)
+       identifier (351): error
+parse: identifier (352)
+       identifier (352): ok
+       inline_placeable (349): ok
+       pattern_element (349): ok
+parse: pattern_element (359)
+parse: inline_text (359)
+       inline_text (359): ok
+       pattern_element (359): ok
+parse: pattern_element (360)
+parse: inline_text (360)
+       inline_text (360): error
+parse: block_text (360)
+parse: blank_block (360)
+       blank_block (360): ok
+       block_text (360): error
+parse: inline_placeable (360)
+       inline_placeable (360): error
+parse: block_placeable (360)
+parse: blank_block (360)
+       blank_block (360): ok
+parse: inline_placeable (362)
+       inline_placeable (362): error
+       block_placeable (360): error
+       pattern_element (360): error
+       pattern (335): ok
+parse: attribute (360)
+       attribute (360): error
+       message (317): ok
+       entry (317): ok
+parse: entry (361)
+parse: message (361)
+parse: identifier (361)
+       identifier (361): error
+       message (361): error
+parse: term (361)
+       term (361): error
+parse: comment_line (361)
+       comment_line (361): error
+       entry (361): error
+parse: blank_block (361)
+       blank_block (361): ok
+parse: entry (362)
+parse: message (362)
+parse: identifier (362)
+       identifier (362): error
+       message (362): error
+parse: term (362)
+parse: identifier (363)
+       identifier (363): ok
+parse: pattern (376)
+parse: pattern_element (376)
+parse: inline_text (376)
+       inline_text (376): ok
+       pattern_element (376): ok
+parse: pattern_element (383)
+parse: inline_text (383)
+       inline_text (383): error
+parse: block_text (383)
+parse: blank_block (383)
+       blank_block (383): ok
+       block_text (383): error
+parse: inline_placeable (383)
+       inline_placeable (383): error
+parse: block_placeable (383)
+parse: blank_block (383)
+       blank_block (383): ok
+parse: inline_placeable (384)
+       inline_placeable (384): error
+       block_placeable (383): error
+       pattern_element (383): error
+       pattern (376): ok
+parse: attribute (383)
+       attribute (383): error
+       term (362): ok
+       entry (362): ok
+parse: entry (384)
+parse: message (384)
+parse: identifier (384)
+       identifier (384): ok
+parse: pattern (397)
+parse: pattern_element (397)
+parse: inline_text (397)
+       inline_text (397): ok
+       pattern_element (397): ok
+parse: pattern_element (408)
+parse: inline_text (408)
+       inline_text (408): error
+parse: block_text (408)
+parse: blank_block (408)
+       blank_block (408): error
+       block_text (408): error
+parse: inline_placeable (408)
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (411)
+       identifier (411): ok
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (410)
+       identifier (410): error
+parse: identifier (411)
+       identifier (411): ok
+       inline_placeable (408): ok
+       pattern_element (408): ok
+parse: pattern_element (423)
+parse: inline_text (423)
+       inline_text (423): ok
+       pattern_element (423): ok
+parse: pattern_element (424)
+parse: inline_text (424)
+       inline_text (424): error
+parse: block_text (424)
+parse: blank_block (424)
+       blank_block (424): ok
+       block_text (424): error
+parse: inline_placeable (424)
+       inline_placeable (424): error
+parse: block_placeable (424)
+parse: blank_block (424)
+       blank_block (424): ok
+parse: inline_placeable (425)
+       inline_placeable (425): error
+       block_placeable (424): error
+       pattern_element (424): error
+       pattern (397): ok
+parse: attribute (424)
+       attribute (424): error
+       message (384): ok
+       entry (384): ok
+parse: entry (425)
+parse: message (425)
+parse: identifier (425)
+       identifier (425): error
+       message (425): error
+parse: term (425)
+       term (425): error
+parse: comment_line (425)
+       comment_line (425): error
+       entry (425): error
+parse: blank_block (425)
+       blank_block (425): error
+parse: junk (425)
+parse: junk_line (425)
+       junk_line (425): error
+       junk (425): error
+       resource (0): ok
+test full_grammar_can_be_parsed ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

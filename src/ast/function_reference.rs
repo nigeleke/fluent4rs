@@ -1,6 +1,6 @@
 use super::prelude::{CallArguments, Identifier};
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct FunctionReference {
     identifier: Identifier,
     call_arguments: CallArguments,

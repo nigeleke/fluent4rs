@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct CommentLine {
     lead: String,
     comment: Option<String>,
@@ -7,5 +7,12 @@ pub struct CommentLine {
 impl CommentLine {
     pub fn new(lead: String, comment: Option<String>) -> Self {
         Self { lead, comment }
+    }
+}
+
+impl std::fmt::Display for CommentLine {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let comment = self.comment.as_ref().map_or("".into(), |c| format!(" {c}"));
+        write!(f, "{}{}\n", self.lead, comment)
     }
 }

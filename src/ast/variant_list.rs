@@ -1,6 +1,6 @@
 use super::{prelude::DefaultVariant, variant::Variant};
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct VariantList {
     pre_default: Vec<Variant>,
     default: DefaultVariant,

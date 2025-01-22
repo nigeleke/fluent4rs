@@ -1,8 +1,14 @@
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Identifier(String);
 
-impl From<String> for Identifier {
-    fn from(value: String) -> Self {
-        Self(value)
+impl From<&str> for Identifier {
+    fn from(value: &str) -> Self {
+        Self(value.into())
+    }
+}
+
+impl std::fmt::Display for Identifier {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.0)
     }
 }

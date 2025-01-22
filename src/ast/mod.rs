@@ -54,7 +54,7 @@ pub mod prelude {
     pub use super::number_literal::NumberLiteral;
     pub use super::pattern::Pattern;
     pub use super::pattern_element::PatternElement;
-    pub use super::resource::Resource;
+    pub use super::resource::{Resource, ResourceItem};
     pub use super::select_expression::SelectExpression;
     pub use super::string_literal::StringLiteral;
     pub use super::term::Term;

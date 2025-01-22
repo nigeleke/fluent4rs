@@ -1,6 +1,6 @@
 use super::{pattern::Pattern, prelude::VariantKey};
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Variant {
     variant_key: VariantKey,
     pattern: Pattern,
