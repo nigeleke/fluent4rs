@@ -17,8 +17,14 @@ impl Term {
         }
     }
 
+    // Note: a Message and Term Identifier may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
+    }
+
+    // Note: Differentiates a Message and Term Identifier name using the '-' prefix
+    pub fn identifier_name(&self) -> String {
+        format!("-{}", self.identifier)
     }
 
     pub fn pattern(&self) -> &Pattern {
