@@ -1,6 +1,6 @@
 use super::prelude::{Identifier, Pattern};
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Attribute {
     identifier: Identifier,
     pattern: Pattern,

@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Junk(Vec<String>);
 
 impl From<&[String]> for Junk {

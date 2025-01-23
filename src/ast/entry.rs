@@ -1,6 +1,6 @@
 use super::prelude::{CommentLine, Message, Term};
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum Entry {
     Message(Message),
     Term(Term),

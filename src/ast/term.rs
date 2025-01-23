@@ -1,6 +1,6 @@
 use super::prelude::{Attribute, Identifier, Pattern};
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Term {
     identifier: Identifier,
     pattern: Pattern,
