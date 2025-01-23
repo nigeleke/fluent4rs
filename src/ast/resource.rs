@@ -1,6 +1,6 @@
 use super::prelude::{Entry, Junk};
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum ResourceItem {
     Entry(Entry),
     BlankBlock(String),
@@ -18,7 +18,7 @@ impl std::fmt::Display for ResourceItem {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Resource(Vec<ResourceItem>);
 
 impl From<Vec<ResourceItem>> for Resource {

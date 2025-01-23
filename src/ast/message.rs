@@ -1,6 +1,6 @@
 use super::prelude::{Attribute, Identifier, Pattern};
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum MessageAttributes {
     Patterned(Pattern, Vec<Attribute>),
     Plain(Vec<Attribute>),
@@ -27,7 +27,7 @@ impl std::fmt::Display for MessageAttributes {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Message {
     identifier: Identifier,
     attributes: MessageAttributes,
