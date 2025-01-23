@@ -21,6 +21,12 @@ impl std::fmt::Display for ResourceItem {
 #[derive(Clone, Debug, PartialEq)]
 pub struct Resource(Vec<ResourceItem>);
 
+impl Resource {
+    pub fn entries(&self) -> &[ResourceItem] {
+        &self.0
+    }
+}
+
 impl From<Vec<ResourceItem>> for Resource {
     fn from(value: Vec<ResourceItem>) -> Self {
         Self(value)
