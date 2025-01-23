@@ -1,7 +1,7 @@
 use super::prelude::{Identifier, Literal};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct NamedArgument {
     identifier: Identifier,
     literal: Literal,

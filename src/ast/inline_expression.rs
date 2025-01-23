@@ -4,7 +4,7 @@ use super::prelude::{
 };
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub enum InlineExpression {
     StringLiteral(StringLiteral),
     NumberLiteral(NumberLiteral),

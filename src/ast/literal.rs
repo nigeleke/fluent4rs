@@ -1,7 +1,7 @@
 use super::prelude::{NumberLiteral, StringLiteral};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub enum Literal {
     Number(NumberLiteral),
     String(StringLiteral),

@@ -1,7 +1,7 @@
 use super::prelude::{InlineExpression, VariantList};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct SelectExpression {
     inline_expression: InlineExpression,
     variant_list: VariantList,
