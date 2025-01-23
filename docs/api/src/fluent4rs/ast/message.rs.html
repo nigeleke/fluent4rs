@@ -57,7 +57,13 @@
 <a href="#56" id="56">56</a>
 <a href="#57" id="57">57</a>
 <a href="#58" id="58">58</a>
-<a href="#59" id="59">59</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{Attribute, Identifier, Pattern};
+<a href="#59" id="59">59</a>
+<a href="#60" id="60">60</a>
+<a href="#61" id="61">61</a>
+<a href="#62" id="62">62</a>
+<a href="#63" id="63">63</a>
+<a href="#64" id="64">64</a>
+<a href="#65" id="65">65</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{Attribute, Identifier, Pattern};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
@@ -102,8 +108,14 @@
         }
     }
 
-    <span class="kw">pub fn </span>identifier(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Identifier {
+    <span class="comment">// Note: a Message and Term Identifier may be the same, e,g, `product = ...` versus `-product = ...`.
+    </span><span class="kw">pub fn </span>identifier(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Identifier {
         <span class="kw-2">&amp;</span><span class="self">self</span>.identifier
+    }
+
+    <span class="comment">// Note: Differentiates a Message and Term Identifier name using the '-' prefix
+    </span><span class="kw">pub fn </span>identifier_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="self">self</span>.identifier.to_string()
     }
 
     <span class="kw">pub fn </span>attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>MessageAttributes {
