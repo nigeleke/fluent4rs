@@ -1,7 +1,7 @@
 use super::prelude::{Identifier, Pattern};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash, Eq))]
+#[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 pub struct Attribute {
     identifier: Identifier,
     pattern: Pattern,

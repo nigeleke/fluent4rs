@@ -1,7 +1,7 @@
 use super::prelude::Argument;
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash, Eq))]
+#[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 pub struct CallArguments(Vec<Argument>);
 
 impl From<&[Argument]> for CallArguments {

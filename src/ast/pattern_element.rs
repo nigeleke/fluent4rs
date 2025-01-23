@@ -1,7 +1,7 @@
 use super::prelude::{BlockPlaceable, BlockText, InlinePlaceable, InlineText};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash, Eq))]
+#[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 pub enum PatternElement {
     InlineText(InlineText),
     BlockText(BlockText),
