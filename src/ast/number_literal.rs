@@ -1,4 +1,5 @@
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct NumberLiteral(String);
 
 impl From<&str> for NumberLiteral {

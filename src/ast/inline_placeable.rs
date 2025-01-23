@@ -1,6 +1,7 @@
 use super::prelude::{InlineExpression, SelectExpression};
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub enum InlinePlaceable {
     SelectExpression(SelectExpression),
     InlineExpression(InlineExpression),

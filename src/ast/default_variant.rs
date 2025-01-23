@@ -1,6 +1,7 @@
 use super::{pattern::Pattern, variant_key::VariantKey};
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct DefaultVariant {
     variant_key: VariantKey,
     pattern: Pattern,

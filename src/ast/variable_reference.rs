@@ -1,6 +1,7 @@
 use super::prelude::Identifier;
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct VariableReference(Identifier);
 
 impl From<Identifier> for VariableReference {

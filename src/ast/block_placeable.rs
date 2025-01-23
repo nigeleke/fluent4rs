@@ -1,6 +1,7 @@
 use super::prelude::InlinePlaceable;
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct BlockPlaceable {
     blank_block: String,
     inline_placeable: InlinePlaceable,

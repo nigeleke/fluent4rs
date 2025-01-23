@@ -1,6 +1,7 @@
 use super::prelude::{CommentLine, Message, Term};
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub enum Entry {
     Message(Message),
     Term(Term),

@@ -1,6 +1,7 @@
 use super::prelude::{Entry, Junk};
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub enum ResourceItem {
     Entry(Entry),
     BlankBlock(String),

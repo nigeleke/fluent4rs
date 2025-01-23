@@ -1,6 +1,7 @@
 use super::prelude::PatternElement;
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct Pattern(Vec<PatternElement>);
 
 impl From<&[PatternElement]> for Pattern {

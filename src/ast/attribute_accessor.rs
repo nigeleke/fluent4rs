@@ -1,6 +1,7 @@
 use super::prelude::Identifier;
 
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct AttributeAccessor(Identifier);
 
 impl From<Identifier> for AttributeAccessor {

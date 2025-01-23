@@ -1,4 +1,5 @@
 #[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = "hash", derive(Hash))]
 pub struct InlineText(String);
 
 impl From<&str> for InlineText {
