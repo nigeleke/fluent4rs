@@ -27,9 +27,11 @@
 <a href="#26" id="26">26</a>
 <a href="#27" id="27">27</a>
 <a href="#28" id="28">28</a>
-<a href="#29" id="29">29</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{NumberLiteral, StringLiteral};
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{NumberLiteral, StringLiteral};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash))]
 </span><span class="kw">pub enum </span>Literal {
     Number(NumberLiteral),
     String(StringLiteral),
