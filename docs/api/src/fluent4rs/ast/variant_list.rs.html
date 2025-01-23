@@ -43,7 +43,7 @@
 <a href="#42" id="42">42</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{prelude::DefaultVariant, variant::Variant};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash, Eq))]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 </span><span class="kw">pub struct </span>VariantList {
     pre_default: Vec&lt;Variant&gt;,
     default: DefaultVariant,

@@ -44,7 +44,7 @@
 </span><span class="kw">use </span><span class="kw">super</span>::prelude::{AttributeAccessor, CallArguments, Identifier};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash, Eq))]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 </span><span class="kw">pub struct </span>TermReference {
     identifier: Identifier,
     attribute_accessor: <span class="prelude-ty">Option</span>&lt;AttributeAccessor&gt;,

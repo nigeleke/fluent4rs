@@ -18,7 +18,7 @@
 <a href="#17" id="17">17</a>
 <a href="#18" id="18">18</a>
 <a href="#19" id="19">19</a></pre></div><pre class="rust"><code><span class="attr">#[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash, Eq))]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 </span><span class="kw">pub struct </span>CommentLine {
     lead: String,
     comment: <span class="prelude-ty">Option</span>&lt;String&gt;,

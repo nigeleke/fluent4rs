@@ -60,7 +60,7 @@
 <a href="#59" id="59">59</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{Attribute, Identifier, Pattern};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash, Eq))]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 </span><span class="kw">pub enum </span>MessageAttributes {
     Patterned(Pattern, Vec&lt;Attribute&gt;),
     Plain(Vec&lt;Attribute&gt;),
@@ -88,7 +88,7 @@
 }
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash, Eq))]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 </span><span class="kw">pub struct </span>Message {
     identifier: Identifier,
     attributes: MessageAttributes,

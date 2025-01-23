@@ -24,7 +24,7 @@
 <a href="#23" id="23">23</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{pattern::Pattern, prelude::VariantKey};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Hash, Eq))]
+#[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 </span><span class="kw">pub struct </span>Variant {
     variant_key: VariantKey,
     pattern: Pattern,
