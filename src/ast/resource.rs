@@ -22,8 +22,14 @@ impl std::fmt::Display for ResourceItem {
 pub struct Resource(Vec<ResourceItem>);
 
 impl Resource {
-    pub fn entries(&self) -> &[ResourceItem] {
-        &self.0
+    pub fn entries(&self) -> Vec<&Entry> {
+        self.0
+            .iter()
+            .filter_map(|ri| match ri {
+                ResourceItem::Entry(entry) => Some(entry),
+                _ => None,
+            })
+            .collect::<Vec<_>>()
     }
 }
 

@@ -16,7 +16,7 @@ fn message_identifiers() {
         .entries()
         .iter()
         .filter_map(|e| match e {
-            ResourceItem::Entry(Entry::Message(message)) => Some(message.identifier()),
+            Entry::Message(message) => Some(message.identifier()),
             _ => None,
         })
         .collect::<Vec<_>>();
@@ -31,7 +31,7 @@ fn message_attributes() {
         .entries()
         .iter()
         .filter_map(|e| match e {
-            ResourceItem::Entry(Entry::Message(message)) => Some(message.attributes()),
+            Entry::Message(message) => Some(message.attributes()),
             _ => None,
         })
         .collect::<Vec<_>>();
@@ -46,7 +46,7 @@ fn term_identifiers() {
         .entries()
         .iter()
         .filter_map(|e| match e {
-            ResourceItem::Entry(Entry::Term(term)) => Some(term.identifier()),
+            Entry::Term(term) => Some(term.identifier()),
             _ => None,
         })
         .collect::<Vec<_>>();
@@ -61,7 +61,7 @@ fn term_patterns() {
         .entries()
         .iter()
         .filter_map(|e| match e {
-            ResourceItem::Entry(Entry::Term(term)) => Some(term.pattern()),
+            Entry::Term(term) => Some(term.pattern()),
             _ => None,
         })
         .collect::<Vec<_>>();
@@ -76,7 +76,7 @@ fn term_attributes() {
         .entries()
         .iter()
         .filter_map(|e| match e {
-            ResourceItem::Entry(Entry::Term(term)) => Some(term.attributes()),
+            Entry::Term(term) => Some(term.attributes()),
             _ => None,
         })
         .collect::<Vec<_>>();
