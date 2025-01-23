@@ -1,7 +1,7 @@
 use super::{pattern::Pattern, prelude::VariantKey};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct Variant {
     variant_key: VariantKey,
     pattern: Pattern,

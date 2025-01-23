@@ -1,5 +1,5 @@
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct Identifier(String);
 
 impl From<&str> for Identifier {

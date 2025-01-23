@@ -1,5 +1,5 @@
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct Junk(Vec<String>);
 
 impl From<&[String]> for Junk {

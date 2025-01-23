@@ -1,7 +1,7 @@
 use super::{prelude::DefaultVariant, variant::Variant};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct VariantList {
     pre_default: Vec<Variant>,
     default: DefaultVariant,

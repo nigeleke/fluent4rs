@@ -1,7 +1,7 @@
 use super::prelude::{CallArguments, Identifier};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct FunctionReference {
     identifier: Identifier,
     call_arguments: CallArguments,

@@ -3,7 +3,7 @@
 use super::prelude::{AttributeAccessor, CallArguments, Identifier};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash))]
+#[cfg_attr(feature = "hash", derive(Hash, Eq))]
 pub struct TermReference {
     identifier: Identifier,
     attribute_accessor: Option<AttributeAccessor>,
