@@ -40,6 +40,14 @@ impl Message {
             attributes,
         }
     }
+
+    pub fn identifier(&self) -> &Identifier {
+        &self.identifier
+    }
+
+    pub fn attributes(&self) -> &MessageAttributes {
+        &self.attributes
+    }
 }
 
 impl std::fmt::Display for Message {

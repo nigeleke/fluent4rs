@@ -18,7 +18,8 @@ provides a one way (file/string to AST) conversion of [Fluent FTL files](https:/
 This crate enables conversion in both directions.
 
 It has been written for [lingora](https://github.com/nigeleke/lingora) (A localization management program), and may be
-found to be useful outside of that context.
+found to be useful outside of that context. Only key AST fields are exposed, i.e. the minimal set required in the
+[lingora](https://github.com/nigeleke/lingora) application. Feel free to lodge an issue to request additional fields.
 
 It is not intended to replace any aspects of the [fluent-rs](https://github.com/projectfluent/fluent-rs)
 crate implemented by [Project Fluent](https://projectfluent.org/), and, for the majority of language
