@@ -1,7 +1,7 @@
 use super::prelude::{AttributeAccessor, Identifier};
 
 #[derive(Clone, Debug, PartialEq)]
-#[cfg_attr(feature = "hash", derive(Hash, Eq))]
+#[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 pub struct MessageReference {
     identifier: Identifier,
     attribute_accessor: Option<AttributeAccessor>,
