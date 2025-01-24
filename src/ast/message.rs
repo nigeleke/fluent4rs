@@ -2,12 +2,28 @@ use super::prelude::{Attribute, Identifier, Pattern};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
-pub enum MessageAttributes {
+pub enum MessageArguments {
     Patterned(Pattern, Vec<Attribute>),
     Plain(Vec<Attribute>),
 }
 
-impl std::fmt::Display for MessageAttributes {
+impl MessageArguments {
+    pub fn pattern(&self) -> Option<&Pattern> {
+        match self {
+            Self::Patterned(pattern, _) => Some(pattern),
+            Self::Plain(_) => None,
+        }
+    }
+
+    pub fn attributes(&self) -> &[Attribute] {
+        match self {
+            Self::Patterned(_, attributes) => attributes.as_slice(),
+            Self::Plain(attributes) => attributes.as_slice(),
+        }
+    }
+}
+
+impl std::fmt::Display for MessageArguments {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let value = match self {
             Self::Patterned(pattern, attributes) => {
@@ -32,14 +48,14 @@ impl std::fmt::Display for MessageAttributes {
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 pub struct Message {
     identifier: Identifier,
-    attributes: MessageAttributes,
+    arguments: MessageArguments,
 }
 
 impl Message {
-    pub fn new(identifier: Identifier, attributes: MessageAttributes) -> Self {
+    pub fn new(identifier: Identifier, arguments: MessageArguments) -> Self {
         Self {
             identifier,
-            attributes,
+            arguments,
         }
     }
 
@@ -53,13 +69,17 @@ impl Message {
         self.identifier.to_string()
     }
 
-    pub fn attributes(&self) -> &MessageAttributes {
-        &self.attributes
+    pub fn pattern(&self) -> Option<&Pattern> {
+        self.arguments.pattern()
+    }
+
+    pub fn attributes(&self) -> &[Attribute] {
+        self.arguments.attributes()
     }
 }
 
 impl std::fmt::Display for Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        writeln!(f, "{} = {}", self.identifier, self.attributes)
+        writeln!(f, "{} = {}", self.identifier, self.arguments)
     }
 }
