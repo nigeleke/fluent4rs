@@ -48,7 +48,7 @@ pub mod prelude {
     pub use super::junk::Junk;
     pub use super::literal::Literal;
     pub use super::message::Message;
-    pub use super::message::MessageAttributes;
+    pub use super::message::MessageArguments;
     pub use super::message_reference::MessageReference;
     pub use super::named_argument::NamedArgument;
     pub use super::number_literal::NumberLiteral;

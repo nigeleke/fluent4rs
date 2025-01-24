@@ -35,8 +35,8 @@ fn message<'a>() -> Parser<'a, Message> {
         + blank_inline().opt()
         + sym('=')
         + blank_inline().opt()
-        + ((pattern() + attribute().repeat(0..)).map(|(p, a)| MessageAttributes::Patterned(p, a))
-            | attribute().repeat(1..).map(MessageAttributes::Plain)))
+        + ((pattern() + attribute().repeat(0..)).map(|(p, a)| MessageArguments::Patterned(p, a))
+            | attribute().repeat(1..).map(MessageArguments::Plain)))
     .map(|((((i, _), _), _), a)| Message::new(i, a))
 }
 
