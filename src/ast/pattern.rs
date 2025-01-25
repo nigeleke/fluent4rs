@@ -1,7 +1,11 @@
 use super::prelude::PatternElement;
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
+#[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Pattern(Vec<PatternElement>);
 
 impl From<&[PatternElement]> for Pattern {
