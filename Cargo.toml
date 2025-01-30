@@ -4,12 +4,12 @@ version = "0.1.15"
 edition = "2021"
 
 [dependencies]
-pom = "3.4.0"
-thiserror = "2.0.11"
-serde = { version = "1.0.217", features = ["derive"], optional = true }
+pom = { version = "3.4", features = ["trace"] }
+thiserror = "2.0"
+serde = { version = "1.0", features = ["derive"], optional = true }
 
 [dev-dependencies]
-pretty_assertions = "1.4.1"
+pretty_assertions = "1.4"
 
 [features]
 default = []

@@ -12,6 +12,7 @@ pub fn resource<'a>() -> Parser<'a, Resource> {
         | junk().map(ResourceItem::Junk))
     .repeat(0..)
     .map(Resource::from)
+    .name("resource")
 }
 
 /* Entries are the main building blocks of Fluent. They define translations and
@@ -24,9 +25,10 @@ pub fn resource<'a>() -> Parser<'a, Resource> {
 //                       | (Term line_end)
 //                       | CommentLine
 fn entry<'a>() -> Parser<'a, Entry> {
-    (message() + line_end()).map(|(m, _)| Entry::Message(m))
+    ((message() + line_end()).map(|(m, _)| Entry::Message(m))
         | (term() + line_end()).map(|(t, _)| Entry::Term(t))
-        | (comment_line()).map(Entry::CommentLine)
+        | (comment_line()).map(Entry::CommentLine))
+    .name("entry")
 }
 
 // Message             ::= Identifier blank_inline? "=" blank_inline? ((Pattern Attribute*) | (Attribute+))
@@ -38,6 +40,7 @@ fn message<'a>() -> Parser<'a, Message> {
         + ((pattern() + attribute().repeat(0..)).map(|(p, a)| MessageArguments::Patterned(p, a))
             | attribute().repeat(1..).map(MessageArguments::Plain)))
     .map(|((((i, _), _), _), a)| Message::new(i, a))
+    .name("message")
 }
 
 // Term                ::= "-" Identifier blank_inline? "=" blank_inline? Pattern Attribute*
@@ -79,10 +82,10 @@ fn comment_char<'a>() -> Parser<'a, String> {
 // Junk                ::= junk_line (junk_line - "#" - "-" - [a-zA-Z])*
 fn junk<'a>() -> Parser<'a, Junk> {
     (junk_line()
-        + (junk_line() - sym('#') - sym('-') - is_a(|c| c.is_ascii_alphabetic())).repeat(0..))
-    .map(|(head, mut tail)| {
+        + (!(sym('#') | sym('-') | is_a(|c| c.is_ascii_alphabetic())) * junk_line()).repeat(0..))
+    .map(|(head, tail)| {
         let mut junk = Vec::from([head]);
-        junk.append(tail.as_mut());
+        junk.extend(tail);
         Junk::from(junk.as_slice())
     })
 }
@@ -106,12 +109,15 @@ fn attribute<'a>() -> Parser<'a, Attribute> {
         + blank_inline().opt()
         + pattern())
     .map(|(((((((_, _), _), i), _), _), _), p)| Attribute::new(i, p))
+    .name("attribute")
 }
 
 /* Patterns are values of Messages, Terms, Attributes and Variants. */
 // Pattern             ::= PatternElement+
 fn pattern<'a>() -> Parser<'a, Pattern> {
-    (pattern_element().repeat(1..)).map(|pes| Pattern::from(pes.as_slice()))
+    (pattern_element().repeat(1..))
+        .map(|pes| Pattern::from(pes.as_slice()))
+        .name("pattern")
 }
 
 /* TextElement and Placeable can occur inline or as block.
@@ -123,15 +129,19 @@ fn pattern<'a>() -> Parser<'a, Pattern> {
 //                       | inline_placeable
 //                       | block_placeable
 fn pattern_element<'a>() -> Parser<'a, PatternElement> {
-    inline_text().map(PatternElement::InlineText)
+    (inline_text().map(PatternElement::InlineText)
         | block_text().map(PatternElement::BlockText)
         | call(inline_placeable).map(PatternElement::InlinePlaceable)
-        | block_placeable().map(PatternElement::BlockPlaceable)
+        | block_placeable().map(PatternElement::BlockPlaceable))
+    .name("pattern_element")
 }
 
 // inline_text         ::= text_char+
 fn inline_text<'a>() -> Parser<'a, InlineText> {
-    (text_char().repeat(1..)).collect().map(InlineText::from)
+    (text_char().repeat(1..))
+        .collect()
+        .map(InlineText::from)
+        .name("inline_text")
 }
 
 // block_text          ::= blank_block blank_inline indented_char inline_text?
@@ -139,23 +149,27 @@ fn block_text<'a>() -> Parser<'a, BlockText> {
     (blank_block() + blank_inline() + indented_char() + inline_text().opt())
         .collect()
         .map(BlockText::from)
+        .name("block_text")
 }
 
 // inline_placeable    ::= "{" blank? (SelectExpression | InlineExpression) blank? "}"
 fn inline_placeable<'a>() -> Parser<'a, InlinePlaceable> {
-    (sym('{')
-        + blank().opt()
+    (sym('{').name("ip-ob")
+        + blank().opt().name("ip-b0")
         + (call(select_expression).map(InlinePlaceable::SelectExpression)
             | call(inline_expression).map(InlinePlaceable::InlineExpression))
-        + blank().opt()
-        + sym('}'))
+        .name("ip-ex")
+        + blank().opt().name("ip-b1")
+        + sym('}').name("ip-cb"))
     .map(|((((_, _), ip), _), _)| ip)
+    .name("inline_placeable")
 }
 
 // block_placeable     ::= blank_block blank_inline? inline_placeable
 fn block_placeable<'a>() -> Parser<'a, BlockPlaceable> {
     ((blank_block() + blank_inline().opt()).collect() + call(inline_placeable))
         .map(|(bb, ip)| BlockPlaceable::new(bb.into(), ip))
+        .name("block_placeable")
 }
 
 /* Rules for validating expressions in Placeables and as selectors of
@@ -169,20 +183,22 @@ fn block_placeable<'a>() -> Parser<'a, BlockPlaceable> {
 //                       | VariableReference
 //                       | inline_placeable
 fn inline_expression<'a>() -> Parser<'a, InlineExpression> {
-    string_literal().map(InlineExpression::StringLiteral)
+    (string_literal().map(InlineExpression::StringLiteral)
         | number_literal().map(InlineExpression::NumberLiteral)
         | function_reference().map(InlineExpression::FunctionReference)
         | message_reference().map(InlineExpression::MessageReference)
         | term_reference().map(InlineExpression::TermReference)
         | variable_reference().map(InlineExpression::VariableReference)
-        | call(inline_placeable).map(|ip| InlineExpression::InlinePlaceable(Box::new(ip)))
+        | call(inline_placeable).map(|ip| InlineExpression::InlinePlaceable(Box::new(ip))))
+    .name("inline_expression")
 }
 
 /* Literals */
 // StringLiteral       ::= "\"" quoted_char* "\""
 fn string_literal<'a>() -> Parser<'a, StringLiteral> {
-    (sym('"') + quoted_char().repeat(0..).map(|cs| cs.join("")) + sym('"'))
-        .map(|((_, cs), _)| StringLiteral::from(cs.as_str()))
+    (sym('"') * quoted_char().repeat(0..).collect() - sym('"'))
+        .map(StringLiteral::from)
+        .name("string_literal")
 }
 
 // NumberLiteral       ::= "-"? digits ("." digits)?
@@ -260,6 +276,7 @@ fn named_argument<'a>() -> Parser<'a, NamedArgument> {
 fn select_expression<'a>() -> Parser<'a, SelectExpression> {
     (call(inline_expression) + blank().opt() + seq("->") + blank_inline().opt() + variant_list())
         .map(|((((ie, _), _), _), vl)| SelectExpression::new(ie, vl))
+        .name("select_expression")
 }
 
 // variant_list        ::= Variant* DefaultVariant Variant* line_end
@@ -297,6 +314,7 @@ fn identifier<'a>() -> Parser<'a, Identifier> {
         + is_a(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-').repeat(0..))
     .collect()
     .map(Identifier::from)
+    .name("identifier")
 }
 
 /* Content Characters
@@ -328,17 +346,20 @@ fn any_char<'a>() -> Parser<'a, String> {
 // special_text_char   ::= "{"
 //                       | "}"
 fn special_text_char<'a>() -> Parser<'a, String> {
-    (sym('{') | sym('}')).collect().map(String::from)
+    (sym('{') | sym('}'))
+        .collect()
+        .map(String::from)
+        .name("special_text_char")
 }
 
 // text_char           ::= any_char - special_text_char - line_end
 fn text_char<'a>() -> Parser<'a, String> {
-    (!special_text_char() + !line_end()) * any_char()
+    !(special_text_char() | line_end()).name("text_char_drop") * any_char()
 }
 
 // indented_char       ::= text_char - "[" - "*" - "."
 fn indented_char<'a>() -> Parser<'a, String> {
-    none_of("[*.") * text_char()
+    (!one_of("[*.") * text_char()).name("indented_char")
 }
 
 /* String literals
@@ -377,7 +398,7 @@ fn unicode_escape<'a>() -> Parser<'a, String> {
 //                       | special_escape
 //                       | unicode_escape
 fn quoted_char<'a>() -> Parser<'a, String> {
-    ((!special_quoted_char() + !line_end()) * any_char()) | special_escape() | unicode_escape()
+    (!(special_quoted_char() | line_end()) * any_char()) | special_escape() | unicode_escape()
 }
 
 /* Numbers */
@@ -392,7 +413,10 @@ fn digits<'a>() -> Parser<'a, String> {
 /* Whitespace */
 // blank_inline        ::= "\u0020"+
 fn blank_inline<'a>() -> Parser<'a, String> {
-    sym('\u{0020}').repeat(1..).map(String::from_iter)
+    sym('\u{0020}')
+        .repeat(1..)
+        .map(String::from_iter)
+        .name("blank_inline")
 }
 
 // line_end            ::= "\u000D\u000A"
@@ -410,9 +434,12 @@ fn blank_block<'a>() -> Parser<'a, String> {
     ((blank_inline().opt() + line_end()).repeat(1..))
         .collect()
         .map(String::from)
+        .name("blank_block")
 }
 
 // blank               ::= (blank_inline | line_end)+
 fn blank<'a>() -> Parser<'a, String> {
-    ((blank_inline() | line_end()).repeat(1..)).map(|bs| bs.join(""))
+    ((blank_inline() | line_end()).repeat(1..))
+        .collect()
+        .map(String::from)
 }

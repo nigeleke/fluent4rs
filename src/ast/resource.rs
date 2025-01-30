@@ -38,6 +38,16 @@ impl Resource {
             })
             .collect::<Vec<_>>()
     }
+
+    pub fn junk(&self) -> Vec<&Junk> {
+        self.0
+            .iter()
+            .filter_map(|ri| match ri {
+                ResourceItem::Junk(junk) => Some(junk),
+                _ => None,
+            })
+            .collect::<Vec<_>>()
+    }
 }
 
 impl From<Vec<ResourceItem>> for Resource {
