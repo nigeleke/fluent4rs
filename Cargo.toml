@@ -4,7 +4,7 @@ version = "0.1.9"
 edition = "2021"
 
 [dependencies]
-pom = "3.4.0"
+pom = { git = "https://github.com/nigeleke/pom.git", features = ["trace"] }
 thiserror = "2.0.11"
 serde = { version = "1.0.217", features = ["derive"], optional = true }
 
