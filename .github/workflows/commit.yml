@@ -37,10 +37,10 @@ jobs:
 
             - name: Test
               run: |
-                  cargo test --no-default-features -- --show-output
-                  cargo test --features=allow-junk -- --show-output
-                  cargo test --features=hash -- --show-output
-                  cargo test --features=serde -- --show-output
-                  cargo test --features=trace -- --show-output
-                  cargo test --features=walker -- --show-output
-                  cargo test --all-features -- --show-output
+                  cargo test --no-default-features
+                  cargo test --features=allow-junk
+                  cargo test --features=hash
+                  cargo test --features=serde
+                  cargo test --features=trace
+                  cargo test --features=walker
+                  cargo test --all-features
