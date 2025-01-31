@@ -17,13 +17,13 @@ jobs:
 
             - name: Compile
               run: |
-                  cargo build --no-default-features --verbose
-                  cargo build --features=allow-junk --verbose
-                  cargo build --features=hash --verbose
-                  cargo build --features=serde --verbose
-                  cargo build --features=trace --verbose
-                  cargo build --features=walker --verbose
-                  cargo build --all-features --verbose
+                  cargo build --no-default-features
+                  cargo build --features=allow-junk
+                  cargo build --features=hash
+                  cargo build --features=serde
+                  cargo build --features=trace
+                  cargo build --features=walker
+                  cargo build --all-features
 
             - name: Lint
               run: |
@@ -37,10 +37,10 @@ jobs:
 
             - name: Test
               run: |
-                  cargo test --no-default-features --verbose -- --show-output
-                  cargo test --features=allow-junk --verbose -- --show-output
-                  cargo test --features=hash --verbose -- --show-output
-                  cargo test --features=serde --verbose -- --show-output
-                  cargo test --features=trace --verbose -- --show-output
-                  cargo test --features=walker --verbose -- --show-output
-                  cargo test --all-features --verbose -- --show-output
+                  cargo test --no-default-features -- --show-output
+                  cargo test --features=allow-junk -- --show-output
+                  cargo test --features=hash -- --show-output
+                  cargo test --features=serde -- --show-output
+                  cargo test --features=trace -- --show-output
+                  cargo test --features=walker -- --show-output
+                  cargo test --all-features -- --show-output
