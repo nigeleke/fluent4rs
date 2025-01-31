@@ -15,9 +15,8 @@ pretty_assertions = "1.4"
 default = []
 hash = []
 serde = ["dep:serde"]
-display = []
 walker = []
-trace = ["walker", "display"]
+trace = ["walker"]
 allow-junk = []
 
 [workspace.metadata.clippy]

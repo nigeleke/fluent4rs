@@ -19,7 +19,6 @@ jobs:
               run: |
                   cargo build --no-default-features --verbose
                   cargo build --features=allow-junk --verbose
-                  cargo build --features=display --verbose
                   cargo build --features=hash --verbose
                   cargo build --features=serde --verbose
                   cargo build --features=trace --verbose
@@ -30,7 +29,6 @@ jobs:
               run: |
                   cargo clippy --no-default-features
                   cargo clippy --features=allow-junk
-                  cargo clippy --features=display
                   cargo clippy --features=hash
                   cargo clippy --features=serde
                   cargo clippy --features=trace
@@ -41,7 +39,6 @@ jobs:
               run: |
                   cargo test --no-default-features --verbose -- --show-output
                   cargo test --features=allow-junk --verbose -- --show-output
-                  cargo test --features=display --verbose -- --show-output
                   cargo test --features=hash --verbose -- --show-output
                   cargo test --features=serde --verbose -- --show-output
                   cargo test --features=trace --verbose -- --show-output
