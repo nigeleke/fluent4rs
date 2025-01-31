@@ -4,7 +4,7 @@ version = "0.1.17"
 edition = "2021"
 
 [dependencies]
-pom = { version = "3.4" }
+pom = "3.4"
 thiserror = "2.0"
 serde = { version = "1.0", features = ["derive"], optional = true }
 
@@ -15,3 +15,9 @@ pretty_assertions = "1.4"
 default = []
 hash = []
 serde = ["dep:serde"]
+walker = []
+trace = ["walker"]
+allow-junk = []
+
+[workspace.metadata.clippy]
+warn = "deny"

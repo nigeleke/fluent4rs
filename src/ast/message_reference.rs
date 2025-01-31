@@ -1,5 +1,8 @@
 use super::prelude::{AttributeAccessor, Identifier};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -17,6 +20,17 @@ impl MessageReference {
             identifier,
             attribute_accessor,
         }
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for MessageReference {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_message_reference(self);
+        self.identifier.walk(visitor);
+        self.attribute_accessor
+            .iter()
+            .for_each(|aa| aa.walk(visitor));
     }
 }
 

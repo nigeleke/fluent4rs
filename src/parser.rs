@@ -14,19 +14,21 @@ pub struct Parser;
 
 impl Parser {
     pub fn parse(text: &str) -> Result<Resource> {
-        super::grammar::resource()
+        let result = super::grammar::resource()
             .parse(text.as_bytes())
-            .map(|p| {
-                println!("parsed {:#?}", p);
-                p
-            })
-            .map_err(|e| ParserError::FailedToParse(e.to_string()))
-            .and_then(junk_as_error)
+            .map_err(|e| ParserError::FailedToParse(e.to_string()));
+
+        #[cfg(not(feature = "allow-junk"))]
+        let result = result.and_then(junk_as_error);
+
+        result
     }
 }
 
+#[cfg(not(feature = "allow-junk"))]
 fn junk_as_error(resource: Resource) -> Result<Resource> {
     let junk = resource.junk();
+
     if junk.is_empty() {
         Ok(resource)
     } else {

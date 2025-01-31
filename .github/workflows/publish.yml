@@ -27,7 +27,7 @@ jobs:
               run: |
                   cargo doc --no-deps
                   cargo install cargo-tarpaulin
-                  cargo tarpaulin --out html --output-dir target/coverage
+                  cargo tarpaulin --all-features --out html --output-dir target/coverage
                   mkdir docs0
                   mkdir -p docs0/api
                   mkdir -p docs0/coverage

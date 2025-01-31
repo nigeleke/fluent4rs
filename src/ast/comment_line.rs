@@ -1,3 +1,6 @@
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -12,6 +15,13 @@ pub struct CommentLine {
 impl CommentLine {
     pub fn new(lead: String, comment: Option<String>) -> Self {
         Self { lead, comment }
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for CommentLine {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_comment_line(self);
     }
 }
 

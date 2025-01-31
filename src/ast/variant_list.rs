@@ -1,5 +1,8 @@
 use super::{prelude::DefaultVariant, variant::Variant};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -23,6 +26,15 @@ impl VariantList {
             default,
             post_default,
         }
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for VariantList {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        self.pre_default.iter().for_each(|v| v.walk(visitor));
+        self.default.walk(visitor);
+        self.post_default.iter().for_each(|v| v.walk(visitor));
     }
 }
 

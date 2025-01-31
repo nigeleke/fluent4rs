@@ -3,6 +3,9 @@ use super::prelude::{
     TermReference, VariableReference,
 };
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -17,6 +20,22 @@ pub enum InlineExpression {
     TermReference(TermReference),
     VariableReference(VariableReference),
     InlinePlaceable(Box<InlinePlaceable>),
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for InlineExpression {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_inline_expression(self);
+        match self {
+            Self::StringLiteral(literal) => literal.walk(visitor),
+            Self::NumberLiteral(literal) => literal.walk(visitor),
+            Self::FunctionReference(reference) => reference.walk(visitor),
+            Self::MessageReference(reference) => reference.walk(visitor),
+            Self::TermReference(reference) => reference.walk(visitor),
+            Self::VariableReference(reference) => reference.walk(visitor),
+            Self::InlinePlaceable(inline) => inline.walk(visitor),
+        }
+    }
 }
 
 impl std::fmt::Display for InlineExpression {

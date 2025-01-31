@@ -1,5 +1,8 @@
 use super::prelude::{InlineExpression, NamedArgument};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -9,6 +12,17 @@ use serde::{Deserialize, Serialize};
 pub enum Argument {
     NamedArgument(NamedArgument),
     InlineExpression(InlineExpression),
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for Argument {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_argument(self);
+        match self {
+            Self::NamedArgument(argument) => argument.walk(visitor),
+            Self::InlineExpression(expression) => expression.walk(visitor),
+        }
+    }
 }
 
 impl std::fmt::Display for Argument {

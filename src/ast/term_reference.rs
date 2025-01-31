@@ -1,5 +1,8 @@
 use super::prelude::{AttributeAccessor, CallArguments, Identifier};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -23,6 +26,18 @@ impl TermReference {
             attribute_accessor,
             call_arguments,
         }
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for TermReference {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_term_reference(self);
+        self.identifier.walk(visitor);
+        self.attribute_accessor
+            .iter()
+            .for_each(|aa| aa.walk(visitor));
+        self.call_arguments.iter().for_each(|ca| ca.walk(visitor));
     }
 }
 
