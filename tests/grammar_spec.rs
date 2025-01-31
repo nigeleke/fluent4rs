@@ -6,7 +6,6 @@ use fluent4rs::prelude::ParserError;
 use pretty_assertions::assert_eq;
 
 #[test]
-#[ignore]
 fn full_grammar_will_be_parsed() {
     // ftl0 may not be layed out, but will be parsable.
     let ftl0 = include_str!("full_grammar_example.ftl");
@@ -24,7 +23,6 @@ fn full_grammar_will_be_parsed() {
 }
 
 #[test]
-#[ignore]
 fn empty_grammar_will_be_parsed() {
     // ftl0 may not be layed out, but will be parsable.
     let ftl0 = "";

@@ -1,34 +1,6 @@
 use super::ast::prelude::*;
 
 pub trait Visitor {
-    fn visit_resource(&mut self, _resource: &Resource);
-    fn visit_entry(&mut self, _entry: &Entry);
-    fn visit_message(&mut self, _message: &Message);
-    fn visit_term(&mut self, _term: &Term);
-    fn visit_comment_line(&mut self, _comment_line: &CommentLine);
-    #[cfg(feature = "allow-junk")]
-    fn visit_junk(&mut self, _junk: &Junk);
-    fn visit_attribute(&mut self, _attribute: &Attribute);
-    fn visit_pattern(&mut self, _pattern: &Pattern);
-    fn visit_pattern_element(&mut self, _element: &PatternElement);
-    fn visit_inline_expression(&mut self, _expression: &InlineExpression);
-    fn visit_string_literal(&mut self, _literal: &StringLiteral);
-    fn visit_number_literal(&mut self, _literal: &NumberLiteral);
-    fn visit_function_reference(&mut self, _reference: &FunctionReference);
-    fn visit_message_reference(&mut self, _reference: &MessageReference);
-    fn visit_term_reference(&mut self, _reference: &TermReference);
-    fn visit_variable_reference(&mut self, _reference: &VariableReference);
-    fn visit_attribute_accessor(&mut self, _accessor: &AttributeAccessor);
-    fn visit_call_arguments(&mut self, _arguments: &CallArguments);
-    fn visit_argument(&mut self, _argument: &Argument);
-    fn visit_named_argument(&mut self, _argument: &NamedArgument);
-    fn visit_select_expression(&mut self, _expression: &SelectExpression);
-    fn visit_variant(&mut self, _variant: &Variant);
-    fn visit_default_variant(&mut self, _variant: &DefaultVariant);
-    fn visit_identifier(&mut self, _identifier: &Identifier);
-}
-
-pub trait DefaultVisitor: Visitor {
     fn visit_resource(&mut self, _resource: &Resource) {
         #[cfg(feature = "trace")]
         eprintln!("resource: {_resource}");
@@ -338,5 +310,19 @@ mod test {
         let mut visitor = TestVisitor::default();
         Walker::walk(&ast, &mut visitor);
         visitor.assert_junk(Some(1));
+    }
+
+    #[derive(Default)]
+    struct TestDefaultVisitor;
+    impl Visitor for TestDefaultVisitor {}
+
+    #[test]
+    fn default_visitor_will_be_visited() {
+        let ftl = include_str!("../tests/full_grammar_example.ftl");
+        let ast = Parser::parse(ftl).unwrap();
+
+        let mut visitor = TestDefaultVisitor::default();
+        Walker::walk(&ast, &mut visitor);
+        assert!(true)
     }
 }

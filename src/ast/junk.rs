@@ -11,7 +11,6 @@ pub struct Junk(Vec<String>);
 
 impl From<&[String]> for Junk {
     fn from(value: &[String]) -> Self {
-        eprintln!("creating junk from {:?}", value);
         Self(Vec::from(value))
     }
 }
