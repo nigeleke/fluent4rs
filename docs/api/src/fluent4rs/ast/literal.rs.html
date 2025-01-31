@@ -32,7 +32,23 @@
 <a href="#31" id="31">31</a>
 <a href="#32" id="32">32</a>
 <a href="#33" id="33">33</a>
-<a href="#34" id="34">34</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{NumberLiteral, StringLiteral};
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a>
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a>
+<a href="#41" id="41">41</a>
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+<a href="#44" id="44">44</a>
+<a href="#45" id="45">45</a>
+<a href="#46" id="46">46</a>
+<a href="#47" id="47">47</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::prelude::{NumberLiteral, StringLiteral};
+
+<span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
+</span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
 
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
@@ -54,6 +70,16 @@
 <span class="kw">impl </span>From&lt;StringLiteral&gt; <span class="kw">for </span>Literal {
     <span class="kw">fn </span>from(value: StringLiteral) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>::String(value)
+    }
+}
+
+<span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
+</span><span class="kw">impl </span>Walkable <span class="kw">for </span>Literal {
+    <span class="kw">fn </span>walk(<span class="kw-2">&amp;</span><span class="self">self</span>, visitor: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Visitor) {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::Number(literal) =&gt; literal.walk(visitor),
+            <span class="self">Self</span>::String(literal) =&gt; literal.walk(visitor),
+        }
     }
 }
 

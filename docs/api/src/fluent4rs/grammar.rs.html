@@ -443,7 +443,14 @@
 <a href="#442" id="442">442</a>
 <a href="#443" id="443">443</a>
 <a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a></pre></div><pre class="rust"><code><span class="doccomment">//! Derived from [Project Fluent](https://github.com/projectfluent/) [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a></pre></div><pre class="rust"><code><span class="doccomment">//! Derived from [Project Fluent](https://github.com/projectfluent/)
+//! [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
 
 </span><span class="kw">use </span><span class="kw">crate</span>::ast::prelude::<span class="kw-2">*</span>;
 
@@ -457,7 +464,7 @@
         | junk().map(ResourceItem::Junk))
     .repeat(<span class="number">0</span>..)
     .map(Resource::from)
-    .name(<span class="string">"resource"</span>)
+    .name(<span class="macro">stringify!</span>(resource))
 }
 
 <span class="comment">/* Entries are the main building blocks of Fluent. They define translations and
@@ -473,7 +480,7 @@
     ((message() + line_end()).map(|(m, <span class="kw">_</span>)| Entry::Message(m))
         | (term() + line_end()).map(|(t, <span class="kw">_</span>)| Entry::Term(t))
         | (comment_line()).map(Entry::CommentLine))
-    .name(<span class="string">"entry"</span>)
+    .name(<span class="macro">stringify!</span>(entry))
 }
 
 <span class="comment">// Message             ::= Identifier blank_inline? "=" blank_inline? ((Pattern Attribute*) | (Attribute+))
@@ -485,7 +492,7 @@
         + ((pattern() + attribute().repeat(<span class="number">0</span>..)).map(|(p, a)| MessageArguments::Patterned(p, a))
             | attribute().repeat(<span class="number">1</span>..).map(MessageArguments::Plain)))
     .map(|((((i, <span class="kw">_</span>), <span class="kw">_</span>), <span class="kw">_</span>), a)| Message::new(i, a))
-    .name(<span class="string">"message"</span>)
+    .name(<span class="macro">stringify!</span>(message))
 }
 
 <span class="comment">// Term                ::= "-" Identifier blank_inline? "=" blank_inline? Pattern Attribute*
@@ -498,6 +505,7 @@
         + pattern()
         + attribute().repeat(<span class="number">0</span>..))
     .map(|((((((<span class="kw">_</span>, i), <span class="kw">_</span>), <span class="kw">_</span>), <span class="kw">_</span>), p), a)| Term::new(i, p, a))
+    .name(<span class="macro">stringify!</span>(term))
 }
 
 <span class="comment">/* Adjacent comment lines of the same comment type are joined together during
@@ -511,6 +519,7 @@
         <span class="kw">let </span>comment = space_comment.map(|(<span class="kw">_</span>, c)| c.join(<span class="string">""</span>));
         CommentLine::new(lead.into(), comment)
     })
+    .name(<span class="macro">stringify!</span>(comment_line))
 }
 
 <span class="comment">// comment_char        ::= any_char - line_end
@@ -533,11 +542,12 @@
         junk.extend(tail);
         Junk::from(junk.as_slice())
     })
+    .name(<span class="macro">stringify!</span>(junk))
 }
 
 <span class="comment">// junk_line           ::= /[^\n]*/ ("\u000A" | EOF)
 </span><span class="kw">fn </span>junk_line&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, String&gt; {
-    (none_of(<span class="string">"\n"</span>).repeat(<span class="number">0</span>..) + (sym(<span class="string">'\u{000a}'</span>)))
+    ((none_of(<span class="string">"\n"</span>).repeat(<span class="number">0</span>..)) + sym(<span class="string">'\u{000a}'</span>))
         .collect()
         .map(String::from)
 }
@@ -554,7 +564,7 @@
         + blank_inline().opt()
         + pattern())
     .map(|(((((((<span class="kw">_</span>, <span class="kw">_</span>), <span class="kw">_</span>), i), <span class="kw">_</span>), <span class="kw">_</span>), <span class="kw">_</span>), p)| Attribute::new(i, p))
-    .name(<span class="string">"attribute"</span>)
+    .name(<span class="macro">stringify!</span>(attribute))
 }
 
 <span class="comment">/* Patterns are values of Messages, Terms, Attributes and Variants. */
@@ -562,7 +572,7 @@
 </span><span class="kw">fn </span>pattern&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, Pattern&gt; {
     (pattern_element().repeat(<span class="number">1</span>..))
         .map(|pes| Pattern::from(pes.as_slice()))
-        .name(<span class="string">"pattern"</span>)
+        .name(<span class="macro">stringify!</span>(pattern))
 }
 
 <span class="comment">/* TextElement and Placeable can occur inline or as block.
@@ -578,15 +588,12 @@
         | block_text().map(PatternElement::BlockText)
         | call(inline_placeable).map(PatternElement::InlinePlaceable)
         | block_placeable().map(PatternElement::BlockPlaceable))
-    .name(<span class="string">"pattern_element"</span>)
+    .name(<span class="macro">stringify!</span>(pattern_element))
 }
 
 <span class="comment">// inline_text         ::= text_char+
 </span><span class="kw">fn </span>inline_text&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, InlineText&gt; {
-    (text_char().repeat(<span class="number">1</span>..))
-        .collect()
-        .map(InlineText::from)
-        .name(<span class="string">"inline_text"</span>)
+    (text_char().repeat(<span class="number">1</span>..)).collect().map(InlineText::from)
 }
 
 <span class="comment">// block_text          ::= blank_block blank_inline indented_char inline_text?
@@ -594,27 +601,23 @@
     (blank_block() + blank_inline() + indented_char() + inline_text().opt())
         .collect()
         .map(BlockText::from)
-        .name(<span class="string">"block_text"</span>)
 }
 
 <span class="comment">// inline_placeable    ::= "{" blank? (SelectExpression | InlineExpression) blank? "}"
 </span><span class="kw">fn </span>inline_placeable&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, InlinePlaceable&gt; {
-    (sym(<span class="string">'{'</span>).name(<span class="string">"ip-ob"</span>)
-        + blank().opt().name(<span class="string">"ip-b0"</span>)
+    (sym(<span class="string">'{'</span>)
+        + blank().opt()
         + (call(select_expression).map(InlinePlaceable::SelectExpression)
             | call(inline_expression).map(InlinePlaceable::InlineExpression))
-        .name(<span class="string">"ip-ex"</span>)
-        + blank().opt().name(<span class="string">"ip-b1"</span>)
-        + sym(<span class="string">'}'</span>).name(<span class="string">"ip-cb"</span>))
+        + blank().opt()
+        + sym(<span class="string">'}'</span>))
     .map(|((((<span class="kw">_</span>, <span class="kw">_</span>), ip), <span class="kw">_</span>), <span class="kw">_</span>)| ip)
-    .name(<span class="string">"inline_placeable"</span>)
 }
 
 <span class="comment">// block_placeable     ::= blank_block blank_inline? inline_placeable
 </span><span class="kw">fn </span>block_placeable&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, BlockPlaceable&gt; {
     ((blank_block() + blank_inline().opt()).collect() + call(inline_placeable))
         .map(|(bb, ip)| BlockPlaceable::new(bb.into(), ip))
-        .name(<span class="string">"block_placeable"</span>)
 }
 
 <span class="comment">/* Rules for validating expressions in Placeables and as selectors of
@@ -635,7 +638,7 @@
         | term_reference().map(InlineExpression::TermReference)
         | variable_reference().map(InlineExpression::VariableReference)
         | call(inline_placeable).map(|ip| InlineExpression::InlinePlaceable(Box::new(ip))))
-    .name(<span class="string">"inline_expression"</span>)
+    .name(<span class="macro">stringify!</span>(inline_expression))
 }
 
 <span class="comment">/* Literals */
@@ -643,7 +646,7 @@
 </span><span class="kw">fn </span>string_literal&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, StringLiteral&gt; {
     (sym(<span class="string">'"'</span>) * quoted_char().repeat(<span class="number">0</span>..).collect() - sym(<span class="string">'"'</span>))
         .map(StringLiteral::from)
-        .name(<span class="string">"string_literal"</span>)
+        .name(<span class="macro">stringify!</span>(string_literal))
 }
 
 <span class="comment">// NumberLiteral       ::= "-"? digits ("." digits)?
@@ -651,39 +654,50 @@
     (sym(<span class="string">'-'</span>).opt() + digits() + (sym(<span class="string">'.'</span>) + digits()).opt())
         .collect()
         .map(NumberLiteral::from)
+        .name(<span class="macro">stringify!</span>(number_literal))
 }
 
 <span class="comment">/* Inline Expressions */
 // FunctionReference   ::= Identifier CallArguments
 </span><span class="kw">fn </span>function_reference&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, FunctionReference&gt; {
-    (identifier() + call_arguments()).map(|(i, ca)| FunctionReference::new(i, ca))
+    (identifier() + call_arguments())
+        .map(|(i, ca)| FunctionReference::new(i, ca))
+        .name(<span class="macro">stringify!</span>(function_reference))
 }
 
 <span class="comment">// MessageReference    ::= Identifier AttributeAccessor?
 </span><span class="kw">fn </span>message_reference&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, MessageReference&gt; {
-    (identifier() + attribute_accessor().opt()).map(|(i, aa)| MessageReference::new(i, aa))
+    (identifier() + attribute_accessor().opt())
+        .map(|(i, aa)| MessageReference::new(i, aa))
+        .name(<span class="macro">stringify!</span>(message_reference))
 }
 
 <span class="comment">// TermReference       ::= "-" Identifier AttributeAccessor? CallArguments?
 </span><span class="kw">fn </span>term_reference&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, TermReference&gt; {
     (sym(<span class="string">'-'</span>) + identifier() + attribute_accessor().opt() + call_arguments().opt())
         .map(|(((<span class="kw">_</span>, i), aa), ca)| TermReference::new(i, aa, ca))
+        .name(<span class="macro">stringify!</span>(term_reference))
 }
 
 <span class="comment">// VariableReference   ::= "$" Identifier
 </span><span class="kw">fn </span>variable_reference&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, VariableReference&gt; {
-    (sym(<span class="string">'$'</span>) + identifier()).map(|(<span class="kw">_</span>, i)| VariableReference::from(i))
+    (sym(<span class="string">'$'</span>) + identifier())
+        .map(|(<span class="kw">_</span>, i)| VariableReference::from(i))
+        .name(<span class="macro">stringify!</span>(variable_reference))
 }
 
 <span class="comment">// AttributeAccessor   ::= "." Identifier
 </span><span class="kw">fn </span>attribute_accessor&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, AttributeAccessor&gt; {
-    (sym(<span class="string">'.'</span>) + identifier()).map(|(<span class="kw">_</span>, i)| AttributeAccessor::from(i))
+    (sym(<span class="string">'.'</span>) + identifier())
+        .map(|(<span class="kw">_</span>, i)| AttributeAccessor::from(i))
+        .name(<span class="macro">stringify!</span>(attribute_accessor))
 }
 
 <span class="comment">// CallArguments       ::= blank? "(" blank? argument_list blank? ")"
 </span><span class="kw">fn </span>call_arguments&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, CallArguments&gt; {
     (blank().opt() + sym(<span class="string">'('</span>) + blank().opt() + argument_list() + blank().opt() + sym(<span class="string">')'</span>))
         .map(|(((((<span class="kw">_</span>, <span class="kw">_</span>), <span class="kw">_</span>), al), <span class="kw">_</span>), <span class="kw">_</span>)| CallArguments::from(al.as_slice()))
+        .name(<span class="macro">stringify!</span>(call_arguments))
 }
 
 <span class="comment">// argument_list       ::= (Argument blank? "," blank?)* Argument?
@@ -703,7 +717,9 @@
 //                       | InlineExpression
 </span><span class="kw">fn </span>argument&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, Argument&gt; {
     named_argument().map(Argument::NamedArgument)
-        | call(inline_expression).map(Argument::InlineExpression)
+        | call(inline_expression)
+            .map(Argument::InlineExpression)
+            .name(<span class="macro">stringify!</span>(argument))
 }
 
 <span class="comment">// NamedArgument       ::= Identifier blank? ":" blank? (StringLiteral | NumberLiteral)
@@ -714,6 +730,7 @@
         + blank().opt()
         + (string_literal().map(Literal::from) | number_literal().map(Literal::from)))
     .map(|((((i, <span class="kw">_</span>), <span class="kw">_</span>), <span class="kw">_</span>), l)| NamedArgument::new(i, l))
+    .name(<span class="macro">stringify!</span>(named_argument))
 }
 
 <span class="comment">/* Block Expressions */
@@ -721,7 +738,7 @@
 </span><span class="kw">fn </span>select_expression&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, SelectExpression&gt; {
     (call(inline_expression) + blank().opt() + seq(<span class="string">"-&gt;"</span>) + blank_inline().opt() + variant_list())
         .map(|((((ie, <span class="kw">_</span>), <span class="kw">_</span>), <span class="kw">_</span>), vl)| SelectExpression::new(ie, vl))
-        .name(<span class="string">"select_expression"</span>)
+        .name(<span class="macro">stringify!</span>(select_expression))
 }
 
 <span class="comment">// variant_list        ::= Variant* DefaultVariant Variant* line_end
@@ -734,12 +751,14 @@
 </span><span class="kw">fn </span>variant&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, Variant&gt; {
     (line_end() + blank().opt() + variant_key() + blank_inline().opt() + pattern())
         .map(|((((<span class="kw">_</span>, <span class="kw">_</span>), vk), <span class="kw">_</span>), p)| Variant::new(vk, p))
+        .name(<span class="macro">stringify!</span>(variant))
 }
 
 <span class="comment">// DefaultVariant      ::= line_end blank? "*" VariantKey blank_inline? Pattern
 </span><span class="kw">fn </span>default_variant&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, DefaultVariant&gt; {
     (line_end() + blank().opt() + sym(<span class="string">'*'</span>) + variant_key() + blank_inline().opt() + pattern())
         .map(|(((((<span class="kw">_</span>, <span class="kw">_</span>), <span class="kw">_</span>), vk), <span class="kw">_</span>), p)| DefaultVariant::new(vk, p))
+        .name(<span class="macro">stringify!</span>(default_variant))
 }
 
 <span class="comment">// VariantKey          ::= "[" blank? (NumberLiteral | Identifier) blank? "]"
@@ -759,7 +778,7 @@
         + is_a(|c| c.is_ascii_alphanumeric() || c == <span class="string">'_' </span>|| c == <span class="string">'-'</span>).repeat(<span class="number">0</span>..))
     .collect()
     .map(Identifier::from)
-    .name(<span class="string">"identifier"</span>)
+    .name(<span class="macro">stringify!</span>(identifier))
 }
 
 <span class="comment">/* Content Characters
@@ -791,20 +810,17 @@
 // special_text_char   ::= "{"
 //                       | "}"
 </span><span class="kw">fn </span>special_text_char&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, String&gt; {
-    (sym(<span class="string">'{'</span>) | sym(<span class="string">'}'</span>))
-        .collect()
-        .map(String::from)
-        .name(<span class="string">"special_text_char"</span>)
+    (sym(<span class="string">'{'</span>) | sym(<span class="string">'}'</span>)).collect().map(String::from)
 }
 
 <span class="comment">// text_char           ::= any_char - special_text_char - line_end
 </span><span class="kw">fn </span>text_char&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, String&gt; {
-    !(special_text_char() | line_end()).name(<span class="string">"text_char_drop"</span>) * any_char()
+    !(special_text_char() | line_end()) * any_char()
 }
 
 <span class="comment">// indented_char       ::= text_char - "[" - "*" - "."
 </span><span class="kw">fn </span>indented_char&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, String&gt; {
-    (!one_of(<span class="string">"[*."</span>) * text_char()).name(<span class="string">"indented_char"</span>)
+    !one_of(<span class="string">"[*."</span>) * text_char()
 }
 
 <span class="comment">/* String literals
@@ -858,10 +874,7 @@
 <span class="comment">/* Whitespace */
 // blank_inline        ::= "\u0020"+
 </span><span class="kw">fn </span>blank_inline&lt;<span class="lifetime">'a</span>&gt;() -&gt; Parser&lt;<span class="lifetime">'a</span>, String&gt; {
-    sym(<span class="string">'\u{0020}'</span>)
-        .repeat(<span class="number">1</span>..)
-        .map(String::from_iter)
-        .name(<span class="string">"blank_inline"</span>)
+    sym(<span class="string">'\u{0020}'</span>).repeat(<span class="number">1</span>..).map(String::from_iter)
 }
 
 <span class="comment">// line_end            ::= "\u000D\u000A"
@@ -879,7 +892,6 @@
     ((blank_inline().opt() + line_end()).repeat(<span class="number">1</span>..))
         .collect()
         .map(String::from)
-        .name(<span class="string">"blank_block"</span>)
 }
 
 <span class="comment">// blank               ::= (blank_inline | line_end)+

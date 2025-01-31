@@ -23,7 +23,20 @@
 <a href="#22" id="22">22</a>
 <a href="#23" id="23">23</a>
 <a href="#24" id="24">24</a>
-<a href="#25" id="25">25</a></pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
+<a href="#25" id="25">25</a>
+<a href="#26" id="26">26</a>
+<a href="#27" id="27">27</a>
+<a href="#28" id="28">28</a>
+<a href="#29" id="29">29</a>
+<a href="#30" id="30">30</a>
+<a href="#31" id="31">31</a>
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a>
+<a href="#34" id="34">34</a>
+<a href="#35" id="35">35</a></pre></div><pre class="rust"><code><span class="attr">#[cfg(all(feature = <span class="string">"walker"</span>, feature = <span class="string">"allow-junk"</span>))]
+</span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
+
+<span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
 <span class="attr">#[derive(Clone, Debug, PartialEq)]
@@ -37,6 +50,13 @@
     }
 }
 
+<span class="attr">#[cfg(all(feature = <span class="string">"walker"</span>, feature = <span class="string">"allow-junk"</span>))]
+</span><span class="kw">impl </span>Walkable <span class="kw">for </span>Junk {
+    <span class="kw">fn </span>walk(<span class="kw-2">&amp;</span><span class="self">self</span>, visitor: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Visitor) {
+        visitor.visit_junk(<span class="self">self</span>);
+    }
+}
+
 <span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>Junk {
     <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
         <span class="kw">let </span>value = <span class="self">self
@@ -44,7 +64,7 @@
             </span>.iter()
             .map(|l| l.to_string())
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
-            .join(<span class="string">"\n"</span>);
+            .join(<span class="string">""</span>);
         <span class="macro">write!</span>(f, <span class="string">"{value}"</span>)
     }
 }
