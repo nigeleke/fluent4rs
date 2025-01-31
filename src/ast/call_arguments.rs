@@ -1,5 +1,8 @@
 use super::prelude::Argument;
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +14,14 @@ pub struct CallArguments(Vec<Argument>);
 impl From<&[Argument]> for CallArguments {
     fn from(value: &[Argument]) -> Self {
         Self(Vec::from(value))
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for CallArguments {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_call_arguments(self);
+        self.0.iter().for_each(|a| a.walk(visitor));
     }
 }
 

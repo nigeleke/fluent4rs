@@ -1,5 +1,8 @@
 use super::prelude::{Entry, Junk};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -10,6 +13,18 @@ pub enum ResourceItem {
     Entry(Entry),
     BlankBlock(String),
     Junk(Junk),
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for ResourceItem {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        match self {
+            Self::Entry(entry) => entry.walk(visitor),
+            #[cfg(feature = "allow-junk")]
+            Self::Junk(junk) => junk.walk(visitor),
+            _ => {}
+        }
+    }
 }
 
 impl std::fmt::Display for ResourceItem {
@@ -53,6 +68,14 @@ impl Resource {
 impl From<Vec<ResourceItem>> for Resource {
     fn from(value: Vec<ResourceItem>) -> Self {
         Self(value)
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for Resource {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_resource(self);
+        self.0.iter().for_each(|e| e.walk(visitor));
     }
 }
 

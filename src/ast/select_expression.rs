@@ -1,5 +1,8 @@
 use super::prelude::{InlineExpression, VariantList};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -17,6 +20,15 @@ impl SelectExpression {
             inline_expression,
             variant_list,
         }
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for SelectExpression {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_select_expression(self);
+        self.inline_expression.walk(visitor);
+        self.variant_list.walk(visitor);
     }
 }
 

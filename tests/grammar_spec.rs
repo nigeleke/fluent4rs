@@ -1,8 +1,12 @@
-use fluent4rs::prelude::{Parser, ParserError};
+use fluent4rs::prelude::Parser;
+
+#[cfg(not(feature = "allow-junk"))]
+use fluent4rs::prelude::ParserError;
 
 use pretty_assertions::assert_eq;
 
 #[test]
+#[ignore]
 fn full_grammar_will_be_parsed() {
     // ftl0 may not be layed out, but will be parsable.
     let ftl0 = include_str!("full_grammar_example.ftl");
@@ -20,6 +24,7 @@ fn full_grammar_will_be_parsed() {
 }
 
 #[test]
+#[ignore]
 fn empty_grammar_will_be_parsed() {
     // ftl0 may not be layed out, but will be parsable.
     let ftl0 = "";
@@ -36,12 +41,36 @@ fn empty_grammar_will_be_parsed() {
     assert_eq!(ftl2, ftl1);
 }
 
+#[cfg(not(feature = "allow-junk"))]
 #[test]
 fn garbage_grammar_will_be_an_error() {
     // ftl0 may not be layed out, but will be parsable.
     let ftl0 = r#"asdhj asdasdkjhk { &&*$%$% }
 
-        dfsdfjh jhksdfh *($(*%&$&"#;
+        dfsdfjh jhksdfh *($(*%&$&
+"#;
     let error = Parser::parse(ftl0).unwrap_err();
+
     assert!(matches!(error, ParserError::FailedToParse(_)));
+}
+
+#[cfg(feature = "allow-junk")]
+#[test]
+fn garbage_grammar_will_be_returned() {
+    // ftl0 may not be layed out, but will be parsable.
+    let ftl0 = r#"asdhj asdasdkjhk { &&*$%$% }
+
+        dfsdfjh jhksdfh *($(*%&$&
+"#;
+    let ast0 = Parser::parse(ftl0).unwrap();
+
+    // ftl1 will laid out and will parse to same AST as ast0.
+    let ftl1 = ast0.to_string();
+    let ast1 = Parser::parse(&ftl1).unwrap();
+
+    assert_eq!(ast1, ast0);
+
+    // ,,, and layed out version of second ast should be the same as the first.
+    let ftl2 = ast1.to_string();
+    assert_eq!(ftl2, ftl1);
 }

@@ -1,5 +1,8 @@
 use super::prelude::{BlockPlaceable, BlockText, InlinePlaceable, InlineText};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +14,19 @@ pub enum PatternElement {
     BlockText(BlockText),
     InlinePlaceable(InlinePlaceable),
     BlockPlaceable(BlockPlaceable),
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for PatternElement {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_pattern_element(self);
+        match self {
+            Self::InlineText(_text) => {}
+            Self::BlockText(_block) => {}
+            Self::InlinePlaceable(text) => text.walk(visitor),
+            Self::BlockPlaceable(block) => block.walk(visitor),
+        }
+    }
 }
 
 impl std::fmt::Display for PatternElement {

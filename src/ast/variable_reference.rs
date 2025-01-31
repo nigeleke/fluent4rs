@@ -1,5 +1,8 @@
 use super::prelude::Identifier;
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +14,14 @@ pub struct VariableReference(Identifier);
 impl From<Identifier> for VariableReference {
     fn from(value: Identifier) -> Self {
         Self(value)
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for VariableReference {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_variable_reference(self);
+        self.0.walk(visitor);
     }
 }
 

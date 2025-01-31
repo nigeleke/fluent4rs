@@ -1,3 +1,6 @@
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -9,6 +12,13 @@ pub struct StringLiteral(String);
 impl From<&str> for StringLiteral {
     fn from(value: &str) -> Self {
         Self(value.to_string())
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for StringLiteral {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_string_literal(self);
     }
 }
 

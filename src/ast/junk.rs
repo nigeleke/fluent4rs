@@ -1,3 +1,6 @@
+#[cfg(all(feature = "walker", feature = "allow-junk"))]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -8,7 +11,15 @@ pub struct Junk(Vec<String>);
 
 impl From<&[String]> for Junk {
     fn from(value: &[String]) -> Self {
+        eprintln!("creating junk from {:?}", value);
         Self(Vec::from(value))
+    }
+}
+
+#[cfg(all(feature = "walker", feature = "allow-junk"))]
+impl Walkable for Junk {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_junk(self);
     }
 }
 
@@ -19,7 +30,7 @@ impl std::fmt::Display for Junk {
             .iter()
             .map(|l| l.to_string())
             .collect::<Vec<_>>()
-            .join("\n");
+            .join("");
         write!(f, "{value}")
     }
 }

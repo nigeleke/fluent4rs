@@ -1,5 +1,8 @@
 use super::prelude::{InlineExpression, SelectExpression};
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -9,6 +12,16 @@ use serde::{Deserialize, Serialize};
 pub enum InlinePlaceable {
     SelectExpression(SelectExpression),
     InlineExpression(InlineExpression),
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for InlinePlaceable {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        match self {
+            Self::SelectExpression(expression) => expression.walk(visitor),
+            Self::InlineExpression(expression) => expression.walk(visitor),
+        }
+    }
 }
 
 impl std::fmt::Display for InlinePlaceable {

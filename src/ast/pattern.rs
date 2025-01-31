@@ -1,5 +1,8 @@
 use super::prelude::PatternElement;
 
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +14,14 @@ pub struct Pattern(Vec<PatternElement>);
 impl From<&[PatternElement]> for Pattern {
     fn from(value: &[PatternElement]) -> Self {
         Self(Vec::from(value))
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for Pattern {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_pattern(self);
+        self.0.iter().for_each(|pe| pe.walk(visitor));
     }
 }
 

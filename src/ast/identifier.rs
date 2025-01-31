@@ -1,3 +1,6 @@
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
@@ -9,6 +12,13 @@ pub struct Identifier(String);
 impl From<&str> for Identifier {
     fn from(value: &str) -> Self {
         Self(value.into())
+    }
+}
+
+#[cfg(feature = "walker")]
+impl Walkable for Identifier {
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_identifier(self);
     }
 }
 
