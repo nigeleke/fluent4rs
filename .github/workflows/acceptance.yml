@@ -27,11 +27,13 @@ jobs:
 
             - name: Test
               run: |
-                  cargo install cargo-tarpaulin
-                  cargo tarpaulin --all-features --out xml
+                  cargo test --all-features
+                  rustup component add llvm-tools-preview --toolchain nightly
+                  cargo install cargo-llvm-cov
+                  cargo llvm-cov --all-features --cobertura --output-path=cobertura.xml
 
             - name: Publish to Codecov
-              uses: codecov/codecov-action@v4
+              uses: codecov/codecov-action@v5
               env:
                   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
