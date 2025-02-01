@@ -28,6 +28,7 @@ jobs:
             - name: Test
               run: |
                   cargo test --all-features
+                  rustup toolchain install nightly
                   rustup component add llvm-tools-preview --toolchain nightly
                   cargo install cargo-llvm-cov
                   cargo llvm-cov --all-features --cobertura --output-path=cobertura.xml
