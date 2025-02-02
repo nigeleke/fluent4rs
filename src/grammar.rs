@@ -1,7 +1,7 @@
 //! Derived from [Project Fluent](https://github.com/projectfluent/)
 //! [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
 
-use crate::ast::prelude::*;
+use super::ast::*;
 
 use pom::utf8::*;
 

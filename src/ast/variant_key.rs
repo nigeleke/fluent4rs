@@ -1,4 +1,4 @@
-use super::prelude::{Identifier, NumberLiteral};
+use super::{Identifier, NumberLiteral};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};

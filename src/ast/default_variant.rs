@@ -1,4 +1,4 @@
-use super::{pattern::Pattern, variant_key::VariantKey};
+use super::{Pattern, VariantKey};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

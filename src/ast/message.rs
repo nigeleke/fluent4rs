@@ -1,4 +1,4 @@
-use super::prelude::{Attribute, Identifier, Pattern};
+use super::{Attribute, Identifier, Pattern};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

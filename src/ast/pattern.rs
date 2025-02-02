@@ -1,4 +1,4 @@
-use super::prelude::PatternElement;
+use super::PatternElement;
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

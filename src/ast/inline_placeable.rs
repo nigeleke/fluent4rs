@@ -1,4 +1,4 @@
-use super::prelude::{InlineExpression, SelectExpression};
+use super::{InlineExpression, SelectExpression};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};
