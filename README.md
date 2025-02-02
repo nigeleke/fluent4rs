@@ -41,6 +41,8 @@ translation needs, the reader is referred back to that crate.
 
 ## Development
 
+
+
 ```bash
-cargo test
+cargo test --features=hash
 ```
