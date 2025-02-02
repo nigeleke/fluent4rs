@@ -21,7 +21,7 @@ impl Walkable for ResourceItem {
         match self {
             Self::Entry(entry) => entry.walk(visitor),
             Self::Junk(junk) => {
-                println!("Visiting junk {}", junk);
+                println!("Visiting junk {:?}", junk);
 
                 junk.walk(visitor)
             }
