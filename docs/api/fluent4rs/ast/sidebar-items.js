@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["prelude"]};
+window.SIDEBAR_ITEMS = {"enum":["Argument","Entry","InlineExpression","InlinePlaceable","Literal","PatternElement","ResourceItem","VariantKey"],"struct":["Attribute","AttributeAccessor","BlockPlaceable","BlockText","CallArguments","CommentLine","DefaultVariant","FunctionReference","Identifier","InlineText","Junk","Message","MessageReference","NamedArgument","NumberLiteral","Pattern","Resource","SelectExpression","StringLiteral","Term","TermReference","VariableReference","Variant","VariantList"]};
