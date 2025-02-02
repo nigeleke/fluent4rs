@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":["ast","parser"]};
+window.SIDEBAR_ITEMS = {};
