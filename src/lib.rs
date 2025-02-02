@@ -6,7 +6,7 @@ mod parser;
 mod walker;
 
 pub mod prelude {
-    pub use super::ast::prelude::*;
+    pub use super::ast::*;
     pub use super::parser::{Parser, ParserError};
     #[cfg(feature = "walker")]
     pub use super::walker::{Visitor, Walker};
