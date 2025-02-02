@@ -189,16 +189,7 @@
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
 <a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a>
-<a href="#192" id="192">192</a>
-<a href="#193" id="193">193</a>
-<a href="#194" id="194">194</a>
-<a href="#195" id="195">195</a>
-<a href="#196" id="196">196</a>
-<a href="#197" id="197">197</a>
-<a href="#198" id="198">198</a>
-<a href="#199" id="199">199</a>
-<a href="#200" id="200">200</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ast::prelude::Resource;
+<a href="#191" id="191">191</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ast::prelude::Resource;
 
 <span class="kw">use </span>thiserror::<span class="kw-2">*</span>;
 
@@ -214,14 +205,7 @@
 
 <span class="kw">impl </span>Parser {
     <span class="kw">pub fn </span>parse(text: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
-        <span class="kw">let </span>result = <span class="kw">super</span>::grammar::resource()
-            .parse(text.as_bytes())
-            .map_err(|e| ParserError::FailedToParse(e.to_string()));
-
-        <span class="attr">#[cfg(not(feature = <span class="string">"allow-junk"</span>))]
-        </span><span class="kw">let </span>result = result.and_then(junk_as_error);
-
-        result
+        <span class="self">Self</span>::parse_with_junk(text).and_then(junk_as_error)
     }
 
     <span class="kw">pub fn </span>parse_with_junk(text: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
@@ -231,8 +215,7 @@
     }
 }
 
-<span class="attr">#[cfg(not(feature = <span class="string">"allow-junk"</span>))]
-</span><span class="kw">fn </span>junk_as_error(resource: Resource) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
+<span class="kw">fn </span>junk_as_error(resource: Resource) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
     <span class="kw">let </span>junk = resource.junk();
 
     <span class="kw">if </span>junk.is_empty() {
@@ -263,9 +246,8 @@
         <span class="macro">assert!</span>(!entries.is_empty());
     }
 
-    <span class="attr">#[cfg(feature = <span class="string">"allow-junk"</span>)]
-    #[test]
-    </span><span class="kw">fn </span>resource_junk_is_accesible_some_junk() {
+    <span class="attr">#[test]
+    </span><span class="kw">fn </span>resource_junk_is_accesible() {
         <span class="kw">let </span>ftl0 = <span class="string">r#"sdfhkh &amp;(*$%&amp;$(*%&amp;
 $W&amp;(*$&amp;(*%&amp;("#</span>;
         <span class="kw">let </span>ast0 = Parser::parse_with_junk(ftl0).unwrap();
