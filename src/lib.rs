@@ -6,8 +6,16 @@ mod parser;
 mod walker;
 
 pub mod prelude {
-    pub use super::ast::*;
-    pub use super::parser::{Parser, ParserError};
+    pub mod ast {
+        pub use crate::ast::prelude::*;
+    }
+
+    pub mod parser {
+        pub use crate::parser::{Parser, ParserError};
+    }
+
     #[cfg(feature = "walker")]
-    pub use super::walker::{Visitor, Walker};
+    pub mod walker {
+        pub use crate::walker::{Visitor, Walker};
+    }
 }
