@@ -1,4 +1,4 @@
-//! The structural elements for the [fluent grammar](https://crates.io/crates/fluent_syntax).
+#[doc = include_str!("../grammar.rs")]
 mod argument;
 mod attribute;
 mod attribute_accessor;
