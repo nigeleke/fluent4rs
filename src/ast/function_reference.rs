@@ -1,4 +1,4 @@
-use super::prelude::{CallArguments, Identifier};
+use super::{CallArguments, Identifier};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

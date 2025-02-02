@@ -5,7 +5,7 @@
 //! feature prints the AST to stderr as the tree is traverse. Selecting the
 //! `trace` feature implies the `walker` feature is selected.
 //!
-use super::ast::prelude::*;
+use super::ast::*;
 
 pub trait Visitor {
     fn visit_resource(&mut self, _resource: &Resource) {

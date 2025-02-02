@@ -1,4 +1,4 @@
-use super::prelude::{CommentLine, Message, Term};
+use super::{CommentLine, Message, Term};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

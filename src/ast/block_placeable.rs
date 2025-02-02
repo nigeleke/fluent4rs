@@ -1,4 +1,4 @@
-use super::prelude::InlinePlaceable;
+use super::InlinePlaceable;
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

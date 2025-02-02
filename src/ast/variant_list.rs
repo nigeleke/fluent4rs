@@ -1,4 +1,4 @@
-use super::{prelude::DefaultVariant, variant::Variant};
+use super::{DefaultVariant, Variant};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

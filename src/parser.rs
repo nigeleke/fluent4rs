@@ -1,7 +1,7 @@
 //! The [`Parser`] enables a Fluent resource string to be parsed and
 //! described in AST structures.
 //!
-use super::ast::prelude::Resource;
+use super::ast::Resource;
 
 use thiserror::*;
 
@@ -51,7 +51,7 @@ fn junk_as_error(resource: Resource) -> Result<Resource> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::ast::prelude::Entry;
+    use crate::ast::Entry;
     use std::collections::HashSet;
 
     #[test]

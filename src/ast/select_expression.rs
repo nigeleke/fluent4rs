@@ -1,4 +1,4 @@
-use super::prelude::{InlineExpression, VariantList};
+use super::{InlineExpression, VariantList};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

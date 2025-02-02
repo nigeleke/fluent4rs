@@ -1,4 +1,4 @@
-use super::prelude::{Entry, Junk};
+use super::{Entry, Junk};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

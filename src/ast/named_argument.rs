@@ -1,4 +1,4 @@
-use super::prelude::{Identifier, Literal};
+use super::{Identifier, Literal};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};

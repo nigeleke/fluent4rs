@@ -1,4 +1,4 @@
-use super::prelude::{NumberLiteral, StringLiteral};
+use super::{NumberLiteral, StringLiteral};
 
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};
