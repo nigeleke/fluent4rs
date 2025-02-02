@@ -26,7 +26,6 @@ pub trait Visitor {
         eprintln!("comment_line: {_comment_line}");
     }
 
-    #[cfg(feature = "allow-junk")]
     fn visit_junk(&mut self, _junk: &Junk) {
         #[cfg(feature = "trace")]
         eprintln!("junk: {_junk}");
@@ -140,7 +139,6 @@ mod test {
     use super::*;
     use crate::parser::Parser;
 
-    #[cfg(not(feature = "allow-junk"))]
     use pretty_assertions::assert_eq;
     use pretty_assertions::assert_ne;
 
@@ -209,7 +207,6 @@ mod test {
             self.bump("visit_comment_line");
         }
 
-        #[cfg(feature = "allow-junk")]
         fn visit_junk(&mut self, _junk: &Junk) {
             self.bump("visit_junk");
         }
@@ -298,14 +295,12 @@ mod test {
         visitor.assert_junk(None);
     }
 
-    #[cfg(feature = "allow-junk")]
     #[test]
     fn walker_will_visit_junk_nodes() {
         let ftl = r#"asdhj asdasdkjhk { &&*$%$% }
-
             dfsdfjh jhksdfh *($(*%&$&
-    "#;
-        let ast = Parser::parse(ftl).unwrap();
+"#;
+        let ast = Parser::parse_with_junk(ftl).unwrap();
 
         let mut visitor = TestVisitor::default();
         Walker::walk(&ast, &mut visitor);
@@ -323,6 +318,18 @@ mod test {
 
         let mut visitor = TestDefaultVisitor::default();
         Walker::walk(&ast, &mut visitor);
-        assert!(true)
+        assert!(true) // Test forces coverage only
+    }
+
+    #[test]
+    fn default_visitor_will_be_visited_with_junk() {
+        let ftl = r#"asdhj asdasdkjhk { &&*$%$% }
+            dfsdfjh jhksdfh *($(*%&$&
+"#;
+        let ast = Parser::parse_with_junk(ftl).unwrap();
+
+        let mut visitor = TestDefaultVisitor::default();
+        Walker::walk(&ast, &mut visitor);
+        assert!(true) // Test forces coverage only
     }
 }

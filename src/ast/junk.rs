@@ -1,4 +1,4 @@
-#[cfg(all(feature = "walker", feature = "allow-junk"))]
+#[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable};
 
 #[cfg(feature = "serde")]
@@ -15,7 +15,7 @@ impl From<&[String]> for Junk {
     }
 }
 
-#[cfg(all(feature = "walker", feature = "allow-junk"))]
+#[cfg(feature = "walker")]
 impl Walkable for Junk {
     fn walk(&self, visitor: &mut dyn Visitor) {
         visitor.visit_junk(self);
