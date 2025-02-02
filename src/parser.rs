@@ -1,3 +1,6 @@
+//! The [`Parser`] enables a Fluent resource string to be parsed and
+//! described in AST structures.
+//!
 use super::ast::prelude::Resource;
 
 use thiserror::*;
@@ -13,10 +16,14 @@ type Result<T> = std::result::Result<T, ParserError>;
 pub struct Parser;
 
 impl Parser {
+    /// Parse the given string, treating any [Junk](crate::ast::Junk)
+    /// as an error.
     pub fn parse(text: &str) -> Result<Resource> {
         Self::parse_with_junk(text).and_then(junk_as_error)
     }
 
+    /// Parse the given string, returning the [Junk](crate::ast::Junk)
+    /// as items in the [Resource](crate::ast::Resource).
     pub fn parse_with_junk(text: &str) -> Result<Resource> {
         super::grammar::resource()
             .parse(text.as_bytes())

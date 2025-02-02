@@ -1,3 +1,4 @@
+//! The structural elements for the [fluent grammar](https://crates.io/crates/fluent_syntax).
 mod argument;
 mod attribute;
 mod attribute_accessor;
