@@ -189,7 +189,17 @@
 <a href="#188" id="188">188</a>
 <a href="#189" id="189">189</a>
 <a href="#190" id="190">190</a>
-<a href="#191" id="191">191</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::ast::prelude::Resource;
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a></pre></div><pre class="rust"><code><span class="doccomment">//! The [`Parser`] enables a Fluent resource string to be parsed and
+//! described in AST structures.
+//!
+</span><span class="kw">use </span><span class="kw">super</span>::ast::prelude::Resource;
 
 <span class="kw">use </span>thiserror::<span class="kw-2">*</span>;
 
@@ -204,11 +214,15 @@
 <span class="kw">pub struct </span>Parser;
 
 <span class="kw">impl </span>Parser {
-    <span class="kw">pub fn </span>parse(text: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
+    <span class="doccomment">/// Parse the given string, treating any [Junk](crate::ast::Junk)
+    /// as an error.
+    </span><span class="kw">pub fn </span>parse(text: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
         <span class="self">Self</span>::parse_with_junk(text).and_then(junk_as_error)
     }
 
-    <span class="kw">pub fn </span>parse_with_junk(text: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
+    <span class="doccomment">/// Parse the given string, returning the [Junk](crate::ast::Junk)
+    /// as items in the [Resource](crate::ast::Resource).
+    </span><span class="kw">pub fn </span>parse_with_junk(text: <span class="kw-2">&amp;</span>str) -&gt; <span class="prelude-ty">Result</span>&lt;Resource&gt; {
         <span class="kw">super</span>::grammar::resource()
             .parse(text.as_bytes())
             .map_err(|e| ParserError::FailedToParse(e.to_string()))
