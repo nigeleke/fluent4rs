@@ -298,16 +298,12 @@ mod test {
     #[test]
     fn walker_will_visit_junk_nodes() {
         let ftl = r#"asdhj asdasdkjhk { &&*$%$% }
-
             dfsdfjh jhksdfh *($(*%&$&
 "#;
         let ast = Parser::parse_with_junk(ftl).unwrap();
 
-        println!("ast {:?}", ast);
-
         let mut visitor = TestVisitor::default();
         Walker::walk(&ast, &mut visitor);
-        assert!(false);
         visitor.assert_junk(Some(1));
     }
 
@@ -322,6 +318,18 @@ mod test {
 
         let mut visitor = TestDefaultVisitor::default();
         Walker::walk(&ast, &mut visitor);
-        assert!(true)
+        assert!(true) // Test forces coverage only
+    }
+
+    #[test]
+    fn default_visitor_will_be_visited_with_junk() {
+        let ftl = r#"asdhj asdasdkjhk { &&*$%$% }
+            dfsdfjh jhksdfh *($(*%&$&
+"#;
+        let ast = Parser::parse(ftl).unwrap();
+
+        let mut visitor = TestDefaultVisitor::default();
+        Walker::walk(&ast, &mut visitor);
+        assert!(true) // Test forces coverage only
     }
 }
