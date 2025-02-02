@@ -33,7 +33,7 @@
 <a href="#32" id="32">32</a>
 <a href="#33" id="33">33</a>
 <a href="#34" id="34">34</a>
-<a href="#35" id="35">35</a></pre></div><pre class="rust"><code><span class="attr">#[cfg(all(feature = <span class="string">"walker"</span>, feature = <span class="string">"allow-junk"</span>))]
+<a href="#35" id="35">35</a></pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
 
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
@@ -50,7 +50,7 @@
     }
 }
 
-<span class="attr">#[cfg(all(feature = <span class="string">"walker"</span>, feature = <span class="string">"allow-junk"</span>))]
+<span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">impl </span>Walkable <span class="kw">for </span>Junk {
     <span class="kw">fn </span>walk(<span class="kw-2">&amp;</span><span class="self">self</span>, visitor: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Visitor) {
         visitor.visit_junk(<span class="self">self</span>);
