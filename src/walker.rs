@@ -326,7 +326,7 @@ mod test {
         let ftl = r#"asdhj asdasdkjhk { &&*$%$% }
             dfsdfjh jhksdfh *($(*%&$&
 "#;
-        let ast = Parser::parse(ftl).unwrap();
+        let ast = Parser::parse_with_junk(ftl).unwrap();
 
         let mut visitor = TestDefaultVisitor::default();
         Walker::walk(&ast, &mut visitor);
