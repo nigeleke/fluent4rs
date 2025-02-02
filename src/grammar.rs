@@ -7,7 +7,7 @@ use pom::utf8::*;
 
 /// # Grammar
 ///
-/// An FTL file defines a Resource consisting of Entries.
+/// An FTL file defines a [Resource](crate::ast::Resource) consisting of entries.
 ///
 /// [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
 pub fn resource<'a>() -> Parser<'a, Resource> {

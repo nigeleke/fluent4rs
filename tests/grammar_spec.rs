@@ -1,4 +1,4 @@
-use fluent4rs::prelude::parser::{Parser, ParserError};
+use fluent4rs::prelude::{Parser, ParserError};
 
 use pretty_assertions::assert_eq;
 
