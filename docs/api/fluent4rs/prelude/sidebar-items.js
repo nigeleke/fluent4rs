@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["ParserError"],"mod":["prelude"],"struct":["Parser"]};
+window.SIDEBAR_ITEMS = {"mod":["ast","parser"]};
