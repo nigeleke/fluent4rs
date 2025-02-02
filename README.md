@@ -33,7 +33,6 @@ translation needs, the reader is referred back to that crate.
 | __Feature__ | __Description__                                                     |
 |-------------|---------------------------------------------------------------------|
 | default     | All features are disabled                                           |
-| allow-junk  | Allow Junk during parsing, otherwise treat Junk as a parsing error  |
 | hash        | Allow AST nodes to be hashed, for potential usages in `HashMap`s    |
 | serde       | Allow AST nodes to be serialised / deserialised                     |
 | trace       | Include default walker tracing in the DefaultVisitor implementation |

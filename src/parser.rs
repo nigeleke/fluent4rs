@@ -14,14 +14,7 @@ pub struct Parser;
 
 impl Parser {
     pub fn parse(text: &str) -> Result<Resource> {
-        let result = super::grammar::resource()
-            .parse(text.as_bytes())
-            .map_err(|e| ParserError::FailedToParse(e.to_string()));
-
-        #[cfg(not(feature = "allow-junk"))]
-        let result = result.and_then(junk_as_error);
-
-        result
+        Self::parse_with_junk(text).and_then(junk_as_error)
     }
 
     pub fn parse_with_junk(text: &str) -> Result<Resource> {
@@ -31,7 +24,6 @@ impl Parser {
     }
 }
 
-#[cfg(not(feature = "allow-junk"))]
 fn junk_as_error(resource: Resource) -> Result<Resource> {
     let junk = resource.junk();
 
@@ -63,9 +55,8 @@ mod test {
         assert!(!entries.is_empty());
     }
 
-    #[cfg(feature = "allow-junk")]
     #[test]
-    fn resource_junk_is_accesible_some_junk() {
+    fn resource_junk_is_accesible() {
         let ftl0 = r#"sdfhkh &(*$%&$(*%&
 $W&(*$&(*%&("#;
         let ast0 = Parser::parse_with_junk(ftl0).unwrap();
