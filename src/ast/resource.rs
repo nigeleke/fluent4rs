@@ -20,7 +20,11 @@ impl Walkable for ResourceItem {
     fn walk(&self, visitor: &mut dyn Visitor) {
         match self {
             Self::Entry(entry) => entry.walk(visitor),
-            Self::Junk(junk) => junk.walk(visitor),
+            Self::Junk(junk) => {
+                println!("Visiting junk {}", junk);
+
+                junk.walk(visitor)
+            }
             _ => {}
         }
     }

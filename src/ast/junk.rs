@@ -18,6 +18,7 @@ impl From<&[String]> for Junk {
 #[cfg(feature = "walker")]
 impl Walkable for Junk {
     fn walk(&self, visitor: &mut dyn Visitor) {
+        println!("Visited junk {}", self.0);
         visitor.visit_junk(self);
     }
 }

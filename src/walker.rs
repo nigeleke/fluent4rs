@@ -304,10 +304,10 @@ mod test {
         let ast = Parser::parse_with_junk(ftl).unwrap();
 
         println!("ast {:?}", ast);
-        assert!(false);
 
         let mut visitor = TestVisitor::default();
         Walker::walk(&ast, &mut visitor);
+        assert!(false);
         visitor.assert_junk(Some(1));
     }
 
