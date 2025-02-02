@@ -242,6 +242,7 @@ liked-count2 = { NUMBER($num) ->
 log-time = Entry time: { $date }
 
 log-time2 = Entry time: { DATETIME($date) }
+no-args = Entry time: { DATETIME() }
 
 today = Today is { $day }
 
@@ -266,3 +267,5 @@ inline-expression-inline-placeable = { { 123 } }
 plain-message-with-attributes =
     .one = One
     .two = Two
+
+message-pattern-first = { "message pattern first" }

@@ -1,0 +1,32 @@
+
+running 13 tests
+test parser::test::message_identifier_names ... ok
+test parser::test::resource_junk_is_accesible_some_junk ... ok
+test parser::test::message_patterns ... ok
+test parser::test::term_attributes ... ok
+test parser::test::message_attributes ... ok
+test parser::test::resource_junk_is_accesible_no_junk ... ok
+test parser::test::resource_entries_are_accesible ... ok
+ast junk : Resource([Junk(Junk(["asdhj asdasdkjhk { &&*$%$% }\n", "\n", "            dfsdfjh jhksdfh *($(*%&$&\n"]))])
+test walker::test::walker_will_visit_junk_nodes ... ok
+test parser::test::message_identifiers ... ok
+test parser::test::term_identifiers ... ok
+test parser::test::term_patterns ... ok
+test walker::test::walker_will_visit_grammar_nodes ... ok
+test walker::test::default_visitor_will_be_visited ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+
+running 3 tests
+test empty_grammar_will_be_parsed ... ok
+test garbage_grammar_will_be_returned ... ok
+test full_grammar_will_be_parsed ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

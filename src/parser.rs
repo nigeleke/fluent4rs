@@ -23,6 +23,12 @@ impl Parser {
 
         result
     }
+
+    pub fn parse_with_junk(text: &str) -> Result<Resource> {
+        super::grammar::resource()
+            .parse(text.as_bytes())
+            .map_err(|e| ParserError::FailedToParse(e.to_string()))
+    }
 }
 
 #[cfg(not(feature = "allow-junk"))]
@@ -55,6 +61,24 @@ mod test {
         let ast0 = Parser::parse(ftl0).unwrap();
         let entries = ast0.entries();
         assert!(!entries.is_empty());
+    }
+
+    #[cfg(feature = "allow-junk")]
+    #[test]
+    fn resource_junk_is_accesible_some_junk() {
+        let ftl0 = r#"sdfhkh &(*$%&$(*%&
+$W&(*$&(*%&("#;
+        let ast0 = Parser::parse_with_junk(ftl0).unwrap();
+        let junk = ast0.junk();
+        assert!(!junk.is_empty());
+    }
+
+    #[test]
+    fn resource_junk_is_accesible_no_junk() {
+        let ftl0 = include_str!("../tests/data/full_grammar_example.ftl");
+        let ast0 = Parser::parse_with_junk(ftl0).unwrap();
+        let junk = ast0.junk();
+        assert!(junk.is_empty());
     }
 
     #[test]
@@ -112,6 +136,21 @@ mod test {
             })
             .collect::<Vec<_>>();
         assert!(!message_attributes.is_empty());
+    }
+
+    #[test]
+    fn message_patterns() {
+        let ftl0 = include_str!("../tests/data/full_grammar_example.ftl");
+        let ast0 = Parser::parse(ftl0).unwrap();
+        let message_patterns = ast0
+            .entries()
+            .iter()
+            .filter_map(|e| match e {
+                Entry::Message(message) => Some(message.pattern()),
+                _ => None,
+            })
+            .collect::<Vec<_>>();
+        assert!(!message_patterns.is_empty());
     }
 
     #[test]

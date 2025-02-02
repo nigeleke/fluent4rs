@@ -20,7 +20,6 @@ impl Walkable for ResourceItem {
     fn walk(&self, visitor: &mut dyn Visitor) {
         match self {
             Self::Entry(entry) => entry.walk(visitor),
-            #[cfg(feature = "allow-junk")]
             Self::Junk(junk) => junk.walk(visitor),
             _ => {}
         }
