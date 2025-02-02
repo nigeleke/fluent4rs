@@ -17,7 +17,6 @@ hash = []
 serde = ["dep:serde"]
 walker = []
 trace = ["walker"]
-allow-junk = []
 
 [workspace.metadata.clippy]
 warn = "deny"

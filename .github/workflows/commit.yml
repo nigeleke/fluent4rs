@@ -18,7 +18,6 @@ jobs:
             - name: Compile
               run: |
                   cargo build --no-default-features
-                  cargo build --features=allow-junk
                   cargo build --features=hash
                   cargo build --features=serde
                   cargo build --features=trace
@@ -28,7 +27,6 @@ jobs:
             - name: Lint
               run: |
                   cargo clippy --no-default-features
-                  cargo clippy --features=allow-junk
                   cargo clippy --features=hash
                   cargo clippy --features=serde
                   cargo clippy --features=trace
@@ -38,7 +36,6 @@ jobs:
             - name: Test
               run: |
                   cargo test --no-default-features
-                  cargo test --features=allow-junk
                   cargo test --features=hash
                   cargo test --features=serde
                   cargo test --features=trace
