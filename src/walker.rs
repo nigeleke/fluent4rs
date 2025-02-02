@@ -289,7 +289,7 @@ mod test {
 
     #[test]
     fn walker_will_visit_grammar_nodes() {
-        let ftl = include_str!("../tests/full_grammar_example.ftl");
+        let ftl = include_str!("../tests/data/full_grammar_example.ftl");
         let ast = Parser::parse(ftl).unwrap();
 
         let mut visitor = TestVisitor::default();
@@ -318,7 +318,7 @@ mod test {
 
     #[test]
     fn default_visitor_will_be_visited() {
-        let ftl = include_str!("../tests/full_grammar_example.ftl");
+        let ftl = include_str!("../tests/data/full_grammar_example.ftl");
         let ast = Parser::parse(ftl).unwrap();
 
         let mut visitor = TestDefaultVisitor::default();

@@ -8,7 +8,7 @@ use pretty_assertions::assert_eq;
 #[test]
 fn full_grammar_will_be_parsed() {
     // ftl0 may not be layed out, but will be parsable.
-    let ftl0 = include_str!("full_grammar_example.ftl");
+    let ftl0 = include_str!("data/full_grammar_example.ftl");
     let ast0 = Parser::parse(ftl0).unwrap();
 
     // ftl1 will laid out and will parse to same AST as ast0.
