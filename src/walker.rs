@@ -6,6 +6,10 @@
 //! `trace` feature will also include the `walker` feature.
 use super::ast::*;
 
+/// [Visitor] enables key AST nodes to be visited. Implement [Visitor] and override
+/// required methods to allow them to be visited during a walk of the AST.
+/// If there's a build with the `trace` feature, the default [Visitor] will output
+/// each node to stderr.
 pub trait Visitor {
     fn visit_resource(&mut self, _resource: &Resource) {
         #[cfg(feature = "trace")]
@@ -133,10 +137,14 @@ pub trait Visitor {
     }
 }
 
+/// AST nodes implement walkable, so any can be re-walked and / ot re-visited.
+/// It is not expected that this trait will be implemented by an end user.
 pub trait Walkable {
     fn walk(&self, visitor: &mut dyn Visitor);
 }
 
+/// A [Walker] enables an AST node to be walked with the `Walk::walk(node, visitor)`
+/// function.
 pub struct Walker;
 
 impl Walker {
