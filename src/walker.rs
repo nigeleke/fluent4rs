@@ -1,9 +1,9 @@
-//! The [Walker] enables an AST returned by the [Parser](crate::parser::Parser)
+//! The [Walker] enables the [Resource] returned by the [Parser](crate::parser::Parser)
 //! to be traversed. This functionality requires the `walker` feature.
 //!
 //! The default [Visitor] implementation is a no-op, but selecting the `trace`
 //! feature prints the AST to stderr as the tree is traverse. Selecting the
-//! `trace` feature implies the `walker` feature is selected.
+//! `trace` feature will also include the `walker` feature.
 use super::ast::*;
 
 pub trait Visitor {
@@ -117,6 +117,11 @@ pub trait Visitor {
         eprintln!("variant: {_variant}");
     }
 
+    fn visit_variant_key(&mut self, _variant_key: &VariantKey) {
+        #[cfg(feature = "trace")]
+        eprintln!("variant_key: {_variant_key}");
+    }
+
     fn visit_default_variant(&mut self, _variant: &DefaultVariant) {
         #[cfg(feature = "trace")]
         eprintln!("default_variant: {_variant}");
@@ -186,6 +191,7 @@ mod test {
             assert_ne!(*self.counts.get("visit_named_argument").unwrap(), 0);
             assert_ne!(*self.counts.get("visit_select_expression").unwrap(), 0);
             assert_ne!(*self.counts.get("visit_variant").unwrap(), 0);
+            assert_ne!(*self.counts.get("visit_variant_key").unwrap(), 0);
             assert_ne!(*self.counts.get("visit_default_variant").unwrap(), 0);
             assert_ne!(*self.counts.get("visit_identifier").unwrap(), 0);
         }
@@ -282,6 +288,10 @@ mod test {
 
         fn visit_variant(&mut self, _variant: &Variant) {
             self.bump("visit_variant");
+        }
+
+        fn visit_variant_key(&mut self, _variant_key: &VariantKey) {
+            self.bump("visit_variant_key");
         }
 
         fn visit_default_variant(&mut self, _variant: &DefaultVariant) {

@@ -28,6 +28,11 @@ It is not intended to replace any aspects of the [fluent-rs](https://github.com/
 crate implemented by [Project Fluent](https://projectfluent.org/), and, for the majority of language
 translation needs, the reader is referred back to that crate.
 
+| __Usage__                                        | [fluent4rs](https://nigeleke.github.io/fluent4rs/) | [fluent-syntax](https://crates.io/crates/fluent_syntax) |
+| ------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------- |
+| Programmatic inspection & editing of `ftl` files | ✓                                                  | ?                                                       |
+| Language translation in a program                | x                                                  | [fluent](https://crates.io/crates/fluent)               |
+
 ## Features
 
 | __Feature__ | __Description__                                                     |
@@ -35,13 +40,11 @@ translation needs, the reader is referred back to that crate.
 | default     | All features are disabled                                           |
 | hash        | Allow AST nodes to be hashed, for potential usages in `HashMap`s    |
 | serde       | Allow AST nodes to be serialised / deserialised                     |
-| trace       | Include default walker tracing in the DefaultVisitor implementation |
+| trace       | Include tracing to stderr in the DefaultVisitor implementation      |
 | walker      | Provide AST walker and visitors                                     |
 
 ## Development
 
-
-
 ```bash
-cargo test --features=hash
+cargo test --all-features
 ```
