@@ -28,6 +28,7 @@ impl Variant {
 impl Walkable for Variant {
     fn walk(&self, visitor: &mut dyn Visitor) {
         visitor.visit_variant(self);
+        self.variant_key.walk(visitor);
         self.pattern.walk(visitor);
     }
 }
