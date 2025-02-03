@@ -17,10 +17,12 @@
 <a href="#16" id="16">16</a>
 <a href="#17" id="17">17</a>
 <a href="#18" id="18">18</a>
-<a href="#19" id="19">19</a></pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
+<a href="#19" id="19">19</a>
+<a href="#20" id="20">20</a></pre></div><pre class="rust"><code><span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// block_text ::= blank_block blank_inline indented_char inline_text?
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub struct </span>BlockText(String);

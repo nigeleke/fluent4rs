@@ -34,7 +34,9 @@
 <a href="#33" id="33">33</a>
 <a href="#34" id="34">34</a>
 <a href="#35" id="35">35</a>
-<a href="#36" id="36">36</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{InlineExpression, NamedArgument};
+<a href="#36" id="36">36</a>
+<a href="#37" id="37">37</a>
+<a href="#38" id="38">38</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{InlineExpression, NamedArgument};
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -42,7 +44,9 @@
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [Argument](crate::ast::Argument) ::= [NamedArgument](crate::ast::NamedArgument)
+///    | [InlineExpression](crate::ast::InlineExpression)
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub enum </span>Argument {

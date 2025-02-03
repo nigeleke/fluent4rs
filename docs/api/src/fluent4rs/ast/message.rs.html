@@ -113,7 +113,16 @@
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
 <a href="#114" id="114">114</a>
-<a href="#115" id="115">115</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Attribute, Identifier, Pattern};
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Attribute, Identifier, Pattern};
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -179,7 +188,8 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [Message](crate::ast::Message) ::= [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? (([Pattern](crate::ast::Pattern) [Attribute](crate::ast::Attribute)*) | (Attribute+))
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub struct </span>Message {
@@ -195,21 +205,29 @@
         }
     }
 
-    <span class="comment">// Note: a Message and Term Identifier may be the same, e,g, `product = ...` versus `-product = ...`.
+    <span class="doccomment">/// Returns the message identifier.
+    ///
+    ///  Note: a [Message](crate::ast::Message) and [Term](crate::ast::Term) [Identifier](crate::ast::Identifier)
+    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
     </span><span class="kw">pub fn </span>identifier(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Identifier {
         <span class="kw-2">&amp;</span><span class="self">self</span>.identifier
     }
 
-    <span class="comment">// Note: Differentiates a Message and Term Identifier name using the '-' prefix
+    <span class="doccomment">/// Returns the message identifier _name_.
+    ///
+    /// Note: Differentiates the [Message](crate::ast::Message) and [Term](crate::ast::Term)
+    /// [Identifier](crate::ast::Identifier) name by using the '-' prefix for the [Term](crate::ast::Term).
     </span><span class="kw">pub fn </span>identifier_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
         <span class="self">self</span>.identifier.to_string()
     }
 
-    <span class="kw">pub fn </span>pattern(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Pattern&gt; {
+    <span class="doccomment">/// Returns the message [Pattern](crate::ast::Pattern), if provided.
+    </span><span class="kw">pub fn </span>pattern(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Pattern&gt; {
         <span class="self">self</span>.arguments.pattern()
     }
 
-    <span class="kw">pub fn </span>attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[Attribute] {
+    <span class="doccomment">/// Returns the message [Attribute](crate::ast::Attribute)s.
+    </span><span class="kw">pub fn </span>attributes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[Attribute] {
         <span class="self">self</span>.arguments.attributes()
     }
 }

@@ -89,7 +89,37 @@
 <a href="#88" id="88">88</a>
 <a href="#89" id="89">89</a>
 <a href="#90" id="90">90</a>
-<a href="#91" id="91">91</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Entry, Junk};
+<a href="#91" id="91">91</a>
+<a href="#92" id="92">92</a>
+<a href="#93" id="93">93</a>
+<a href="#94" id="94">94</a>
+<a href="#95" id="95">95</a>
+<a href="#96" id="96">96</a>
+<a href="#97" id="97">97</a>
+<a href="#98" id="98">98</a>
+<a href="#99" id="99">99</a>
+<a href="#100" id="100">100</a>
+<a href="#101" id="101">101</a>
+<a href="#102" id="102">102</a>
+<a href="#103" id="103">103</a>
+<a href="#104" id="104">104</a>
+<a href="#105" id="105">105</a>
+<a href="#106" id="106">106</a>
+<a href="#107" id="107">107</a>
+<a href="#108" id="108">108</a>
+<a href="#109" id="109">109</a>
+<a href="#110" id="110">110</a>
+<a href="#111" id="111">111</a>
+<a href="#112" id="112">112</a>
+<a href="#113" id="113">113</a>
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Entry, Junk};
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -97,7 +127,10 @@
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [ResourceItem](crate::ast::ResourceItem) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
+///
+/// Note: This is not defined in the fluent EBNF.
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub enum </span>ResourceItem {
@@ -128,13 +161,29 @@
     }
 }
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [Resource](crate::ast::Resource) ::= [ResourceItem](crate::ast::ResourceItem)*
+///
+/// Note: This is defined in the fluent EBNF as [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
+///
+/// An FTL file defines a [Resource](crate::ast::Resource) consisting of entries.
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub struct </span>Resource(Vec&lt;ResourceItem&gt;);
 
 <span class="kw">impl </span>Resource {
-    <span class="kw">pub fn </span>entries(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>Entry&gt; {
+    <span class="doccomment">/// Return the parsed entries.
+    /// ```rust
+    /// # use fluent4rs::prelude::*;
+    /// let test_text = r#"message = A message
+    /// -term = A term
+    /// "#;
+    /// let resource = Parser::parse(test_text).unwrap();
+    /// let entries = resource.entries();
+    /// assert!(matches!(entries[0], Entry::Message(_)));
+    /// assert!(matches!(entries[1], Entry::Term(_)));
+    /// ```
+    </span><span class="kw">pub fn </span>entries(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>Entry&gt; {
         <span class="self">self</span>.<span class="number">0
             </span>.iter()
             .filter_map(|ri| <span class="kw">match </span>ri {
@@ -144,7 +193,18 @@
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
     }
 
-    <span class="kw">pub fn </span>junk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>Junk&gt; {
+    <span class="doccomment">/// Return the parsed entries.
+    /// ```rust
+    /// # use fluent4rs::prelude::*;
+    /// let test_garbage = r#"!@#$ garbage )(*&amp;
+    /// !@#$ more garbage )(*&amp;
+    /// "#;
+    /// let resource = Parser::parse_with_junk(test_garbage).unwrap();
+    /// let junk = resource.junk();
+    /// let junk_item = junk[0];
+    /// assert_eq!(junk_item.to_string(), String::from(test_garbage));
+    /// ```
+    </span><span class="kw">pub fn </span>junk(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;<span class="kw-2">&amp;</span>Junk&gt; {
         <span class="self">self</span>.<span class="number">0
             </span>.iter()
             .filter_map(|ri| <span class="kw">match </span>ri {

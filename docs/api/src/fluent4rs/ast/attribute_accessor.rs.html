@@ -30,7 +30,8 @@
 <a href="#29" id="29">29</a>
 <a href="#30" id="30">30</a>
 <a href="#31" id="31">31</a>
-<a href="#32" id="32">32</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Identifier;
+<a href="#32" id="32">32</a>
+<a href="#33" id="33">33</a></pre></div><pre class="rust"><code><span class="kw">use </span><span class="kw">super</span>::Identifier;
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -38,7 +39,8 @@
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [AttributeAccessor](crate::ast::AttributeAccessor) ::= "." [Identifier](crate::ast::Identifier)
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub struct </span>AttributeAccessor(Identifier);

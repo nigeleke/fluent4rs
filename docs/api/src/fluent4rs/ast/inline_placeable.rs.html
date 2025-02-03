@@ -33,7 +33,8 @@
 <a href="#32" id="32">32</a>
 <a href="#33" id="33">33</a>
 <a href="#34" id="34">34</a>
-<a href="#35" id="35">35</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{InlineExpression, SelectExpression};
+<a href="#35" id="35">35</a>
+<a href="#36" id="36">36</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{InlineExpression, SelectExpression};
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -41,7 +42,8 @@
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// inline_placeable ::= "{" blank? ([SelectExpression](crate::ast::SelectExpression) | [InlineExpression](crate::ast::InlineExpression)) blank? "}"
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub enum </span>InlinePlaceable {

@@ -37,7 +37,8 @@
 <a href="#36" id="36">36</a>
 <a href="#37" id="37">37</a>
 <a href="#38" id="38">38</a>
-<a href="#39" id="39">39</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Identifier, Pattern};
+<a href="#39" id="39">39</a>
+<a href="#40" id="40">40</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Identifier, Pattern};
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -45,7 +46,8 @@
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [Attribute](crate::ast::Attribute) ::= line_end blank? "." [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? [Pattern](crate::ast::Pattern)
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub struct </span>Attribute {

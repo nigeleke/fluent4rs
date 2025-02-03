@@ -20,12 +20,14 @@
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
 <a href="#21" id="21">21</a>
-<a href="#22" id="22">22</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Identifier, NumberLiteral};
+<a href="#22" id="22">22</a>
+<a href="#23" id="23">23</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{Identifier, NumberLiteral};
 
 <span class="attr">#[cfg(feature = <span class="string">"serde"</span>)]
 </span><span class="kw">use </span>serde::{Deserialize, Serialize};
 
-<span class="attr">#[derive(Clone, Debug, PartialEq)]
+<span class="doccomment">/// [VariantKey](crate::ast::VariantKey) ::= "[" blank? ([NumberLiteral](crate::ast::NumberLiteral) | [Identifier](crate::ast::Identifier)) blank? "]"
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = <span class="string">"hash"</span>, derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = <span class="string">"serde"</span>, derive(Deserialize, Serialize))]
 </span><span class="kw">pub enum </span>VariantKey {
