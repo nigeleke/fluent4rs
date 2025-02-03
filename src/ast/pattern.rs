@@ -6,6 +6,10 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [Pattern](crate::ast::Pattern) ::= [PatternElement](crate::ast::PatternElement)+
+///
+/// [Pattern](crate::ast::Pattern)s are values of [Message](crate::ast::Message)s,
+/// [Term](crate::ast::Term)s, [Attribute](crate::ast::Attribute)s and [Variant](crate::ast::Variant)s.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]

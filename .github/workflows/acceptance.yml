@@ -40,7 +40,7 @@ jobs:
 
             - name: Documentation
               run: |
-                  cargo doc --no-deps
+                  cargo doc --no-deps --all-features
 
     release:
         needs: acceptance

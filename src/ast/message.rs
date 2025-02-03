@@ -64,6 +64,7 @@ impl std::fmt::Display for MessageArguments {
     }
 }
 
+/// [Message](crate::ast::Message) ::= [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? (([Pattern](crate::ast::Pattern) [Attribute](crate::ast::Attribute)*) | (Attribute+))
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
@@ -80,20 +81,28 @@ impl Message {
         }
     }
 
-    // Note: a Message and Term Identifier may be the same, e,g, `product = ...` versus `-product = ...`.
+    /// Returns the message identifier.
+    ///
+    ///  Note: a [Message](crate::ast::Message) and [Term](crate::ast::Term) [Identifier](crate::ast::Identifier)
+    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }
 
-    // Note: Differentiates a Message and Term Identifier name using the '-' prefix
+    /// Returns the message identifier _name_.
+    ///
+    /// Note: Differentiates the [Message](crate::ast::Message) and [Term](crate::ast::Term)
+    /// [Identifier](crate::ast::Identifier) name by using the '-' prefix for the [Term](crate::ast::Term).
     pub fn identifier_name(&self) -> String {
         self.identifier.to_string()
     }
 
+    /// Returns the message [Pattern](crate::ast::Pattern), if provided.
     pub fn pattern(&self) -> Option<&Pattern> {
         self.arguments.pattern()
     }
 
+    /// Returns the message [Attribute](crate::ast::Attribute)s.
     pub fn attributes(&self) -> &[Attribute] {
         self.arguments.attributes()
     }

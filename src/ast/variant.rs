@@ -6,6 +6,7 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [Variant](crate::ast::Variant) ::= line_end blank? [VariantKey](crate::ast::VariantKey) blank_inline? [Pattern](crate::ast::Pattern)
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]

@@ -6,6 +6,9 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [Literal](crate::ast::Literal) ::= [NumberLiteral](crate::ast::NumberLiteral) | [StringLiteral](crate::ast::StringLiteral)
+///
+/// Note: This is not part of the fluent EBNF.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]

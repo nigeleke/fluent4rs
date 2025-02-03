@@ -4,6 +4,10 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [CommentLine](crate::ast::CommentLine) ::= ("###" | "##" | "#") ("\u0020" comment_char*)? line_end
+///
+/// Adjacent comment lines of the same comment type are joined together during
+/// the AST construction.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]

@@ -1,10 +1,9 @@
-//! The [`Walker`] enables an AST returned by the [Parser](crate::parser::Parser)
+//! The [Walker] enables an AST returned by the [Parser](crate::parser::Parser)
 //! to be traversed. This functionality requires the `walker` feature.
 //!
-//! The default [`Visitor`] implementation is a no-op, but selecting the `trace`
+//! The default [Visitor] implementation is a no-op, but selecting the `trace`
 //! feature prints the AST to stderr as the tree is traverse. Selecting the
 //! `trace` feature implies the `walker` feature is selected.
-//!
 use super::ast::*;
 
 pub trait Visitor {
@@ -137,8 +136,8 @@ pub struct Walker;
 
 impl Walker {
     /// Walk the AST.
-    /// Each AST object is [`Walkable`], however, commonly the initial
-    /// ojbect will be the parsed [Resource](crate::ast::Resource).
+    /// Each AST object is [Walkable], however, commonly the initial
+    /// ojbect will be the parsed [Resource].
     pub fn walk(walkable: &dyn Walkable, visitor: &mut dyn Visitor) {
         walkable.walk(visitor)
     }

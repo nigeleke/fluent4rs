@@ -9,6 +9,17 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [InlineExpression](crate::ast::InlineExpression) ::= [StringLiteral](crate::ast::StringLiteral)
+///    | [NumberLiteral](crate::ast::NumberLiteral)
+///    | [FunctionReference](crate::ast::FunctionReference)
+///    | [MessageReference](crate::ast::MessageReference)
+///    | [TermReference](crate::ast::TermReference)
+///    | [VariableReference](crate::ast::VariableReference)
+///    | inline_placeable
+///
+/// Rules for validating expressions in Placeables and as selectors of
+/// SelectExpressions are documented in [spec/valid.md](https://github.com/projectfluent/fluent/blob/master/spec/valid.md) and enforced in
+/// [syntax/abstract.js](https://github.com/projectfluent/fluent/blob/master/syntax/abstract.js).
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]

@@ -1,4 +1,4 @@
-//! The [`Parser`] enables a Fluent resource string to be parsed and
+//! The [Parser] enables a Fluent resource string to be parsed and
 //! described in AST structures.
 //!
 use super::ast::Resource;
@@ -23,7 +23,7 @@ impl Parser {
     }
 
     /// Parse the given string, returning the [Junk](crate::ast::Junk)
-    /// as items in the [Resource](crate::ast::Resource).
+    /// as items in the [Resource].
     pub fn parse_with_junk(text: &str) -> Result<Resource> {
         super::grammar::resource()
             .parse(text.as_bytes())

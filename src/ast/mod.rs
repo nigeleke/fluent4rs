@@ -1,4 +1,6 @@
-#![doc = include_str!("../grammar.rs")]
+//! Derived from [Project Fluent](https://github.com/projectfluent/)
+//! [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
+
 mod argument;
 mod attribute;
 mod attribute_accessor;
@@ -43,7 +45,7 @@ pub use entry::Entry;
 pub use function_reference::FunctionReference;
 pub use identifier::Identifier;
 pub use inline_expression::InlineExpression;
-pub use inline_placeable::InlinePlaceable;
+pub(crate) use inline_placeable::InlinePlaceable;
 pub use inline_text::InlineText;
 pub use junk::Junk;
 pub use literal::Literal;
