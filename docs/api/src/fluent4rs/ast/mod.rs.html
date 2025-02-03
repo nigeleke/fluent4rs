@@ -65,7 +65,8 @@
 <a href="#64" id="64">64</a>
 <a href="#65" id="65">65</a>
 <a href="#66" id="66">66</a>
-<a href="#67" id="67">67</a></pre></div><pre class="rust"><code><span class="doccomment">//! Derived from [Project Fluent](https://github.com/projectfluent/)
+<a href="#67" id="67">67</a>
+<a href="#68" id="68">68</a></pre></div><pre class="rust"><code><span class="doccomment">//! Derived from [Project Fluent](https://github.com/projectfluent/)
 //! [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
 
 </span><span class="kw">mod </span>argument;
@@ -103,7 +104,7 @@
 <span class="kw">pub use </span>argument::Argument;
 <span class="kw">pub use </span>attribute::Attribute;
 <span class="kw">pub use </span>attribute_accessor::AttributeAccessor;
-<span class="kw">pub use </span>block_placeable::BlockPlaceable;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>block_placeable::BlockPlaceable;
 <span class="kw">pub use </span>block_text::BlockText;
 <span class="kw">pub use </span>call_arguments::CallArguments;
 <span class="kw">pub use </span>comment_line::CommentLine;
@@ -115,7 +116,7 @@
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>inline_placeable::InlinePlaceable;
 <span class="kw">pub use </span>inline_text::InlineText;
 <span class="kw">pub use </span>junk::Junk;
-<span class="kw">pub use </span>literal::Literal;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>literal::Literal;
 <span class="kw">pub use </span>message::Message;
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>message::MessageArguments;
 <span class="kw">pub use </span>message_reference::MessageReference;
@@ -123,7 +124,8 @@
 <span class="kw">pub use </span>number_literal::NumberLiteral;
 <span class="kw">pub use </span>pattern::Pattern;
 <span class="kw">pub use </span>pattern_element::PatternElement;
-<span class="kw">pub use </span>resource::{Resource, ResourceItem};
+<span class="kw">pub use </span>resource::Resource;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>resource::ResourceItem;
 <span class="kw">pub use </span>select_expression::SelectExpression;
 <span class="kw">pub use </span>string_literal::StringLiteral;
 <span class="kw">pub use </span>term::Term;
@@ -131,5 +133,5 @@
 <span class="kw">pub use </span>variable_reference::VariableReference;
 <span class="kw">pub use </span>variant::Variant;
 <span class="kw">pub use </span>variant_key::VariantKey;
-<span class="kw">pub use </span>variant_list::VariantList;
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">use </span>variant_list::VariantList;
 </code></pre></div></section></main></body></html>
