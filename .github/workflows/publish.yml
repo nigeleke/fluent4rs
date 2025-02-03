@@ -25,7 +25,7 @@ jobs:
 
             - name: Build Site
               run: |
-                  cargo doc --no-deps
+                  cargo doc --no-deps --all-features
                   rustup toolchain install nightly
                   rustup component add llvm-tools-preview --toolchain nightly
                   cargo install cargo-llvm-cov

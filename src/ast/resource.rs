@@ -6,6 +6,9 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [ResourceItem](crate::ast::ResourceItem) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
+///
+/// Note: This is not defined in the fluent EBNF.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
@@ -37,12 +40,28 @@ impl std::fmt::Display for ResourceItem {
     }
 }
 
+/// [Resource](crate::ast::Resource) ::= [ResourceItem](crate::ast::ResourceItem)*
+///
+/// Note: This is defined in the fluent EBNF as [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
+///
+/// An FTL file defines a [Resource](crate::ast::Resource) consisting of entries.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Resource(Vec<ResourceItem>);
 
 impl Resource {
+    /// Return the parsed entries.
+    /// ```rust
+    /// # use fluent4rs::prelude::*;
+    /// let test_text = r#"message = A message
+    /// -term = A term
+    /// "#;
+    /// let resource = Parser::parse(test_text).unwrap();
+    /// let entries = resource.entries();
+    /// assert!(matches!(entries[0], Entry::Message(_)));
+    /// assert!(matches!(entries[1], Entry::Term(_)));
+    /// ```
     pub fn entries(&self) -> Vec<&Entry> {
         self.0
             .iter()
@@ -53,6 +72,17 @@ impl Resource {
             .collect::<Vec<_>>()
     }
 
+    /// Return the parsed entries.
+    /// ```rust
+    /// # use fluent4rs::prelude::*;
+    /// let test_garbage = r#"!@#$ garbage )(*&
+    /// !@#$ more garbage )(*&
+    /// "#;
+    /// let resource = Parser::parse_with_junk(test_garbage).unwrap();
+    /// let junk = resource.junk();
+    /// let junk_item = junk[0];
+    /// assert_eq!(junk_item.to_string(), String::from(test_garbage));
+    /// ```
     pub fn junk(&self) -> Vec<&Junk> {
         self.0
             .iter()

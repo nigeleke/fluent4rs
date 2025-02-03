@@ -6,6 +6,10 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
+/// [PatternElement](crate::ast::PatternElement) ::= [inline_text](crate::ast::InlineText)
+///    | [block_text](crate::ast::BlockText)
+///    | inline_placeable
+///    | block_placeable
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]

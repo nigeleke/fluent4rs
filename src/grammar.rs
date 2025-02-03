@@ -1,15 +1,7 @@
-//! Derived from [Project Fluent](https://github.com/projectfluent/)
-//! [fluent.ebnf](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf)
-
 use super::ast::*;
 
 use pom::utf8::*;
 
-/// # Grammar
-///
-/// An FTL file defines a [Resource](crate::ast::Resource) consisting of entries.
-///
-/// [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
 pub fn resource<'a>() -> Parser<'a, Resource> {
     (entry().map(ResourceItem::Entry)
         | blank_block().map(ResourceItem::BlankBlock)
@@ -19,16 +11,6 @@ pub fn resource<'a>() -> Parser<'a, Resource> {
     .name(stringify!(resource))
 }
 
-/// Entries are the main building blocks of Fluent. They define translations and
-/// contextual and semantic information about the translations. During the AST
-/// construction, adjacent comment lines of the same comment type (defined by
-/// the number of #) are joined together. Single-# comments directly preceding
-/// Messages and Terms are attached to the Message or Term and are not
-/// standalone Entries.
-///
-/// [Entry](crate::ast::Entry) ::= ([Message](crate::ast::Message) line_end)
-///    | ([Term](crate::ast::Term) line_end)
-///    | [CommentLine](crate::ast::CommentLine)
 fn entry<'a>() -> Parser<'a, Entry> {
     ((message() + line_end()).map(|(m, _)| Entry::Message(m))
         | (term() + line_end()).map(|(t, _)| Entry::Term(t))
@@ -36,7 +18,6 @@ fn entry<'a>() -> Parser<'a, Entry> {
     .name(stringify!(entry))
 }
 
-/// [Message](crate::ast::Message) ::= [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? (([Pattern](crate::ast::Pattern) [Attribute](crate::ast::Attribute)*) | (Attribute+))
 fn message<'a>() -> Parser<'a, Message> {
     (identifier()
         + blank_inline().opt()
@@ -48,7 +29,6 @@ fn message<'a>() -> Parser<'a, Message> {
     .name(stringify!(message))
 }
 
-/// [Term](crate::ast::Term) ::= "-" [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? [Pattern](crate::ast::Pattern) [Attribute](crate::ast::Attribute)*
 fn term<'a>() -> Parser<'a, Term> {
     (sym('-')
         + identifier()
@@ -61,10 +41,6 @@ fn term<'a>() -> Parser<'a, Term> {
     .name(stringify!(term))
 }
 
-/// Adjacent comment lines of the same comment type are joined together during
-/// the AST construction.
-///
-/// [CommentLine](crate::ast::CommentLine) ::= ("###" | "##" | "#") ("\u0020" comment_char*)? line_end
 fn comment_line<'a>() -> Parser<'a, CommentLine> {
     ((seq("###") | seq("##") | seq("#"))
         + (sym('\u{0020}') + comment_char().repeat(0..)).opt()
@@ -76,24 +52,11 @@ fn comment_line<'a>() -> Parser<'a, CommentLine> {
     .name(stringify!(comment_line))
 }
 
-/// comment_char ::= any_char - line_end
+// comment_char ::= any_char - line_end
 fn comment_char<'a>() -> Parser<'a, String> {
     (!line_end() * any()).map(String::from)
 }
 
-/// Junk represents unparsed content.
-///
-/// Junk is parsed line-by-line until a line is found which looks like it might
-/// be a beginning of a new message, term, or a comment. Any whitespace
-/// following a broken Entry is also considered part of Junk.
-///
-/// [Parser::parse](crate::parser::Parser::parse) treats Junk as a
-/// [ParseError](crate::parser::ParseError.
-///
-/// [Parser::parse_with_junk](crate::Parser::parse_with_junk) will return [Junk](crate::ast::Junk)
-/// in the [Resource](crate::ast::Resource).
-///
-/// [Junk](crate::ast::Junk) ::= junk_line (junk_line - "#" - "-" - [a-zA-Z])*
 fn junk<'a>() -> Parser<'a, Junk> {
     (junk_line()
         + (!(sym('#') | sym('-') | is_a(|c| c.is_ascii_alphabetic())) * junk_line()).repeat(0..))
@@ -105,16 +68,14 @@ fn junk<'a>() -> Parser<'a, Junk> {
     .name(stringify!(junk))
 }
 
-/// junk_line ::= /[^\n]*/ ("\u000A" | EOF)
+// junk_line ::= /[^\n]*/ ("\u000A" | EOF)
 fn junk_line<'a>() -> Parser<'a, String> {
     ((none_of("\n").repeat(0..)) + sym('\u{000a}'))
         .collect()
         .map(String::from)
 }
 
-/// Attributes of Messages and Terms.
-///
-/// [Attribute](crate::ast::Attribute) ::= line_end blank? "." [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? [Pattern](crate::ast::Pattern)
+// Attributes of Messages and Terms.
 fn attribute<'a>() -> Parser<'a, Attribute> {
     (line_end()
         + blank().opt()
@@ -128,24 +89,16 @@ fn attribute<'a>() -> Parser<'a, Attribute> {
     .name(stringify!(attribute))
 }
 
-/// Patterns are values of Messages, Terms, Attributes and Variants.
-///
-/// [Pattern](crate::ast::Pattern) ::= [PatternElement](crate::ast::PatternElement)+
 fn pattern<'a>() -> Parser<'a, Pattern> {
     (pattern_element().repeat(1..))
         .map(|pes| Pattern::from(pes.as_slice()))
         .name(stringify!(pattern))
 }
 
-/// TextElement and Placeable can occur inline or as block.
-/// Text needs to be indented and start with a non-special character.
-/// Placeables can start at the beginning of the line or be indented.
-/// Adjacent TextElements are joined in AST creation.
-///
-/// [PatternElement](crate::ast::PatternElement) ::= inline_text
-///    | block_text
-///    | inline_placeable
-///    | block_placeable
+// TextElement and Placeable can occur inline or as block.
+// Text needs to be indented and start with a non-special character.
+// Placeables can start at the beginning of the line or be indented.
+// Adjacent TextElements are joined in AST creation.
 fn pattern_element<'a>() -> Parser<'a, PatternElement> {
     (inline_text().map(PatternElement::InlineText)
         | block_text().map(PatternElement::BlockText)
@@ -154,19 +107,16 @@ fn pattern_element<'a>() -> Parser<'a, PatternElement> {
     .name(stringify!(pattern_element))
 }
 
-/// inline_text ::= text_char+
 fn inline_text<'a>() -> Parser<'a, InlineText> {
     (text_char().repeat(1..)).collect().map(InlineText::from)
 }
 
-/// block_text ::= blank_block blank_inline indented_char inline_text?
 fn block_text<'a>() -> Parser<'a, BlockText> {
     (blank_block() + blank_inline() + indented_char() + inline_text().opt())
         .collect()
         .map(BlockText::from)
 }
 
-/// inline_placeable ::= "{" blank? ([SelectExpression](crate::ast::SelectExpression) | [InlineExpression](crate::ast::InlineExpression)) blank? "}"
 fn inline_placeable<'a>() -> Parser<'a, InlinePlaceable> {
     (sym('{')
         + blank().opt()
@@ -177,23 +127,11 @@ fn inline_placeable<'a>() -> Parser<'a, InlinePlaceable> {
     .map(|((((_, _), ip), _), _)| ip)
 }
 
-/// block_placeable ::= blank_block blank_inline? inline_placeable
 fn block_placeable<'a>() -> Parser<'a, BlockPlaceable> {
     ((blank_block() + blank_inline().opt()).collect() + call(inline_placeable))
         .map(|(bb, ip)| BlockPlaceable::new(bb.into(), ip))
 }
 
-/// Rules for validating expressions in Placeables and as selectors of
-/// SelectExpressions are documented in [spec/valid.md](https://github.com/projectfluent/fluent/blob/master/spec/valid.md) and enforced in
-/// [syntax/abstract.js](https://github.com/projectfluent/fluent/blob/master/syntax/abstract.js).
-///
-/// [InlineExpression](crate::ast::InlineExpression) ::= [StringLiteral](crate::ast::String:Literal)
-///    | [NumberLiteral](crate::ast::NumberLiteral)
-///    | [FunctionReference](crate::ast::FunctionReference)
-///    | [MessageReference](crate::ast::MessageReference)
-///    | [TermReference](crate::ast::TermReference)
-///    | [VariableReference](crate::ast::VariableReference)
-///    | inline_placeable
 fn inline_expression<'a>() -> Parser<'a, InlineExpression> {
     (string_literal().map(InlineExpression::StringLiteral)
         | number_literal().map(InlineExpression::NumberLiteral)
@@ -205,16 +143,13 @@ fn inline_expression<'a>() -> Parser<'a, InlineExpression> {
     .name(stringify!(inline_expression))
 }
 
-/// ## Literals
-///
-/// [StringLiteral](crate::ast::StringLiteral) ::= "\"" quoted_char* "\""
+// ## Literals
 fn string_literal<'a>() -> Parser<'a, StringLiteral> {
     (sym('"') * quoted_char().repeat(0..).collect() - sym('"'))
         .map(StringLiteral::from)
         .name(stringify!(string_literal))
 }
 
-/// [NumberLiteral](crate::ast::NumberLiteral) ::= "-"? digits ("." digits)?
 fn number_literal<'a>() -> Parser<'a, NumberLiteral> {
     (sym('-').opt() + digits() + (sym('.') + digits()).opt())
         .collect()
@@ -222,51 +157,44 @@ fn number_literal<'a>() -> Parser<'a, NumberLiteral> {
         .name(stringify!(number_literal))
 }
 
-/// ## Inline Expressions
-///
-/// [FunctionReference](crate::ast::FunctionReference) ::= [Identifier](crate::ast::Identifier) [CallArguments](crate::ast::CallArguments)
+// ## Inline Expressions
 fn function_reference<'a>() -> Parser<'a, FunctionReference> {
     (identifier() + call_arguments())
         .map(|(i, ca)| FunctionReference::new(i, ca))
         .name(stringify!(function_reference))
 }
 
-/// [MessageReference](crate::ast::MessageReference) ::= [Identifier](crate::ast::Identifier) [AttributeAccessor](crate::ast::AttributeAccessor)?
 fn message_reference<'a>() -> Parser<'a, MessageReference> {
     (identifier() + attribute_accessor().opt())
         .map(|(i, aa)| MessageReference::new(i, aa))
         .name(stringify!(message_reference))
 }
 
-/// [TermReference](crate::ast::TermReference) ::= "-" [Identifier](crate::ast::Identifier) [AttributeAccessor](crate::ast::AttributeAccessor)? [CallArguments](crate::ast::CallArguments)?
 fn term_reference<'a>() -> Parser<'a, TermReference> {
     (sym('-') + identifier() + attribute_accessor().opt() + call_arguments().opt())
         .map(|(((_, i), aa), ca)| TermReference::new(i, aa, ca))
         .name(stringify!(term_reference))
 }
 
-/// [VariableReference](crate::ast::VariableReference) ::= "$" [Identifier](crate::ast::Identifier)
 fn variable_reference<'a>() -> Parser<'a, VariableReference> {
     (sym('$') + identifier())
         .map(|(_, i)| VariableReference::from(i))
         .name(stringify!(variable_reference))
 }
 
-/// [AttributeAccessor](crate::ast::AttributeAccessor) ::= "." [Identifier](crate::ast::Identifier)
 fn attribute_accessor<'a>() -> Parser<'a, AttributeAccessor> {
     (sym('.') + identifier())
         .map(|(_, i)| AttributeAccessor::from(i))
         .name(stringify!(attribute_accessor))
 }
 
-/// [CallArguments](crate::ast::CallArguements) ::= blank? "(" blank? argument_list blank? ")"
 fn call_arguments<'a>() -> Parser<'a, CallArguments> {
     (blank().opt() + sym('(') + blank().opt() + argument_list() + blank().opt() + sym(')'))
         .map(|(((((_, _), _), al), _), _)| CallArguments::from(al.as_slice()))
         .name(stringify!(call_arguments))
 }
 
-/// argument_list ::= ([Argument](crate::ast::Argument) blank? "," blank?)* [Argument](crate::ast::Argument)?
+// argument_list ::= ([Argument](crate::ast::Argument) blank? "," blank?)* [Argument](crate::ast::Argument)?
 fn argument_list<'a>() -> Parser<'a, Vec<Argument>> {
     ((argument() + blank().opt() + sym(',') + blank().opt()).repeat(0..) + argument().opt()).map(
         |(args, arg)| {
@@ -279,8 +207,6 @@ fn argument_list<'a>() -> Parser<'a, Vec<Argument>> {
     )
 }
 
-/// [Argument](crate::ast::Argument) ::= [NamedArgument](crate::ast::NamedArgument)
-///    | [InlineExpression](crate::ast::InlineExpression)
 fn argument<'a>() -> Parser<'a, Argument> {
     named_argument().map(Argument::NamedArgument)
         | call(inline_expression)
@@ -288,7 +214,6 @@ fn argument<'a>() -> Parser<'a, Argument> {
             .name(stringify!(argument))
 }
 
-/// [NamedArgument](crate::ast::NamedArgument) ::= [Identifier](crate::ast::Identifier) blank? ":" blank? ([StringLiteral](crate::ast::StringLiteral) | [NumberLiteral](crate::ast::NumberLiteral))
 fn named_argument<'a>() -> Parser<'a, NamedArgument> {
     (identifier()
         + blank().opt()
@@ -299,36 +224,30 @@ fn named_argument<'a>() -> Parser<'a, NamedArgument> {
     .name(stringify!(named_argument))
 }
 
-/// ## Block Expressions
-///
-/// [SelectExpression](crate::ast::SelectExpression) ::= [InlineExpression](crate::ast::InlineExpression) blank? "->" blank_inline? variant_list
+// ## Block Expressions
 fn select_expression<'a>() -> Parser<'a, SelectExpression> {
     (call(inline_expression) + blank().opt() + seq("->") + blank_inline().opt() + variant_list())
         .map(|((((ie, _), _), _), vl)| SelectExpression::new(ie, vl))
         .name(stringify!(select_expression))
 }
 
-/// variant_list ::= [Variant](crate::ast::Variant)* [DefaultVariant](crate::ast::DefaultVariant) [Variant](crate::ast::Variant)* line_end
 fn variant_list<'a>() -> Parser<'a, VariantList> {
     (variant().repeat(0..) + default_variant() + variant().repeat(0..) + line_end())
         .map(|(((va, dv), vz), _)| VariantList::new(va, dv, vz))
 }
 
-/// [Variant](crate::ast::Variant) ::= line_end blank? [VariantKey](crate::ast::VariantKey) blank_inline? [Pattern](crate::ast::Pattern)
 fn variant<'a>() -> Parser<'a, Variant> {
     (line_end() + blank().opt() + variant_key() + blank_inline().opt() + pattern())
         .map(|((((_, _), vk), _), p)| Variant::new(vk, p))
         .name(stringify!(variant))
 }
 
-/// [DefaultVariant](crate::ast::DefaultVariant) ::= line_end blank? "*" [VariantKey](crate::ast::VariantKey) blank_inline? [Pattern](crate::ast::Pattern)
 fn default_variant<'a>() -> Parser<'a, DefaultVariant> {
     (line_end() + blank().opt() + sym('*') + variant_key() + blank_inline().opt() + pattern())
         .map(|(((((_, _), _), vk), _), p)| DefaultVariant::new(vk, p))
         .name(stringify!(default_variant))
 }
 
-/// [VariantKey](crate::ast::VariantKey) ::= "[" blank? ([NumberLiteral](crate::ast::NumberLiteral) | [Identifier](crate::ast::Identifier)) blank? "]"
 fn variant_key<'a>() -> Parser<'a, VariantKey> {
     (sym('[')
         + (number_literal().map(VariantKey::NumberLiteral)
@@ -338,9 +257,7 @@ fn variant_key<'a>() -> Parser<'a, VariantKey> {
     .map(|(((_, vk), _), _)| vk)
 }
 
-/// ## Identifier
-///
-/// [Identifier](crate::ast::Identifier) ::= [a-zA-Z] [a-zA-Z0-9_-]*
+// ## Identifier
 fn identifier<'a>() -> Parser<'a, Identifier> {
     (is_a(|c| c.is_ascii_alphabetic())
         + is_a(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-').repeat(0..))
