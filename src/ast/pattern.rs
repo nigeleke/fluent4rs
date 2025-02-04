@@ -15,6 +15,12 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Pattern(Vec<PatternElement>);
 
+impl Pattern {
+    pub fn pattern_elements(&self) -> &[PatternElement] {
+        self.0.as_slice()
+    }
+}
+
 impl From<&[PatternElement]> for Pattern {
     fn from(value: &[PatternElement]) -> Self {
         Self(Vec::from(value))

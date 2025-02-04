@@ -22,6 +22,14 @@ impl MessageReference {
             attribute_accessor,
         }
     }
+
+    pub fn identifier(&self) -> &Identifier {
+        &self.identifier
+    }
+
+    pub fn attribute_accessor(&self) -> Option<&AttributeAccessor> {
+        self.attribute_accessor.as_ref()
+    }
 }
 
 #[cfg(feature = "walker")]

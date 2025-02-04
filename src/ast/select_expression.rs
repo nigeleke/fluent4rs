@@ -22,6 +22,10 @@ impl SelectExpression {
             variant_list,
         }
     }
+
+    pub fn inline_expression(&self) -> &InlineExpression {
+        &self.inline_expression
+    }
 }
 
 #[cfg(feature = "walker")]

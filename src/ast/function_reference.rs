@@ -22,6 +22,14 @@ impl FunctionReference {
             call_arguments,
         }
     }
+
+    pub fn identifier(&self) -> &Identifier {
+        &self.identifier
+    }
+
+    pub fn call_arguments(&self) -> &CallArguments {
+        &self.call_arguments
+    }
 }
 
 #[cfg(feature = "walker")]

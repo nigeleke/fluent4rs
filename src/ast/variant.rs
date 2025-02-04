@@ -22,6 +22,14 @@ impl Variant {
             pattern,
         }
     }
+
+    pub fn variant_key(&self) -> &VariantKey {
+        &self.variant_key
+    }
+
+    pub fn pattern(&self) -> &Pattern {
+        &self.pattern
+    }
 }
 
 #[cfg(feature = "walker")]

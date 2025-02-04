@@ -28,6 +28,18 @@ impl TermReference {
             call_arguments,
         }
     }
+
+    pub fn identifier(&self) -> &Identifier {
+        &self.identifier
+    }
+
+    pub fn attribute_accessor(&self) -> Option<&AttributeAccessor> {
+        self.attribute_accessor.as_ref()
+    }
+
+    pub fn call_arguments(&self) -> Option<&CallArguments> {
+        self.call_arguments.as_ref()
+    }
 }
 
 #[cfg(feature = "walker")]

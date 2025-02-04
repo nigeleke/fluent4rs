@@ -12,6 +12,12 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct CallArguments(Vec<Argument>);
 
+impl CallArguments {
+    pub fn arguments(&self) -> &[Argument] {
+        self.0.as_slice()
+    }
+}
+
 impl From<&[Argument]> for CallArguments {
     fn from(value: &[Argument]) -> Self {
         Self(Vec::from(value))

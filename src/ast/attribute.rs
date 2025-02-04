@@ -22,6 +22,14 @@ impl Attribute {
             pattern,
         }
     }
+
+    pub fn identifer(&self) -> &Identifier {
+        &self.identifier
+    }
+
+    pub fn pattern(&self) -> &Pattern {
+        &self.pattern
+    }
 }
 
 #[cfg(feature = "walker")]
