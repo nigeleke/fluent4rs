@@ -12,6 +12,12 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct AttributeAccessor(Identifier);
 
+impl AttributeAccessor {
+    pub fn identifier(&self) -> &Identifier {
+        &self.0
+    }
+}
+
 impl From<Identifier> for AttributeAccessor {
     fn from(value: Identifier) -> Self {
         Self(value)

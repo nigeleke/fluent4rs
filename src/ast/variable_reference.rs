@@ -12,6 +12,12 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct VariableReference(Identifier);
 
+impl VariableReference {
+    pub fn identifier(&self) -> &Identifier {
+        &self.0
+    }
+}
+
 impl From<Identifier> for VariableReference {
     fn from(value: Identifier) -> Self {
         Self(value)
