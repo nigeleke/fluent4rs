@@ -38,7 +38,15 @@
 <a href="#37" id="37">37</a>
 <a href="#38" id="38">38</a>
 <a href="#39" id="39">39</a>
-<a href="#40" id="40">40</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{CallArguments, Identifier};
+<a href="#40" id="40">40</a>
+<a href="#41" id="41">41</a>
+<a href="#42" id="42">42</a>
+<a href="#43" id="43">43</a>
+<a href="#44" id="44">44</a>
+<a href="#45" id="45">45</a>
+<a href="#46" id="46">46</a>
+<a href="#47" id="47">47</a>
+<a href="#48" id="48">48</a></pre></div><pre class="rust"><code><span class="kw">use super</span>::{CallArguments, Identifier};
 
 <span class="attr">#[cfg(feature = <span class="string">"walker"</span>)]
 </span><span class="kw">use </span><span class="kw">crate</span>::walker::{Visitor, Walkable};
@@ -61,6 +69,14 @@
             identifier,
             call_arguments,
         }
+    }
+
+    <span class="kw">pub fn </span>identifier(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>Identifier {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.identifier
+    }
+
+    <span class="kw">pub fn </span>call_arguments(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>CallArguments {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.call_arguments
     }
 }
 
