@@ -45,7 +45,7 @@ impl std::fmt::Display for ResourceItem {
 /// Note: This is defined in the fluent EBNF as [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
 ///
 /// An FTL file defines a [Resource](crate::ast::Resource) consisting of entries.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub struct Resource(Vec<ResourceItem>);
