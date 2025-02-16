@@ -23,8 +23,20 @@ impl MessageReference {
         }
     }
 
+    /// Returns the message identifier.
+    ///
+    ///  Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
+    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
+    }
+
+    /// Returns the message identifier _name_.
+    ///
+    /// Note: Differentiates the [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference)
+    /// [Identifier](crate::ast::Identifier) name by using the '-' prefix for the [TermReference](crate::ast::TermReference).
+    pub fn identifier_name(&self) -> String {
+        self.identifier.to_string()
     }
 
     pub fn attribute_accessor(&self) -> Option<&AttributeAccessor> {
