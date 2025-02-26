@@ -3,7 +3,7 @@
 # Publish cycle comprises:
 # - publish site, coverage reports and API documentation to https://nigeleke.github.io
 #
-name: Publish Cycle
+name: Github Pages Publish
 
 on:
     workflow_run:
