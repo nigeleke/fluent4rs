@@ -1,7 +1,23 @@
 [package]
 name = "fluent4rs"
 version = "0.1.35"
+description = """
+Parser / codec for [Fluent FTL files](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf), written for [lingora](https://github.com/nigeleke/lingora)
+(a localization management program), and may be found to be useful outside of that context.
+
+It is not intended to replace any aspects of the [fluent-rs](https://github.com/projectfluent/fluent-rs)
+crate implemented by [Project Fluent](https://projectfluent.org/), and, for the majority of language
+translation needs, the reader is referred back to that crate.
+"""
 edition = "2021"
+license = "MIT"
+repository = "https://github.com/nigeleke/fluent4rs"
+readme = "README.md"
+categories = ["internationalization", "localization"]
+keywords = ["fluent", "parser", "codec", "i18n", "l10n"]
+authors = ["Nigel Eke"]
+documentation = "https://docs.rs/fluent4rs"
+homepage = "https://nigeleke.github.io/fluent4rs/"
 
 [dependencies]
 pom = "3.4"
