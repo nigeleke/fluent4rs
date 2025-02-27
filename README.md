@@ -6,7 +6,7 @@
 [![Coverage](https://img.shields.io/codecov/c/github/nigeleke/fluent4rs?style=plastic)](https://codecov.io/gh/nigeleke/fluent4rs)
 ![Version](https://img.shields.io/github/v/tag/nigeleke/fluent4rs?style=plastic)
 
-  [Site](https://nigeleke.github.io/fluent4rs) \| [GitHub](https://github.com/nigeleke/fluent4rs) \| [API](https://nigeleke.github.io/fluent4rs/api/fluent4rs/index.html) \| [Coverage Report](https://nigeleke.github.io/fluent4rs/coverage/index.html)
+  [Site](https://nigeleke.github.io/fluent4rs) \| [GitHub](https://github.com/nigeleke/fluent4rs) \| [API](https://docs.rs/fluent4rs/latest/fluent4rs/) \| [Coverage Report](https://app.codecov.io/gh/nigeleke/fluent4rs)
 
 A Fluent (language translation) resource file codec.
 
