@@ -26,10 +26,6 @@ impl NamedArgument {
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }
-
-    pub fn literal(&self) -> &Literal {
-        &self.literal
-    }
 }
 
 #[cfg(feature = "walker")]

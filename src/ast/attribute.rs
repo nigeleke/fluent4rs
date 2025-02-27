@@ -23,7 +23,7 @@ impl Attribute {
         }
     }
 
-    pub fn identifer(&self) -> &Identifier {
+    pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }
 

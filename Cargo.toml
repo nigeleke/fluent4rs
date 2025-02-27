@@ -36,3 +36,8 @@ trace = ["walker"]
 
 [workspace.metadata.clippy]
 warn = "deny"
+
+[[test]]
+name = "ast_spec"
+path = "tests/ast_spec.rs"
+required-features = ["walker"]

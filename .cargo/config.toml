@@ -1,0 +1,2 @@
+[env]
+CARGO_FEATURES = "--all-features"
