@@ -9,6 +9,7 @@ struct TestVisitor;
 impl Visitor for TestVisitor {
     fn visit_attribute(&mut self, node: &Attribute) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
+        assert_eq!(&node.identifier_name().type_id(), &TypeId::of::<String>());
         assert_eq!(&node.pattern().type_id(), &TypeId::of::<Pattern>());
     }
 

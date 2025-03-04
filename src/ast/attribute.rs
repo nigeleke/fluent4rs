@@ -23,8 +23,20 @@ impl Attribute {
         }
     }
 
+    /// Returns the attribute identifier.
+    ///
+    ///  Note: a [Message](crate::ast::Message) and [Term](crate::ast::Term) [Identifier](crate::ast::Identifier)
+    ///  may also be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
+    }
+
+    /// Returns the message identifier _name_.
+    ///
+    /// Note: Differentiates the [Message](crate::ast::Message) and [Term](crate::ast::Term)
+    /// [Identifier](crate::ast::Identifier) name by using the '.' prefix for the [Term](crate::ast::Term).
+    pub fn identifier_name(&self) -> String {
+        format!(".{}", self.identifier)
     }
 
     pub fn pattern(&self) -> &Pattern {
