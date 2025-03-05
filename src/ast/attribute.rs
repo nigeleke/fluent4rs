@@ -31,7 +31,7 @@ impl Attribute {
         &self.identifier
     }
 
-    /// Returns the message identifier _name_.
+    /// Returns the attribute identifier _name_.
     ///
     /// Note: Differentiates the [Message](crate::ast::Message) and [Term](crate::ast::Term)
     /// [Identifier](crate::ast::Identifier) name by using the '.' prefix for the [Term](crate::ast::Term).

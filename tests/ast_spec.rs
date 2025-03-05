@@ -15,6 +15,7 @@ impl Visitor for TestVisitor {
 
     fn visit_attribute_accessor(&mut self, node: &AttributeAccessor) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
+        assert_eq!(&node.identifier_name().type_id(), &TypeId::of::<String>());
     }
 
     fn visit_call_arguments(&mut self, node: &CallArguments) {

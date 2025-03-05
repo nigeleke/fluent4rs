@@ -13,8 +13,20 @@ use serde::{Deserialize, Serialize};
 pub struct AttributeAccessor(Identifier);
 
 impl AttributeAccessor {
+    /// Returns the attribute accessor identifier.
+    ///
+    ///  Note: a [Message](crate::ast::Message) and [Term](crate::ast::Term) [Identifier](crate::ast::Identifier)
+    ///  may also be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.0
+    }
+
+    /// Returns the attribute accessor identifier _name_.
+    ///
+    /// Note: Differentiates the [Message](crate::ast::Message) and [Term](crate::ast::Term)
+    /// [Identifier](crate::ast::Identifier) name by using the '.' prefix for the [Term](crate::ast::Term).
+    pub fn identifier_name(&self) -> String {
+        format!(".{}", self.0)
     }
 }
 
