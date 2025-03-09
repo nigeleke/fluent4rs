@@ -51,6 +51,6 @@ cargo test --all-features
 
 ## AST Image View
 
-![Railroad](fluent_ebnf.svg)
+![Railroad](doc/fluent_ebnf.svg)
 
-![Relationships](fluent_relationships.svg)
+![Relationships](doc/fluent_relationships.svg)
