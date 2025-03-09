@@ -1,6 +1,6 @@
 [package]
 name = "fluent4rs"
-version = "1.0.8"
+version = "1.0.9"
 description = """
 Parser / codec for [Fluent FTL files](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf), written for [lingora](https://github.com/nigeleke/lingora)
 (a localization management program), and may be found to be useful outside of that context.
