@@ -27,6 +27,9 @@ jobs:
 
             - name: Test
               run: |
+                  git status
+                  echo "***** BB"
+                  cat README.md | grep svg
                   cargo test --all-features
                   rustup toolchain install nightly
                   rustup component add llvm-tools-preview --toolchain nightly
@@ -55,8 +58,12 @@ jobs:
 
             - name: Build
               run: |
+                  echo "***** B2"
+                  cat README.md | grep svg
                   git config --global user.email "nigeleke@users.noreply.github.com"
                   git config --global user.name "Nigel Eke"
                   git merge origin/develop
+                  echo "***** B3"
+                  cat README.md | grep svg
                   cargo install cargo-workspaces
                   cargo workspaces -v version --allow-branch main --yes patch
