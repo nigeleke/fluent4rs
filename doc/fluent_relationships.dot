@@ -1,0 +1,83 @@
+digraph G {
+
+Resource -> Entry
+Resource -> Junk
+
+Entry -> Message
+Entry -> Term
+Entry -> CommentLine
+
+Message -> Identifier
+Message -> Pattern
+Message -> Attribute
+
+Term -> Identifier
+Term -> Pattern
+Term -> Attribute
+
+CommentLine
+
+Junk
+
+Attribute -> Identifier
+Attribute -> Pattern
+
+Pattern -> PatternElement
+
+PatternElement -> inline_text
+PatternElement -> block_text
+PatternElement -> inline_placeable
+PatternElement -> block_placeable
+
+inline_placeable -> SelectExpression
+inline_placeable -> InlineExpression
+
+block_placeable -> inline_placeable
+
+InlineExpression -> StringLiteral
+InlineExpression -> NumberLiteral
+InlineExpression -> FunctionReference
+InlineExpression -> MessageReference
+InlineExpression -> TermReference
+InlineExpression -> VariableReference
+InlineExpression -> inline_placeable
+
+StringLiteral
+
+NumberLiteral
+
+FunctionReference -> Identifier
+FunctionReference -> CallArguments
+
+MessageReference -> Identifier
+MessageReference -> AttributeAccessor
+
+TermReference -> Identifier
+TermReference -> AttributeAccessor
+TermReference -> CallArguments
+
+VariableReference -> Identifier
+
+AttributeAccessor -> Identifier
+
+CallArguments -> Argument
+
+Argument -> NamedArgument
+Argument -> InlineExpression
+
+NamedArgument -> Identifier
+NamedArgument -> StringLiteral
+NamedArgument -> NumberLiteral
+
+SelectExpression -> InlineExpression
+SelectExpression -> Variant_
+
+Variant_ -> VariantKey
+Variant_ -> Pattern
+
+VariantKey -> NumberLiteral
+VariantKey -> Identifier
+
+Identifier
+
+}
