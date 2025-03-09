@@ -6,9 +6,9 @@ use crate::walker::{Visitor, Walkable};
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-/// [ResourceItem](crate::ast::ResourceItem) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
-///
-/// Note: This is not defined in the fluent EBNF.
+// [ResourceItem](crate::ast::ResourceItem) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
+//
+// Note: This is not defined in the fluent EBNF.
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
@@ -40,9 +40,7 @@ impl std::fmt::Display for ResourceItem {
     }
 }
 
-/// [Resource](crate::ast::Resource) ::= [ResourceItem](crate::ast::ResourceItem)*
-///
-/// Note: This is defined in the fluent EBNF as [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
+/// [Resource](crate::ast::Resource) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
 ///
 /// An FTL file defines a [Resource](crate::ast::Resource) consisting of entries.
 #[derive(Clone, Debug, Default, PartialEq)]

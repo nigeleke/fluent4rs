@@ -29,9 +29,10 @@ jobs:
                   rustup toolchain install nightly
                   rustup component add llvm-tools-preview --toolchain nightly
                   cargo install cargo-llvm-cov
-                  mkdir docs0
+                  mkdir -p docs0/doc
+                  echo "**** 1"
+                  cat README.md | grep svg
                   cp README.md docs0/
-                  mkdir docs0/doc
                   cp doc/*.svg docs0/doc/
                   cargo llvm-cov --all-features --cobertura --output-path=cobertura.xml
 
@@ -53,6 +54,12 @@ jobs:
                   git checkout gh-pages
                   rm -rf docs
                   mv docs0 docs
+                  echo "**** 2a"
+                  cat docs/README.md | grep svg
+                  echo "**** 2b"
+                  ls docs
+                  echo "**** 2c"
+                  ls docs/doc
                   git add .
                   git commit -m "Release $VERSION"
                   git push
