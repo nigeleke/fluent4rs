@@ -18,6 +18,7 @@ keywords = ["fluent", "parser", "codec", "i18n", "l10n"]
 authors = ["Nigel Eke"]
 documentation = "https://docs.rs/fluent4rs"
 homepage = "https://nigeleke.github.io/fluent4rs/"
+include = ["doc/*.svg"]
 
 [dependencies]
 pom = "3.4"
