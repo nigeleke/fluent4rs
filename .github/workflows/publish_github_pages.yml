@@ -31,7 +31,8 @@ jobs:
                   cargo install cargo-llvm-cov
                   mkdir docs0
                   cp README.md docs0/
-                  cp doc/*.svg docs0/
+                  mkdir docs0/doc
+                  cp doc/*.svg docs0/doc/
                   cargo llvm-cov --all-features --cobertura --output-path=cobertura.xml
 
             - name: Publish to Codecov
