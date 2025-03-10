@@ -36,6 +36,7 @@ impl DefaultVariant {
 impl Walkable for DefaultVariant {
     fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
         visitor.visit_default_variant(depth, self);
+        self.variant_key.walk(depth + 1, visitor);
         self.pattern.walk(depth + 1, visitor);
     }
 }
