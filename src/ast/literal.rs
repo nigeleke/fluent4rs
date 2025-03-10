@@ -31,10 +31,10 @@ impl From<StringLiteral> for Literal {
 
 #[cfg(feature = "walker")]
 impl Walkable for Literal {
-    fn walk(&self, visitor: &mut dyn Visitor) {
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
         match self {
-            Self::Number(literal) => literal.walk(visitor),
-            Self::String(literal) => literal.walk(visitor),
+            Self::Number(literal) => literal.walk(depth, visitor),
+            Self::String(literal) => literal.walk(depth, visitor),
         }
     }
 }

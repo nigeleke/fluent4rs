@@ -26,9 +26,9 @@ impl From<&[Argument]> for CallArguments {
 
 #[cfg(feature = "walker")]
 impl Walkable for CallArguments {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_call_arguments(self);
-        self.0.iter().for_each(|a| a.walk(visitor));
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_call_arguments(depth, self);
+        self.0.iter().for_each(|a| a.walk(depth + 1, visitor));
     }
 }
 

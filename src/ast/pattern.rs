@@ -29,9 +29,9 @@ impl From<&[PatternElement]> for Pattern {
 
 #[cfg(feature = "walker")]
 impl Walkable for Pattern {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_pattern(self);
-        self.0.iter().for_each(|pe| pe.walk(visitor));
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_pattern(depth, self);
+        self.0.iter().for_each(|pe| pe.walk(depth + 1, visitor));
     }
 }
 

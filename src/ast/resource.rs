@@ -20,10 +20,10 @@ pub enum ResourceItem {
 
 #[cfg(feature = "walker")]
 impl Walkable for ResourceItem {
-    fn walk(&self, visitor: &mut dyn Visitor) {
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
         match self {
-            Self::Entry(entry) => entry.walk(visitor),
-            Self::Junk(junk) => junk.walk(visitor),
+            Self::Entry(entry) => entry.walk(depth, visitor),
+            Self::Junk(junk) => junk.walk(depth, visitor),
             _ => {}
         }
     }
@@ -100,9 +100,9 @@ impl From<Vec<ResourceItem>> for Resource {
 
 #[cfg(feature = "walker")]
 impl Walkable for Resource {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_resource(self);
-        self.0.iter().for_each(|e| e.walk(visitor));
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_resource(depth, self);
+        self.0.iter().for_each(|e| e.walk(depth + 1, visitor));
     }
 }
 

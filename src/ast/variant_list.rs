@@ -32,10 +32,12 @@ impl VariantList {
 
 #[cfg(feature = "walker")]
 impl Walkable for VariantList {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        self.pre_default.iter().for_each(|v| v.walk(visitor));
-        self.default.walk(visitor);
-        self.post_default.iter().for_each(|v| v.walk(visitor));
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        self.pre_default.iter().for_each(|v| v.walk(depth, visitor));
+        self.default.walk(depth, visitor);
+        self.post_default
+            .iter()
+            .for_each(|v| v.walk(depth, visitor));
     }
 }
 

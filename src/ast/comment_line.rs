@@ -24,8 +24,8 @@ impl CommentLine {
 
 #[cfg(feature = "walker")]
 impl Walkable for CommentLine {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_comment_line(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_comment_line(depth, self);
     }
 }
 

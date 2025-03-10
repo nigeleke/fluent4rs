@@ -26,8 +26,8 @@ impl BlockPlaceable {
 
 #[cfg(feature = "walker")]
 impl Walkable for BlockPlaceable {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        self.inline_placeable.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        self.inline_placeable.walk(depth, visitor);
     }
 }
 

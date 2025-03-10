@@ -22,13 +22,13 @@ pub enum PatternElement {
 
 #[cfg(feature = "walker")]
 impl Walkable for PatternElement {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_pattern_element(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_pattern_element(depth, self);
         match self {
             Self::InlineText(_text) => {}
             Self::BlockText(_block) => {}
-            Self::InlinePlaceable(text) => text.walk(visitor),
-            Self::BlockPlaceable(block) => block.walk(visitor),
+            Self::InlinePlaceable(text) => text.walk(depth + 1, visitor),
+            Self::BlockPlaceable(block) => block.walk(depth + 1, visitor),
         }
     }
 }

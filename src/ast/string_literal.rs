@@ -18,8 +18,8 @@ impl From<&str> for StringLiteral {
 
 #[cfg(feature = "walker")]
 impl Walkable for StringLiteral {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_string_literal(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_string_literal(depth, self);
     }
 }
 

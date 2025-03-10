@@ -29,12 +29,12 @@ pub enum Entry {
 
 #[cfg(feature = "walker")]
 impl Walkable for Entry {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_entry(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_entry(depth, self);
         match self {
-            Self::Message(message) => message.walk(visitor),
-            Self::Term(term) => term.walk(visitor),
-            Self::CommentLine(comment) => comment.walk(visitor),
+            Self::Message(message) => message.walk(depth + 1, visitor),
+            Self::Term(term) => term.walk(depth + 1, visitor),
+            Self::CommentLine(comment) => comment.walk(depth + 1, visitor),
         }
     }
 }

@@ -26,9 +26,9 @@ impl From<Identifier> for VariableReference {
 
 #[cfg(feature = "walker")]
 impl Walkable for VariableReference {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_variable_reference(self);
-        self.0.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_variable_reference(depth, self);
+        self.0.walk(depth + 1, visitor);
     }
 }
 

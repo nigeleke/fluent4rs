@@ -32,13 +32,13 @@ impl MessageArguments {
 
 #[cfg(feature = "walker")]
 impl Walkable for MessageArguments {
-    fn walk(&self, visitor: &mut dyn Visitor) {
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
         match self {
             Self::Patterned(pattern, attributes) => {
-                pattern.walk(visitor);
-                attributes.iter().for_each(|a| a.walk(visitor));
+                pattern.walk(depth, visitor);
+                attributes.iter().for_each(|a| a.walk(depth, visitor));
             }
-            Self::Plain(attributes) => attributes.iter().for_each(|a| a.walk(visitor)),
+            Self::Plain(attributes) => attributes.iter().for_each(|a| a.walk(depth, visitor)),
         }
     }
 }
@@ -110,10 +110,10 @@ impl Message {
 
 #[cfg(feature = "walker")]
 impl Walkable for Message {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_message(self);
-        self.identifier.walk(visitor);
-        self.arguments.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_message(depth, self);
+        self.identifier.walk(depth + 1, visitor);
+        self.arguments.walk(depth + 1, visitor);
     }
 }
 

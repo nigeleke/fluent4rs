@@ -46,10 +46,10 @@ impl Attribute {
 
 #[cfg(feature = "walker")]
 impl Walkable for Attribute {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_attribute(self);
-        self.identifier.walk(visitor);
-        self.pattern.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_attribute(depth, self);
+        self.identifier.walk(depth + 1, visitor);
+        self.pattern.walk(depth + 1, visitor);
     }
 }
 

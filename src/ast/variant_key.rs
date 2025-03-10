@@ -17,11 +17,11 @@ pub enum VariantKey {
 
 #[cfg(feature = "walker")]
 impl Walkable for VariantKey {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_variant_key(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_variant_key(depth, self);
         match self {
-            Self::NumberLiteral(literal) => literal.walk(visitor),
-            Self::Identifier(identifier) => identifier.walk(visitor),
+            Self::NumberLiteral(literal) => literal.walk(depth + 1, visitor),
+            Self::Identifier(identifier) => identifier.walk(depth + 1, visitor),
         }
     }
 }

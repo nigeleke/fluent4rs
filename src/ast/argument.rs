@@ -18,11 +18,11 @@ pub enum Argument {
 
 #[cfg(feature = "walker")]
 impl Walkable for Argument {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_argument(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_argument(depth, self);
         match self {
-            Self::NamedArgument(argument) => argument.walk(visitor),
-            Self::InlineExpression(expression) => expression.walk(visitor),
+            Self::NamedArgument(argument) => argument.walk(depth + 1, visitor),
+            Self::InlineExpression(expression) => expression.walk(depth + 1, visitor),
         }
     }
 }

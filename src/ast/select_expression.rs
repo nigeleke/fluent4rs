@@ -30,10 +30,10 @@ impl SelectExpression {
 
 #[cfg(feature = "walker")]
 impl Walkable for SelectExpression {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_select_expression(self);
-        self.inline_expression.walk(visitor);
-        self.variant_list.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_select_expression(depth, self);
+        self.inline_expression.walk(depth + 1, visitor);
+        self.variant_list.walk(depth + 1, visitor);
     }
 }
 

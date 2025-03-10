@@ -17,10 +17,10 @@ pub enum InlinePlaceable {
 
 #[cfg(feature = "walker")]
 impl Walkable for InlinePlaceable {
-    fn walk(&self, visitor: &mut dyn Visitor) {
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
         match self {
-            Self::SelectExpression(expression) => expression.walk(visitor),
-            Self::InlineExpression(expression) => expression.walk(visitor),
+            Self::SelectExpression(expression) => expression.walk(depth, visitor),
+            Self::InlineExpression(expression) => expression.walk(depth, visitor),
         }
     }
 }

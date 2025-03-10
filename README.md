@@ -35,13 +35,13 @@ translation needs, the reader is referred back to that crate.
 
 ## Features
 
-| __Feature__ | __Description__                                                     |
-|-------------|---------------------------------------------------------------------|
-| default     | All features are disabled                                           |
-| hash        | Allow AST nodes to be hashed, for potential usages in `HashMap`s    |
-| serde       | Allow AST nodes to be serialised / deserialised                     |
-| trace       | Include tracing to stderr in the DefaultVisitor implementation      |
-| walker      | Provide AST walker and visitors                                     |
+| __Feature__  | __Description__                                                     |
+|--------------|---------------------------------------------------------------------|
+| default      | All features are disabled                                           |
+| hash         | Allow AST nodes to be hashed, for potential usages in `HashMap`s    |
+| serde        | Allow AST nodes to be serialised / deserialised                     |
+| trace        | Include tracing to stderr in the DefaultVisitor implementation      |
+| walker       | Provide AST walker and visitors                                     |
 
 ## Development
 

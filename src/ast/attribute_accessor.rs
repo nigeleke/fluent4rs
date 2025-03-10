@@ -38,9 +38,9 @@ impl From<Identifier> for AttributeAccessor {
 
 #[cfg(feature = "walker")]
 impl Walkable for AttributeAccessor {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_attribute_accessor(self);
-        self.0.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_attribute_accessor(depth, self);
+        self.0.walk(depth, visitor);
     }
 }
 

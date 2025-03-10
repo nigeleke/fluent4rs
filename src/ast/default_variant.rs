@@ -34,9 +34,9 @@ impl DefaultVariant {
 
 #[cfg(feature = "walker")]
 impl Walkable for DefaultVariant {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_default_variant(self);
-        self.pattern.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_default_variant(depth, self);
+        self.pattern.walk(depth + 1, visitor);
     }
 }
 

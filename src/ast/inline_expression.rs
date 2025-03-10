@@ -35,16 +35,16 @@ pub enum InlineExpression {
 
 #[cfg(feature = "walker")]
 impl Walkable for InlineExpression {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_inline_expression(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_inline_expression(depth, self);
         match self {
-            Self::StringLiteral(literal) => literal.walk(visitor),
-            Self::NumberLiteral(literal) => literal.walk(visitor),
-            Self::FunctionReference(reference) => reference.walk(visitor),
-            Self::MessageReference(reference) => reference.walk(visitor),
-            Self::TermReference(reference) => reference.walk(visitor),
-            Self::VariableReference(reference) => reference.walk(visitor),
-            Self::InlinePlaceable(inline) => inline.walk(visitor),
+            Self::StringLiteral(literal) => literal.walk(depth + 1, visitor),
+            Self::NumberLiteral(literal) => literal.walk(depth + 1, visitor),
+            Self::FunctionReference(reference) => reference.walk(depth + 1, visitor),
+            Self::MessageReference(reference) => reference.walk(depth + 1, visitor),
+            Self::TermReference(reference) => reference.walk(depth + 1, visitor),
+            Self::VariableReference(reference) => reference.walk(depth + 1, visitor),
+            Self::InlinePlaceable(inline) => inline.walk(depth + 1, visitor),
         }
     }
 }

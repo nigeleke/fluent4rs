@@ -30,8 +30,8 @@ impl From<&[String]> for Junk {
 
 #[cfg(feature = "walker")]
 impl Walkable for Junk {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_junk(self);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_junk(depth, self);
     }
 }
 

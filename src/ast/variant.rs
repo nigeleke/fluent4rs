@@ -34,10 +34,10 @@ impl Variant {
 
 #[cfg(feature = "walker")]
 impl Walkable for Variant {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_variant(self);
-        self.variant_key.walk(visitor);
-        self.pattern.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_variant(depth, self);
+        self.variant_key.walk(depth + 1, visitor);
+        self.pattern.walk(depth + 1, visitor);
     }
 }
 

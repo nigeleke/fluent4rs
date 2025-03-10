@@ -54,10 +54,12 @@ impl Term {
 
 #[cfg(feature = "walker")]
 impl Walkable for Term {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_term(self);
-        self.pattern().walk(visitor);
-        self.attributes().iter().for_each(|a| a.walk(visitor));
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_term(depth, self);
+        self.pattern().walk(depth + 1, visitor);
+        self.attributes()
+            .iter()
+            .for_each(|a| a.walk(depth + 1, visitor));
     }
 }
 

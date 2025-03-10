@@ -30,10 +30,10 @@ impl NamedArgument {
 
 #[cfg(feature = "walker")]
 impl Walkable for NamedArgument {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_named_argument(self);
-        self.identifier.walk(visitor);
-        self.literal.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_named_argument(depth, self);
+        self.identifier.walk(depth + 1, visitor);
+        self.literal.walk(depth + 1, visitor);
     }
 }
 

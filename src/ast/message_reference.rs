@@ -46,12 +46,12 @@ impl MessageReference {
 
 #[cfg(feature = "walker")]
 impl Walkable for MessageReference {
-    fn walk(&self, visitor: &mut dyn Visitor) {
-        visitor.visit_message_reference(self);
-        self.identifier.walk(visitor);
+    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+        visitor.visit_message_reference(depth, self);
+        self.identifier.walk(depth + 1, visitor);
         self.attribute_accessor
             .iter()
-            .for_each(|aa| aa.walk(visitor));
+            .for_each(|aa| aa.walk(depth + 1, visitor));
     }
 }
 
