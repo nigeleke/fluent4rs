@@ -22,7 +22,6 @@ jobs:
                   cargo build --features=serde
                   cargo build --features=trace
                   cargo build --features=walker
-                  cargo build --features=walker_depth
                   cargo build --all-features
 
             - name: Lint
@@ -32,7 +31,6 @@ jobs:
                   cargo clippy --features=serde
                   cargo clippy --features=trace
                   cargo clippy --features=walker
-                  cargo clippy --features=walker_depth
                   cargo clippy --all-features
 
             - name: Test
@@ -42,5 +40,4 @@ jobs:
                   cargo test --features=serde
                   cargo test --features=trace
                   cargo test --features=walker
-                  cargo test --features=walker_depth
                   cargo test --all-features
