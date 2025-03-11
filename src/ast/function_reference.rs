@@ -27,6 +27,10 @@ impl FunctionReference {
         &self.identifier
     }
 
+    pub fn identifier_name(&self) -> String {
+        self.identifier.to_string()
+    }
+
     pub fn call_arguments(&self) -> &CallArguments {
         &self.call_arguments
     }

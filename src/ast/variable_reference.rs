@@ -16,6 +16,10 @@ impl VariableReference {
     pub fn identifier(&self) -> &Identifier {
         &self.0
     }
+
+    pub fn identifier_name(&self) -> String {
+        format!("${}", self.0)
+    }
 }
 
 impl From<Identifier> for VariableReference {
