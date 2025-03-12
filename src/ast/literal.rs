@@ -1,7 +1,7 @@
 use super::{NumberLiteral, StringLiteral};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -31,10 +31,10 @@ impl From<StringLiteral> for Literal {
 
 #[cfg(feature = "walker")]
 impl Walkable for Literal {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+    fn walk(&self, visitor: &mut dyn Visitor) {
         match self {
-            Self::Number(literal) => literal.walk(depth, visitor),
-            Self::String(literal) => literal.walk(depth, visitor),
+            Self::Number(literal) => Walker::walk(literal, visitor),
+            Self::String(literal) => Walker::walk(literal, visitor),
         }
     }
 }

@@ -7,27 +7,27 @@ use pretty_assertions::assert_eq;
 struct TestVisitor;
 
 impl Visitor for TestVisitor {
-    fn visit_attribute(&mut self, _depth: usize, node: &Attribute) {
+    fn visit_attribute(&mut self, node: &Attribute) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
         assert_eq!(&node.identifier_name().type_id(), &TypeId::of::<String>());
         assert_eq!(&node.pattern().type_id(), &TypeId::of::<Pattern>());
     }
 
-    fn visit_attribute_accessor(&mut self, _depth: usize, node: &AttributeAccessor) {
+    fn visit_attribute_accessor(&mut self, node: &AttributeAccessor) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
         assert_eq!(&node.identifier_name().type_id(), &TypeId::of::<String>());
     }
 
-    fn visit_call_arguments(&mut self, _depth: usize, node: &CallArguments) {
+    fn visit_call_arguments(&mut self, node: &CallArguments) {
         assert_eq!(&node.arguments().type_id(), &TypeId::of::<[Argument]>());
     }
 
-    fn visit_default_variant(&mut self, _depth: usize, node: &DefaultVariant) {
+    fn visit_default_variant(&mut self, node: &DefaultVariant) {
         assert_eq!(&node.variant_key().type_id(), &TypeId::of::<VariantKey>());
         assert_eq!(&node.pattern().type_id(), &TypeId::of::<Pattern>());
     }
 
-    fn visit_function_reference(&mut self, _depth: usize, node: &FunctionReference) {
+    fn visit_function_reference(&mut self, node: &FunctionReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
         assert_eq!(
             &node.call_arguments().type_id(),
@@ -35,7 +35,7 @@ impl Visitor for TestVisitor {
         );
     }
 
-    fn visit_message_reference(&mut self, _depth: usize, node: &MessageReference) {
+    fn visit_message_reference(&mut self, node: &MessageReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
         assert_eq!(&node.identifier_name(), &node.identifier().to_string());
         if let Some(attribute_accessor) = node.attribute_accessor() {
@@ -46,25 +46,25 @@ impl Visitor for TestVisitor {
         }
     }
 
-    fn visit_named_argument(&mut self, _depth: usize, node: &NamedArgument) {
+    fn visit_named_argument(&mut self, node: &NamedArgument) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
     }
 
-    fn visit_pattern(&mut self, _depth: usize, node: &Pattern) {
+    fn visit_pattern(&mut self, node: &Pattern) {
         assert_eq!(
             &node.pattern_elements().type_id(),
             &TypeId::of::<[PatternElement]>()
         );
     }
 
-    fn visit_select_expression(&mut self, _depth: usize, node: &SelectExpression) {
+    fn visit_select_expression(&mut self, node: &SelectExpression) {
         assert_eq!(
             &node.inline_expression().type_id(),
             &TypeId::of::<InlineExpression>()
         );
     }
 
-    fn visit_term_reference(&mut self, _depth: usize, node: &TermReference) {
+    fn visit_term_reference(&mut self, node: &TermReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
         assert_eq!(
             &node.identifier_name(),
@@ -81,11 +81,11 @@ impl Visitor for TestVisitor {
         }
     }
 
-    fn visit_variable_reference(&mut self, _depth: usize, node: &VariableReference) {
+    fn visit_variable_reference(&mut self, node: &VariableReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
     }
 
-    fn visit_variant(&mut self, _depth: usize, node: &Variant) {
+    fn visit_variant(&mut self, node: &Variant) {
         assert_eq!(&node.variant_key().type_id(), &TypeId::of::<VariantKey>());
         assert_eq!(&node.pattern().type_id(), &TypeId::of::<Pattern>());
     }

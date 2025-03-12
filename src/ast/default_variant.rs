@@ -1,7 +1,7 @@
 use super::{Pattern, VariantKey};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -34,10 +34,10 @@ impl DefaultVariant {
 
 #[cfg(feature = "walker")]
 impl Walkable for DefaultVariant {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_default_variant(depth, self);
-        self.variant_key.walk(depth + 1, visitor);
-        self.pattern.walk(depth + 1, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_default_variant(self);
+        Walker::walk(&self.variant_key, visitor);
+        Walker::walk(&self.pattern, visitor);
     }
 }
 

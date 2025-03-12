@@ -18,8 +18,8 @@ impl From<&str> for Identifier {
 
 #[cfg(feature = "walker")]
 impl Walkable for Identifier {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_identifier(depth, self);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_identifier(self);
     }
 }
 

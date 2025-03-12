@@ -1,7 +1,7 @@
 use super::{Attribute, Identifier, Pattern};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -32,13 +32,13 @@ impl MessageArguments {
 
 #[cfg(feature = "walker")]
 impl Walkable for MessageArguments {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+    fn walk(&self, visitor: &mut dyn Visitor) {
         match self {
             Self::Patterned(pattern, attributes) => {
-                pattern.walk(depth, visitor);
-                attributes.iter().for_each(|a| a.walk(depth, visitor));
+                Walker::walk(pattern, visitor);
+                attributes.iter().for_each(|a| Walker::walk(a, visitor));
             }
-            Self::Plain(attributes) => attributes.iter().for_each(|a| a.walk(depth, visitor)),
+            Self::Plain(attributes) => attributes.iter().for_each(|a| Walker::walk(a, visitor)),
         }
     }
 }
@@ -110,10 +110,10 @@ impl Message {
 
 #[cfg(feature = "walker")]
 impl Walkable for Message {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_message(depth, self);
-        self.identifier.walk(depth + 1, visitor);
-        self.arguments.walk(depth + 1, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_message(self);
+        Walker::walk(&self.identifier, visitor);
+        Walker::walk(&self.arguments, visitor);
     }
 }
 

@@ -4,7 +4,7 @@ use super::{
 };
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -35,16 +35,16 @@ pub enum InlineExpression {
 
 #[cfg(feature = "walker")]
 impl Walkable for InlineExpression {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_inline_expression(depth, self);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_inline_expression(self);
         match self {
-            Self::StringLiteral(literal) => literal.walk(depth + 1, visitor),
-            Self::NumberLiteral(literal) => literal.walk(depth + 1, visitor),
-            Self::FunctionReference(reference) => reference.walk(depth + 1, visitor),
-            Self::MessageReference(reference) => reference.walk(depth + 1, visitor),
-            Self::TermReference(reference) => reference.walk(depth + 1, visitor),
-            Self::VariableReference(reference) => reference.walk(depth + 1, visitor),
-            Self::InlinePlaceable(inline) => inline.walk(depth + 1, visitor),
+            Self::StringLiteral(literal) => Walker::walk(literal, visitor),
+            Self::NumberLiteral(literal) => Walker::walk(literal, visitor),
+            Self::FunctionReference(reference) => Walker::walk(reference, visitor),
+            Self::MessageReference(reference) => Walker::walk(reference, visitor),
+            Self::TermReference(reference) => Walker::walk(reference, visitor),
+            Self::VariableReference(reference) => Walker::walk(reference, visitor),
+            Self::InlinePlaceable(inline) => Walker::walk(inline.as_ref(), visitor),
         }
     }
 }

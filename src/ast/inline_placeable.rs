@@ -1,7 +1,7 @@
 use super::{InlineExpression, SelectExpression};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -17,10 +17,10 @@ pub enum InlinePlaceable {
 
 #[cfg(feature = "walker")]
 impl Walkable for InlinePlaceable {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
+    fn walk(&self, visitor: &mut dyn Visitor) {
         match self {
-            Self::SelectExpression(expression) => expression.walk(depth, visitor),
-            Self::InlineExpression(expression) => expression.walk(depth, visitor),
+            Self::SelectExpression(expression) => Walker::walk(expression, visitor),
+            Self::InlineExpression(expression) => Walker::walk(expression, visitor),
         }
     }
 }

@@ -1,7 +1,7 @@
 use super::{Identifier, Literal};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -30,10 +30,10 @@ impl NamedArgument {
 
 #[cfg(feature = "walker")]
 impl Walkable for NamedArgument {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_named_argument(depth, self);
-        self.identifier.walk(depth + 1, visitor);
-        self.literal.walk(depth + 1, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_named_argument(self);
+        Walker::walk(&self.identifier, visitor);
+        Walker::walk(&self.literal, visitor);
     }
 }
 

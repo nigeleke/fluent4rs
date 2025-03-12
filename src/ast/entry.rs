@@ -1,7 +1,7 @@
 use super::{CommentLine, Message, Term};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -29,12 +29,12 @@ pub enum Entry {
 
 #[cfg(feature = "walker")]
 impl Walkable for Entry {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_entry(depth, self);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_entry(self);
         match self {
-            Self::Message(message) => message.walk(depth + 1, visitor),
-            Self::Term(term) => term.walk(depth + 1, visitor),
-            Self::CommentLine(comment) => comment.walk(depth + 1, visitor),
+            Self::Message(message) => Walker::walk(message, visitor),
+            Self::Term(term) => Walker::walk(term, visitor),
+            Self::CommentLine(comment) => Walker::walk(comment, visitor),
         }
     }
 }

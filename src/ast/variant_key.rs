@@ -1,7 +1,7 @@
 use super::{Identifier, NumberLiteral};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -17,11 +17,11 @@ pub enum VariantKey {
 
 #[cfg(feature = "walker")]
 impl Walkable for VariantKey {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_variant_key(depth, self);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_variant_key(self);
         match self {
-            Self::NumberLiteral(literal) => literal.walk(depth + 1, visitor),
-            Self::Identifier(identifier) => identifier.walk(depth + 1, visitor),
+            Self::NumberLiteral(literal) => Walker::walk(literal, visitor),
+            Self::Identifier(identifier) => Walker::walk(identifier, visitor),
         }
     }
 }

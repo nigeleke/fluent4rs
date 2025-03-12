@@ -1,7 +1,7 @@
 use super::PatternElement;
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -29,9 +29,9 @@ impl From<&[PatternElement]> for Pattern {
 
 #[cfg(feature = "walker")]
 impl Walkable for Pattern {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_pattern(depth, self);
-        self.0.iter().for_each(|pe| pe.walk(depth + 1, visitor));
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_pattern(self);
+        self.0.iter().for_each(|pe| Walker::walk(pe, visitor));
     }
 }
 

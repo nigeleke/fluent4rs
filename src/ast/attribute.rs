@@ -1,7 +1,7 @@
 use super::{Identifier, Pattern};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -46,10 +46,10 @@ impl Attribute {
 
 #[cfg(feature = "walker")]
 impl Walkable for Attribute {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_attribute(depth, self);
-        self.identifier.walk(depth + 1, visitor);
-        self.pattern.walk(depth + 1, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_attribute(self);
+        Walker::walk(&self.identifier, visitor);
+        Walker::walk(&self.pattern, visitor);
     }
 }
 

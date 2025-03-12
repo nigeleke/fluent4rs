@@ -1,7 +1,7 @@
 use super::{AttributeAccessor, Identifier};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -46,12 +46,12 @@ impl MessageReference {
 
 #[cfg(feature = "walker")]
 impl Walkable for MessageReference {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_message_reference(depth, self);
-        self.identifier.walk(depth + 1, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_message_reference(self);
+        Walker::walk(&self.identifier, visitor);
         self.attribute_accessor
             .iter()
-            .for_each(|aa| aa.walk(depth + 1, visitor));
+            .for_each(|aa| Walker::walk(aa, visitor));
     }
 }
 

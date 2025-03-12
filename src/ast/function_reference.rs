@@ -1,7 +1,7 @@
 use super::{CallArguments, Identifier};
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -38,10 +38,10 @@ impl FunctionReference {
 
 #[cfg(feature = "walker")]
 impl Walkable for FunctionReference {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        visitor.visit_function_reference(depth, self);
-        self.identifier.walk(depth + 1, visitor);
-        self.call_arguments.walk(depth + 1, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        visitor.visit_function_reference(self);
+        Walker::walk(&self.identifier, visitor);
+        Walker::walk(&self.call_arguments, visitor);
     }
 }
 

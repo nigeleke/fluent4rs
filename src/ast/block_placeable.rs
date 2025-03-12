@@ -1,7 +1,7 @@
 use super::InlinePlaceable;
 
 #[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -26,8 +26,8 @@ impl BlockPlaceable {
 
 #[cfg(feature = "walker")]
 impl Walkable for BlockPlaceable {
-    fn walk(&self, depth: usize, visitor: &mut dyn Visitor) {
-        self.inline_placeable.walk(depth, visitor);
+    fn walk(&self, visitor: &mut dyn Visitor) {
+        Walker::walk(&self.inline_placeable, visitor);
     }
 }
 
