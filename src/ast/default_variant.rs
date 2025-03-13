@@ -27,6 +27,10 @@ impl DefaultVariant {
         &self.variant_key
     }
 
+    pub fn variant_key_name(&self) -> String {
+        format!("*[{}]", self.variant_key)
+    }
+
     pub fn pattern(&self) -> &Pattern {
         &self.pattern
     }
@@ -43,6 +47,6 @@ impl Walkable for DefaultVariant {
 
 impl std::fmt::Display for DefaultVariant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "\n *[{}] {}", self.variant_key, self.pattern)
+        write!(f, "\n   {} {}", self.variant_key_name(), self.pattern)
     }
 }

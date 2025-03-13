@@ -29,6 +29,7 @@ impl Visitor for TestVisitor {
 
     fn visit_function_reference(&mut self, node: &FunctionReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
+        assert_eq!(&node.identifier_name().type_id(), &TypeId::of::<String>());
         assert_eq!(
             &node.call_arguments().type_id(),
             &TypeId::of::<CallArguments>()
@@ -83,6 +84,7 @@ impl Visitor for TestVisitor {
 
     fn visit_variable_reference(&mut self, node: &VariableReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
+        assert_eq!(&node.identifier_name().type_id(), &TypeId::of::<String>());
     }
 
     fn visit_variant(&mut self, node: &Variant) {
