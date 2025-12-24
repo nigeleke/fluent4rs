@@ -17,7 +17,6 @@ pub struct NamedArgument {
 
 impl NamedArgument {
     /// Constructs a new `NamedArgument` representing a named (keyword) argument in a Fluent function call.
-
     ///
     /// # Arguments
     /// * `identifier` - The name of the argument (e.g., `style`, `month`, `minimumFractionDigits`).

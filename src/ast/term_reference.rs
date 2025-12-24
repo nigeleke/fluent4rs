@@ -28,9 +28,9 @@ impl TermReference {
     /// # Arguments
     /// * `identifier` - The identifier of the referenced term (without the leading `-`).
     /// * `attribute_accessor` - Optional attribute access (e.g., `.title`). If `Some`, the reference
-    ///                          targets the specified attribute instead of the primary value.
+    ///   targets the specified attribute instead of the primary value.
     /// * `call_arguments` - Optional call arguments if the term is being invoked as a function-like
-    ///                      entity. This is used for parameterized terms.
+    ///   entity. This is used for parameterized terms.
     pub fn new(
         identifier: Identifier,
         attribute_accessor: Option<AttributeAccessor>,
@@ -45,8 +45,8 @@ impl TermReference {
 
     /// Returns the message identifier.
     ///
-    ///  Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
-    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
+    /// Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
+    /// may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }

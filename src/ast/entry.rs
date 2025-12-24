@@ -7,8 +7,8 @@ use crate::walker::{Visitor, Walkable, Walker};
 use serde::{Deserialize, Serialize};
 
 /// [Entry](crate::ast::Entry) ::= ([Message](crate::ast::Message) line_end)
-///    | ([Term](crate::ast::Term) line_end)
-///    | [CommentLine](crate::ast::CommentLine)
+///  | ([Term](crate::ast::Term) line_end)
+///  | [CommentLine](crate::ast::CommentLine)
 ///
 /// Entries are the main building blocks of Fluent.
 ///

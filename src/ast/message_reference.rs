@@ -25,7 +25,7 @@ impl MessageReference {
     /// # Arguments
     /// * `identifier` - The identifier of the referenced message or term.
     /// * `attribute_accessor` - Optional attribute access. If `Some`, refers to a specific attribute
-    ///                          of the message/term; if `None`, refers to its primary value.
+    ///   of the message/term; if `None`, refers to its primary value.
     pub fn new(identifier: Identifier, attribute_accessor: Option<AttributeAccessor>) -> Self {
         Self {
             identifier,
@@ -35,8 +35,8 @@ impl MessageReference {
 
     /// Returns the message identifier.
     ///
-    ///  Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
-    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
+    /// Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
+    /// may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }

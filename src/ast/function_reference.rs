@@ -23,7 +23,7 @@ impl FunctionReference {
     /// # Arguments
     /// * `identifier` - The name of the function (e.g., `NUMBER`, `PLATFORM`, or a custom function).
     /// * `call_arguments` - The arguments passed to the function, which may include positional
-    ///                      and/or named arguments.
+    ///   and/or named arguments.
     pub fn new(identifier: Identifier, call_arguments: CallArguments) -> Self {
         Self {
             identifier,

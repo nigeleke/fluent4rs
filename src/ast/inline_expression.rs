@@ -10,12 +10,12 @@ use crate::walker::{Visitor, Walkable, Walker};
 use serde::{Deserialize, Serialize};
 
 /// [InlineExpression](crate::ast::InlineExpression) ::= [StringLiteral](crate::ast::StringLiteral)
-///    | [NumberLiteral](crate::ast::NumberLiteral)
-///    | [FunctionReference](crate::ast::FunctionReference)
-///    | [MessageReference](crate::ast::MessageReference)
-///    | [TermReference](crate::ast::TermReference)
-///    | [VariableReference](crate::ast::VariableReference)
-///    | inline_placeable
+///  | [NumberLiteral](crate::ast::NumberLiteral)
+///  | [FunctionReference](crate::ast::FunctionReference)
+///  | [MessageReference](crate::ast::MessageReference)
+///  | [TermReference](crate::ast::TermReference)
+///  | [VariableReference](crate::ast::VariableReference)
+///  | inline_placeable
 ///
 /// Rules for validating expressions in Placeables and as selectors of
 /// SelectExpressions are documented in [spec/valid.md](https://github.com/projectfluent/fluent/blob/master/spec/valid.md) and enforced in

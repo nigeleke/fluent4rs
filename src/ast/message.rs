@@ -81,7 +81,7 @@ impl Message {
     ///
     /// # Arguments
     /// * `identifier` - The unique identifier (key) of the message (e.g., `hello-world`, `user-count`).
-    ///                   Must be a valid Fluent identifier.
+    ///   Must be a valid Fluent identifier.
     /// * `arguments` - The optional components of the message, including:
     ///   - A comment (resource/group/section level)
     ///   - The primary value pattern

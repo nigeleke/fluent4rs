@@ -20,7 +20,7 @@ impl Variant {
     ///
     /// # Arguments
     /// * `variant_key` - The key (selector value) for this variant. Typically a literal string,
-    ///                   number, or plural category (e.g., `"one"`, `"few"`, `"many"`).
+    //  number, or plural category (e.g., `"one"`, `"few"`, `"many"`).
     /// * `pattern` - The message pattern displayed when this variant is selected.
     pub fn new(variant_key: VariantKey, pattern: Pattern) -> Self {
         Self {

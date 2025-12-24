@@ -293,7 +293,7 @@ fn any_char<'a>() -> Parser<'a, String> {
 /// new line.
 ///
 /// special_text_char ::= "{"
-///    | "}"
+///  | "}"
 fn special_text_char<'a>() -> Parser<'a, String> {
     (sym('{') | sym('}')).collect().map(String::from)
 }
@@ -319,7 +319,7 @@ fn indented_char<'a>() -> Parser<'a, String> {
 /// comprise placeables.
 ///
 /// special_quoted_char ::= "\""
-///    | "\\"
+///  | "\\"
 fn special_quoted_char<'a>() -> Parser<'a, String> {
     (sym('"') | sym('\\')).map(|c| c.to_string())
 }
@@ -332,7 +332,7 @@ fn special_escape<'a>() -> Parser<'a, String> {
 }
 
 /// unicode_escape ::= ("\\u" /[0-9a-fA-F]{4}/)
-///    | ("\\U" /[0-9a-fA-F]{6}/)
+///  | ("\\U" /[0-9a-fA-F]{6}/)
 fn unicode_escape<'a>() -> Parser<'a, String> {
     ((seq("\\u") + is_a(|c| c.is_ascii_hexdigit()).repeat(4))
         | (seq("\\U") + is_a(|c| c.is_ascii_hexdigit()).repeat(6)))
@@ -341,8 +341,8 @@ fn unicode_escape<'a>() -> Parser<'a, String> {
 }
 
 /// quoted_char ::= (any_char - special_quoted_char - line_end)
-///    | special_escape
-///    | unicode_escape
+///  | special_escape
+///  | unicode_escape
 fn quoted_char<'a>() -> Parser<'a, String> {
     (!(special_quoted_char() | line_end()) * any_char()) | special_escape() | unicode_escape()
 }
@@ -365,8 +365,8 @@ fn blank_inline<'a>() -> Parser<'a, String> {
 }
 
 /// line_end ::= "\u000D\u000A"
-///    | "\u000A"
-///    | EOF
+///  | "\u000A"
+///  | EOF
 fn line_end<'a>() -> Parser<'a, String> {
     (sym('\u{000d}') + sym('\u{000a}'))
         .collect()
