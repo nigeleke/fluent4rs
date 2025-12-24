@@ -380,7 +380,6 @@ mod test {
         visitor.assert_junk(Some(1));
     }
 
-    #[derive(Default)]
     struct TestDefaultVisitor;
     impl Visitor for TestDefaultVisitor {}
 
@@ -389,9 +388,9 @@ mod test {
         let ftl = include_str!("../tests/data/full_grammar_example.ftl");
         let ast = Parser::parse(ftl).unwrap();
 
-        let mut visitor = TestDefaultVisitor::default();
+        let mut visitor = TestDefaultVisitor;
         Walker::walk(&ast, &mut visitor);
-        assert!(true) // Test forces coverage only
+        // Should not panic; no other assertions necessary.
     }
 
     #[test]
@@ -401,8 +400,8 @@ mod test {
 "#;
         let ast = Parser::parse_with_junk(ftl).unwrap();
 
-        let mut visitor = TestDefaultVisitor::default();
+        let mut visitor = TestDefaultVisitor;
         Walker::walk(&ast, &mut visitor);
-        assert!(true) // Test forces coverage only
+        // Should not panic; no other assertions necessary.
     }
 }
