@@ -4,7 +4,6 @@ use fluent4rs::ast::*;
 use fluent4rs::prelude::*;
 use pretty_assertions::assert_eq;
 
-#[derive(Default)]
 struct TestVisitor;
 
 impl Visitor for TestVisitor {
@@ -68,10 +67,7 @@ impl Visitor for TestVisitor {
 
     fn visit_term_reference(&mut self, node: &TermReference) {
         assert_eq!(&node.identifier().type_id(), &TypeId::of::<Identifier>());
-        assert_eq!(
-            &node.identifier_name(),
-            &format!("-{}", node.identifier().to_string())
-        );
+        assert_eq!(&node.identifier_name(), &format!("-{}", node.identifier()));
         if let Some(attribute_accessor) = node.attribute_accessor() {
             assert_eq!(
                 &attribute_accessor.type_id(),
@@ -102,6 +98,6 @@ fn attribute_public_methods() {
     let ftl = include_str!("data/full_grammar_example.ftl");
     let ast = Parser::parse(ftl).unwrap();
 
-    let mut visitor = TestVisitor::default();
+    let mut visitor = TestVisitor;
     Walker::walk(&ast, &mut visitor);
 }
