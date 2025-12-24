@@ -5,6 +5,7 @@
 #![doc = include_str!("../README.md")]
 
 pub mod ast;
+mod error;
 mod grammar;
 mod parser;
 #[cfg(feature = "walker")]
@@ -16,7 +17,8 @@ mod walker;
 /// By importing `prelude::*`, users get immediate access to the core parsing API
 /// (and optionally the AST walking utilities when the `walker` feature is enabled).
 pub mod prelude {
-    pub use crate::parser::{Parser, ParserError};
+    pub use crate::error::Fluent4rsError;
+    pub use crate::parser::Parser;
 
     #[cfg(feature = "walker")]
     pub use crate::walker::{Visitor, Walker};

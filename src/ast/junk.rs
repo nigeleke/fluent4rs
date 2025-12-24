@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 /// following a broken Entry is also considered part of Junk.
 ///
 /// [Parser::parse](crate::parser::Parser::parse) treats Junk as a
-/// [ParseError](crate::parser::ParserError).
+/// [Fluent4rsError](crate::error::Fluent4rsError).
 ///
 /// [Parser::parse_with_junk](crate::parser::Parser::parse_with_junk) will return [Junk](crate::ast::Junk)
 /// in the [Resource](crate::ast::Resource).
