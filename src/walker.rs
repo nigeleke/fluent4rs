@@ -11,129 +11,157 @@ use super::ast::*;
 /// If there's a build with the `trace` feature, the default [Visitor] will output
 /// each node to stderr.
 pub trait Visitor {
+    /// Called before traversing each type instance.
     fn enter(&mut self) {}
+
+    /// Called on exit from traversing each type instance.
     fn exit(&mut self) {}
 
+    /// Visit a top-level resource (the root of the AST).
     fn visit_resource(&mut self, _resource: &Resource) {
         #[cfg(feature = "trace")]
         eprintln!("resource: {_resource}");
     }
 
+    /// Visit any entry (message, term, comment, junk, etc.).
     fn visit_entry(&mut self, _entry: &Entry) {
         #[cfg(feature = "trace")]
         eprintln!("entry: {_entry}");
     }
 
+    /// Visit a message definition.
     fn visit_message(&mut self, _message: &Message) {
         #[cfg(feature = "trace")]
         eprintln!("message: {_message}");
     }
 
+    /// Visit a term definition.
     fn visit_term(&mut self, _term: &Term) {
         #[cfg(feature = "trace")]
         eprintln!("term: {_term}");
     }
 
+    /// Visit a standalone comment line (resource, group, or section comment).
     fn visit_comment_line(&mut self, _comment_line: &CommentLine) {
         #[cfg(feature = "trace")]
         eprintln!("comment_line: {_comment_line}");
     }
 
+    /// Visit junk (unparseable content preserved for round-tripping).
     fn visit_junk(&mut self, _junk: &Junk) {
         #[cfg(feature = "trace")]
         eprintln!("junk: {_junk}");
     }
 
+    /// Visit an attribute attached to a message or term.
     fn visit_attribute(&mut self, _attribute: &Attribute) {
         #[cfg(feature = "trace")]
         eprintln!("attribute: {_attribute}");
     }
 
+    /// Visit a pattern (sequence of text and placeables).
     fn visit_pattern(&mut self, _pattern: &Pattern) {
         #[cfg(feature = "trace")]
         eprintln!("pattern: {_pattern}");
     }
 
+    /// Visit a single element within a pattern (text or placeable).
     fn visit_pattern_element(&mut self, _element: &PatternElement) {
         #[cfg(feature = "trace")]
         eprintln!("pattern_element: {_element}");
     }
 
+    /// Visit an inline expression (inside `{}` placeables).
     fn visit_inline_expression(&mut self, _expression: &InlineExpression) {
         #[cfg(feature = "trace")]
         eprintln!("inline_expression: {_expression}");
     }
 
+    /// Visit a string literal.
     fn visit_string_literal(&mut self, _literal: &StringLiteral) {
         #[cfg(feature = "trace")]
         eprintln!("string_literal: {_literal}");
     }
 
+    /// Visit a number literal.
     fn visit_number_literal(&mut self, _literal: &NumberLiteral) {
         #[cfg(feature = "trace")]
         eprintln!("number_literal: {_literal}");
     }
 
+    /// Visit a function reference (e.g., `NUMBER($num)`).
     fn visit_function_reference(&mut self, _reference: &FunctionReference) {
         #[cfg(feature = "trace")]
         eprintln!("function_reference: {_reference}");
     }
 
+    /// Visit a message reference (e.g., `{ msg }` or `{ msg.attr }`).
     fn visit_message_reference(&mut self, _reference: &MessageReference) {
         #[cfg(feature = "trace")]
         eprintln!("message_reference: {_reference}");
     }
 
+    /// Visit a term reference (e.g., `{-term}` or `{-term(attr: value)}`).
     fn visit_term_reference(&mut self, _reference: &TermReference) {
         #[cfg(feature = "trace")]
         eprintln!("term_reference: {_reference}");
     }
 
+    /// Visit a variable reference (e.g., `$var`).
     fn visit_variable_reference(&mut self, _reference: &VariableReference) {
         #[cfg(feature = "trace")]
         eprintln!("variable_reference: {_reference}");
     }
 
+    /// Visit an attribute accessor (`.attr` part).
     fn visit_attribute_accessor(&mut self, _accessor: &AttributeAccessor) {
         #[cfg(feature = "trace")]
         eprintln!("attribute_accessor: {_accessor}");
     }
 
+    /// Visit call arguments (positional and named).
     fn visit_call_arguments(&mut self, _arguments: &CallArguments) {
         #[cfg(feature = "trace")]
         eprintln!("call_arguments: {_arguments}");
     }
 
+    /// Visit a positional or named argument in a function/term call.
     fn visit_argument(&mut self, _argument: &Argument) {
         #[cfg(feature = "trace")]
         eprintln!("argument: {_argument}");
     }
 
+    /// Visit a named (keyword) argument.
     fn visit_named_argument(&mut self, _argument: &NamedArgument) {
         #[cfg(feature = "trace")]
         eprintln!("named_argument {_argument}");
     }
 
+    /// Visit a select expression (plural/other category selection).
     fn visit_select_expression(&mut self, _expression: &SelectExpression) {
         #[cfg(feature = "trace")]
         eprintln!("select_expression: {_expression}");
     }
 
+    /// Visit a regular variant in a select expression.
     fn visit_variant(&mut self, _variant: &Variant) {
         #[cfg(feature = "trace")]
         eprintln!("variant: {_variant}");
     }
 
+    /// Visit a variant key (the selector value).
     fn visit_variant_key(&mut self, _variant_key: &VariantKey) {
         #[cfg(feature = "trace")]
         eprintln!("variant_key: {_variant_key}");
     }
 
+    /// Visit the default variant (marked with `*`).
     fn visit_default_variant(&mut self, _variant: &DefaultVariant) {
         #[cfg(feature = "trace")]
         eprintln!("default_variant: {_variant}");
     }
 
+    /// Visit an identifier (names of messages, terms, variables, etc.).
     fn visit_identifier(&mut self, _identifier: &Identifier) {
         #[cfg(feature = "trace")]
         eprintln!("identifier: {_identifier}");

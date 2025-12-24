@@ -16,6 +16,7 @@ use serde::{Deserialize, Serialize};
 pub struct Pattern(Vec<PatternElement>);
 
 impl Pattern {
+    /// Returns reference to an array of the underlying PatternElements
     pub fn pattern_elements(&self) -> &[PatternElement] {
         self.0.as_slice()
     }

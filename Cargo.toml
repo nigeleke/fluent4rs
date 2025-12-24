@@ -1,6 +1,6 @@
 [package]
 name = "fluent4rs"
-version = "2.1.1"
+version = "2.2.0"
 description = """
 Parser / codec for [Fluent FTL files](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf), written for [lingora](https://github.com/nigeleke/lingora)
 (a localization management program), and may be found to be useful outside of that context.
@@ -9,7 +9,7 @@ It is not intended to replace any aspects of the [fluent-rs](https://github.com/
 crate implemented by [Project Fluent](https://projectfluent.org/), and, for the majority of language
 translation needs, the reader is referred back to that crate.
 """
-edition = "2021"
+edition = "2024"
 license = "MIT"
 repository = "https://github.com/nigeleke/fluent4rs"
 readme = "README.md"

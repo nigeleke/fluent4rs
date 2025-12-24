@@ -22,8 +22,13 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Entry {
+    #[doc(hidden)]
     Message(Message),
+
+    #[doc(hidden)]
     Term(Term),
+
+    #[doc(hidden)]
     CommentLine(CommentLine),
 }
 

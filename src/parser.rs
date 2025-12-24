@@ -3,35 +3,39 @@
 //!
 use super::ast::Resource;
 
-use thiserror::*;
+use thiserror::Error;
 
+/// Represents errors that can occur during parsing of a Fluent Translation List (FTL) resource.
 #[derive(Debug, Error)]
 pub enum ParserError {
+    /// Generic parsing failure with a descriptive reason.
     #[error("failed to parse text; reason: {0}")]
     FailedToParse(String),
 }
 
-type Result<T> = std::result::Result<T, ParserError>;
-
+/// A parser for Fluent Translation List (FTL) files.
+///
+/// The `Parser` consumes a source string and produces an AST representation (`Resource`)
+/// according to the Fluent syntax specification.
 pub struct Parser;
 
 impl Parser {
     /// Parse the given string, treating any [Junk](crate::ast::Junk)
     /// as an error.
-    pub fn parse(text: &str) -> Result<Resource> {
+    pub fn parse(text: &str) -> Result<Resource, ParserError> {
         Self::parse_with_junk(text).and_then(junk_as_error)
     }
 
     /// Parse the given string, returning the [Junk](crate::ast::Junk)
     /// as items in the [Resource].
-    pub fn parse_with_junk(text: &str) -> Result<Resource> {
+    pub fn parse_with_junk(text: &str) -> Result<Resource, ParserError> {
         super::grammar::resource()
             .parse(text.as_bytes())
             .map_err(|e| ParserError::FailedToParse(e.to_string()))
     }
 }
 
-fn junk_as_error(resource: Resource) -> Result<Resource> {
+fn junk_as_error(resource: Resource) -> Result<Resource, ParserError> {
     let junk = resource.junk();
 
     if junk.is_empty() {

@@ -24,12 +24,25 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum InlineExpression {
+    #[doc(hidden)]
     StringLiteral(StringLiteral),
+
+    #[doc(hidden)]
     NumberLiteral(NumberLiteral),
+
+    #[doc(hidden)]
     FunctionReference(FunctionReference),
+
+    #[doc(hidden)]
     MessageReference(MessageReference),
+
+    #[doc(hidden)]
     TermReference(TermReference),
+
+    #[doc(hidden)]
     VariableReference(VariableReference),
+
+    #[doc(hidden)]
     InlinePlaceable(Box<InlinePlaceable>),
 }
 

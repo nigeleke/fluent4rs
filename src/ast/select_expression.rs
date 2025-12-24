@@ -16,6 +16,11 @@ pub struct SelectExpression {
 }
 
 impl SelectExpression {
+    /// Constructs a new `SelectExpression` representing a plural/category selection in Fluent.
+    ///
+    /// # Arguments
+    /// * `inline_expression` - The selector expression whose value determines which variant is chosen.
+    /// * `variant_list` - The list of variants, including exactly one default variant.
     pub fn new(inline_expression: InlineExpression, variant_list: VariantList) -> Self {
         Self {
             inline_expression,
@@ -23,6 +28,7 @@ impl SelectExpression {
         }
     }
 
+    /// Returns a reference to the selector expression of this select expression.
     pub fn inline_expression(&self) -> &InlineExpression {
         &self.inline_expression
     }

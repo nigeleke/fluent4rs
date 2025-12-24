@@ -14,9 +14,16 @@ use serde::{Deserialize, Serialize};
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum PatternElement {
+    #[doc(hidden)]
     InlineText(InlineText),
+
+    #[doc(hidden)]
     BlockText(BlockText),
+
+    #[doc(hidden)]
     InlinePlaceable(InlinePlaceable),
+
+    #[doc(hidden)]
     BlockPlaceable(BlockPlaceable),
 }
 

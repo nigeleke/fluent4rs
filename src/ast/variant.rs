@@ -16,6 +16,12 @@ pub struct Variant {
 }
 
 impl Variant {
+    /// Constructs a new non-default `Variant` for use in a Fluent select expression.
+    ///
+    /// # Arguments
+    /// * `variant_key` - The key (selector value) for this variant. Typically a literal string,
+    ///                   number, or plural category (e.g., `"one"`, `"few"`, `"many"`).
+    /// * `pattern` - The message pattern displayed when this variant is selected.
     pub fn new(variant_key: VariantKey, pattern: Pattern) -> Self {
         Self {
             variant_key,
@@ -23,14 +29,22 @@ impl Variant {
         }
     }
 
+    /// Returns a reference to the variant key of this variant.
     pub fn variant_key(&self) -> &VariantKey {
         &self.variant_key
     }
 
+    /// Returns a string representation of the variant key as it appears in Fluent source
+    /// (without the asterisk), e.g., `[one]`, `[few]`.
+    ///
+    /// This is useful when serializing or pretty-printing the variant.
+    /// Note that default variants include a leading `*` — use `DefaultVariant::variant_key_name`
+    /// for those.
     pub fn variant_key_name(&self) -> String {
         format!("[{}]", self.variant_key)
     }
 
+    /// Returns a reference to the pattern of this variant.
     pub fn pattern(&self) -> &Pattern {
         &self.pattern
     }

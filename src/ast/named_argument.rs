@@ -16,6 +16,12 @@ pub struct NamedArgument {
 }
 
 impl NamedArgument {
+    /// Constructs a new `NamedArgument` representing a named (keyword) argument in a Fluent function call.
+
+    ///
+    /// # Arguments
+    /// * `identifier` - The name of the argument (e.g., `style`, `month`, `minimumFractionDigits`).
+    /// * `literal` - The literal value assigned to the argument. Typically a string or number.
     pub fn new(identifier: Identifier, literal: Literal) -> Self {
         Self {
             identifier,
@@ -23,6 +29,7 @@ impl NamedArgument {
         }
     }
 
+    /// Returns a reference to the identifier (name) of this named argument.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }

@@ -51,6 +51,7 @@ pub struct Resource(Vec<ResourceItem>);
 impl Resource {
     /// Return the parsed entries.
     /// ```rust
+    /// # use fluent4rs::ast::*;
     /// # use fluent4rs::prelude::*;
     /// let test_text = r#"message = A message
     /// -term = A term

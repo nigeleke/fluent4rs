@@ -1,5 +1,6 @@
 use std::any::{Any, TypeId};
 
+use fluent4rs::ast::*;
 use fluent4rs::prelude::*;
 use pretty_assertions::assert_eq;
 
