@@ -13,10 +13,17 @@ use serde::{Deserialize, Serialize};
 pub struct VariableReference(Identifier);
 
 impl VariableReference {
+    /// Returns a reference to the underlying identifier of this variable reference.
+    ///
+    /// The identifier is the name without the leading `$` sigil.
     pub fn identifier(&self) -> &Identifier {
         &self.0
     }
 
+    /// Returns the string representation of this variable reference as it appears in Fluent source,
+    /// including the leading dollar sign (e.g., `$count`, `$userName`).
+    ///
+    /// This is useful when serializing, pretty-printing, or displaying the reference.
     pub fn identifier_name(&self) -> String {
         format!("${}", self.0)
     }

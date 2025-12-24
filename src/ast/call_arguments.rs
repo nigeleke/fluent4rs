@@ -13,6 +13,7 @@ use serde::{Deserialize, Serialize};
 pub struct CallArguments(Vec<Argument>);
 
 impl CallArguments {
+    /// Returns a reference to the call arguments.
     pub fn arguments(&self) -> &[Argument] {
         self.0.as_slice()
     }

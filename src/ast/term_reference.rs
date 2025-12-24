@@ -17,6 +17,20 @@ pub struct TermReference {
 }
 
 impl TermReference {
+    /// Constructs a new `TermReference` representing a reference to a Fluent term, optionally with
+    /// attribute access and/or call arguments.
+    ///
+    /// Example usages:
+    /// - `{-brand-name}` → references the term's primary value
+    /// - `{-brand-name(short: "yes")}` → calls the term as a function with named arguments
+    /// - `{-error-message.title}` → references a specific attribute of the term
+    ///
+    /// # Arguments
+    /// * `identifier` - The identifier of the referenced term (without the leading `-`).
+    /// * `attribute_accessor` - Optional attribute access (e.g., `.title`). If `Some`, the reference
+    ///   targets the specified attribute instead of the primary value.
+    /// * `call_arguments` - Optional call arguments if the term is being invoked as a function-like
+    ///   entity. This is used for parameterized terms.
     pub fn new(
         identifier: Identifier,
         attribute_accessor: Option<AttributeAccessor>,
@@ -31,8 +45,8 @@ impl TermReference {
 
     /// Returns the message identifier.
     ///
-    ///  Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
-    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
+    /// Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
+    /// may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }
@@ -45,10 +59,12 @@ impl TermReference {
         format!("-{}", self.identifier)
     }
 
+    /// Returns optional reference to the AttributeAccessors.
     pub fn attribute_accessor(&self) -> Option<&AttributeAccessor> {
         self.attribute_accessor.as_ref()
     }
 
+    /// Returns optional reference to the CallArgumemts.
     pub fn call_arguments(&self) -> Option<&CallArguments> {
         self.call_arguments.as_ref()
     }

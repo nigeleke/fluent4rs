@@ -16,6 +16,11 @@ pub struct Attribute {
 }
 
 impl Attribute {
+    /// Constructs a new `Attribute` with the given identifier and pattern.
+    ///
+    /// # Arguments
+    /// * `identifier` - The name of the attribute (e.g., `title`, `description`). Must be a valid Fluent identifier.
+    /// * `pattern` - The value pattern of the attribute, which can include text, placeables, selectors, etc.
     pub fn new(identifier: Identifier, pattern: Pattern) -> Self {
         Self {
             identifier,
@@ -39,6 +44,7 @@ impl Attribute {
         format!(".{}", self.identifier)
     }
 
+    /// Returns the atrribute pattern.
     pub fn pattern(&self) -> &Pattern {
         &self.pattern
     }

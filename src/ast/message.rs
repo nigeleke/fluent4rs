@@ -74,6 +74,19 @@ pub struct Message {
 }
 
 impl Message {
+    /// Constructs a new `Message` representing a translatable message in a Fluent Translation List (FTL) file.
+    /// A message consists of a unique identifier, a primary value pattern, and optional attributes,
+    /// a comment, or a select expression. The `arguments` parameter encapsulates all of these
+    /// optional components.
+    ///
+    /// # Arguments
+    /// * `identifier` - The unique identifier (key) of the message (e.g., `hello-world`, `user-count`).
+    ///   Must be a valid Fluent identifier.
+    /// * `arguments` - The optional components of the message, including:
+    ///   - A comment (resource/group/section level)
+    ///   - The primary value pattern
+    ///   - Zero or more attributes
+    ///   - An optional select expression (for plural/category selection)
     pub fn new(identifier: Identifier, arguments: MessageArguments) -> Self {
         Self {
             identifier,

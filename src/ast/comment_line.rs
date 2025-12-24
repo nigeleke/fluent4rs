@@ -17,6 +17,12 @@ pub struct CommentLine {
 }
 
 impl CommentLine {
+    /// Constructs a new `CommentLine` representing a comment line in a Fluent Translation List (FTL) file.
+    ///
+    /// # Arguments
+    /// * `lead` - The leading part of the line, including the `#` symbols and any immediate following whitespace.
+    /// * `comment` - The optional comment text after the initial whitespace following the `#` symbols.
+    ///   If `None`, the line consists only of the leading hashes (an "empty" comment).
     pub fn new(lead: String, comment: Option<String>) -> Self {
         Self { lead, comment }
     }

@@ -16,6 +16,16 @@ pub struct MessageReference {
 }
 
 impl MessageReference {
+    /// Constructs a new `MessageReference` representing a reference to a Fluent message or term.
+    /// This allows referencing either the primary value of a message/term (when `attribute_accessor` is `None`)
+    /// or one of its attributes (e.g., `my-message.title`).
+    ///
+    /// Message references are commonly used in placeables like `{ $var }` or directly as `{ msg-ref }`.
+    ///
+    /// # Arguments
+    /// * `identifier` - The identifier of the referenced message or term.
+    /// * `attribute_accessor` - Optional attribute access. If `Some`, refers to a specific attribute
+    ///   of the message/term; if `None`, refers to its primary value.
     pub fn new(identifier: Identifier, attribute_accessor: Option<AttributeAccessor>) -> Self {
         Self {
             identifier,
@@ -25,8 +35,8 @@ impl MessageReference {
 
     /// Returns the message identifier.
     ///
-    ///  Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
-    ///  may be the same, e,g, `product = ...` versus `-product = ...`.
+    /// Note: a [MessageReference](crate::ast::MessageReference) and [TermReference](crate::ast::TermReference) [Identifier](crate::ast::Identifier)
+    /// may be the same, e,g, `product = ...` versus `-product = ...`.
     pub fn identifier(&self) -> &Identifier {
         &self.identifier
     }
@@ -39,6 +49,7 @@ impl MessageReference {
         self.identifier.to_string()
     }
 
+    /// Returns an optional reference to the attribute accessor.
     pub fn attribute_accessor(&self) -> Option<&AttributeAccessor> {
         self.attribute_accessor.as_ref()
     }

@@ -1,4 +1,4 @@
-use fluent4rs::prelude::{Parser, ParserError};
+use fluent4rs::prelude::{Fluent4rsError, Parser};
 
 use pretty_assertions::assert_eq;
 
@@ -43,8 +43,7 @@ fn garbage_grammar_will_be_an_error() {
         dfsdfjh jhksdfh *($(*%&$&
 "#;
     let error = Parser::parse(ftl0).unwrap_err();
-
-    assert!(matches!(error, ParserError::FailedToParse(_)));
+    assert!(matches!(error, Fluent4rsError::UnwantedJunk(_)));
 }
 
 #[test]

@@ -17,6 +17,12 @@ pub struct Term {
 }
 
 impl Term {
+    /// Constructs a new `Term` representing a reusable term in a Fluent Translation List (FTL) file.
+    ///
+    /// # Arguments
+    /// * `identifier` - The unique identifier (key) of the term. Must be a valid Fluent identifier.
+    /// * `pattern` - The primary value pattern of the term.
+    /// * `attributes` - Zero or more attributes attached to the term.
     pub fn new(identifier: Identifier, pattern: Pattern, attributes: Vec<Attribute>) -> Self {
         Self {
             identifier,

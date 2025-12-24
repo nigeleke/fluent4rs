@@ -7,12 +7,15 @@ use crate::walker::{Visitor, Walkable, Walker};
 use serde::{Deserialize, Serialize};
 
 /// [Argument](crate::ast::Argument) ::= [NamedArgument](crate::ast::NamedArgument)
-///    | [InlineExpression](crate::ast::InlineExpression)
+///  | [InlineExpression](crate::ast::InlineExpression)
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
 pub enum Argument {
+    #[doc(hidden)]
     NamedArgument(NamedArgument),
+
+    #[doc(hidden)]
     InlineExpression(InlineExpression),
 }
 

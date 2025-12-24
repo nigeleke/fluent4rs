@@ -1,13 +1,24 @@
+// #![feature(coverage_attribute)]
+#![forbid(unsafe_code)]
+#![deny(missing_docs)]
+#![deny(clippy::all)]
 #![doc = include_str!("../README.md")]
-pub mod ast;
-mod grammar;
-pub mod parser;
-#[cfg(feature = "walker")]
-pub mod walker;
 
+pub mod ast;
+mod error;
+mod grammar;
+mod parser;
+#[cfg(feature = "walker")]
+mod walker;
+
+/// The prelude module – a convenient way to import the most commonly used types and traits
+/// when working with fluent4rs.
+///
+/// By importing `prelude::*`, users get immediate access to the core parsing API
+/// (and optionally the AST walking utilities when the `walker` feature is enabled).
 pub mod prelude {
-    pub use crate::ast::*;
-    pub use crate::parser::{Parser, ParserError};
+    pub use crate::error::Fluent4rsError;
+    pub use crate::parser::Parser;
 
     #[cfg(feature = "walker")]
     pub use crate::walker::{Visitor, Walker};
