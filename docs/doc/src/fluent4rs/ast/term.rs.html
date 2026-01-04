@@ -62,21 +62,22 @@
 <a href=#62 id=62 data-nosnippet>62</a></span><span class="kw">impl </span>Walkable <span class="kw">for </span>Term {
 <a href=#63 id=63 data-nosnippet>63</a>    <span class="kw">fn </span>walk(<span class="kw-2">&amp;</span><span class="self">self</span>, visitor: <span class="kw-2">&amp;mut </span><span class="kw">dyn </span>Visitor) {
 <a href=#64 id=64 data-nosnippet>64</a>        visitor.visit_term(<span class="self">self</span>);
-<a href=#65 id=65 data-nosnippet>65</a>        Walker::walk(<span class="kw-2">&amp;</span><span class="self">self</span>.pattern, visitor);
-<a href=#66 id=66 data-nosnippet>66</a>        <span class="self">self</span>.attributes()
-<a href=#67 id=67 data-nosnippet>67</a>            .iter()
-<a href=#68 id=68 data-nosnippet>68</a>            .for_each(|a| Walker::walk(a, visitor));
-<a href=#69 id=69 data-nosnippet>69</a>    }
-<a href=#70 id=70 data-nosnippet>70</a>}
-<a href=#71 id=71 data-nosnippet>71</a>
-<a href=#72 id=72 data-nosnippet>72</a><span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>Term {
-<a href=#73 id=73 data-nosnippet>73</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
-<a href=#74 id=74 data-nosnippet>74</a>        <span class="kw">let </span>attributes = <span class="self">self
-<a href=#75 id=75 data-nosnippet>75</a>            </span>.attributes
-<a href=#76 id=76 data-nosnippet>76</a>            .iter()
-<a href=#77 id=77 data-nosnippet>77</a>            .map(|a| a.to_string())
-<a href=#78 id=78 data-nosnippet>78</a>            .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
-<a href=#79 id=79 data-nosnippet>79</a>            .join(<span class="string">""</span>);
-<a href=#80 id=80 data-nosnippet>80</a>        <span class="macro">writeln!</span>(f, <span class="string">"-{} = {}{}"</span>, <span class="self">self</span>.identifier, <span class="self">self</span>.pattern, attributes)
-<a href=#81 id=81 data-nosnippet>81</a>    }
-<a href=#82 id=82 data-nosnippet>82</a>}</code></pre></div></section></main></body></html>
+<a href=#65 id=65 data-nosnippet>65</a>        Walker::walk(<span class="kw-2">&amp;</span><span class="self">self</span>.identifier, visitor);
+<a href=#66 id=66 data-nosnippet>66</a>        Walker::walk(<span class="kw-2">&amp;</span><span class="self">self</span>.pattern, visitor);
+<a href=#67 id=67 data-nosnippet>67</a>        <span class="self">self</span>.attributes()
+<a href=#68 id=68 data-nosnippet>68</a>            .iter()
+<a href=#69 id=69 data-nosnippet>69</a>            .for_each(|a| Walker::walk(a, visitor));
+<a href=#70 id=70 data-nosnippet>70</a>    }
+<a href=#71 id=71 data-nosnippet>71</a>}
+<a href=#72 id=72 data-nosnippet>72</a>
+<a href=#73 id=73 data-nosnippet>73</a><span class="kw">impl </span>std::fmt::Display <span class="kw">for </span>Term {
+<a href=#74 id=74 data-nosnippet>74</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>std::fmt::Formatter&lt;<span class="lifetime">'_</span>&gt;) -&gt; std::fmt::Result {
+<a href=#75 id=75 data-nosnippet>75</a>        <span class="kw">let </span>attributes = <span class="self">self
+<a href=#76 id=76 data-nosnippet>76</a>            </span>.attributes
+<a href=#77 id=77 data-nosnippet>77</a>            .iter()
+<a href=#78 id=78 data-nosnippet>78</a>            .map(|a| a.to_string())
+<a href=#79 id=79 data-nosnippet>79</a>            .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+<a href=#80 id=80 data-nosnippet>80</a>            .join(<span class="string">""</span>);
+<a href=#81 id=81 data-nosnippet>81</a>        <span class="macro">writeln!</span>(f, <span class="string">"-{} = {}{}"</span>, <span class="self">self</span>.identifier, <span class="self">self</span>.pattern, attributes)
+<a href=#82 id=82 data-nosnippet>82</a>    }
+<a href=#83 id=83 data-nosnippet>83</a>}</code></pre></div></section></main></body></html>
