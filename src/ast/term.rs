@@ -62,6 +62,7 @@ impl Term {
 impl Walkable for Term {
     fn walk(&self, visitor: &mut dyn Visitor) {
         visitor.visit_term(self);
+        Walker::walk(&self.identifier, visitor);
         Walker::walk(&self.pattern, visitor);
         self.attributes()
             .iter()
