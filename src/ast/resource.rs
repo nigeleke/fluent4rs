@@ -99,6 +99,13 @@ impl From<Vec<ResourceItem>> for Resource {
     }
 }
 
+impl From<Vec<Entry>> for Resource {
+    fn from(value: Vec<Entry>) -> Self {
+        let items = Vec::from_iter(value.into_iter().map(|e| ResourceItem::Entry(e)));
+        Self(items)
+    }
+}
+
 #[cfg(feature = "walker")]
 impl Walkable for Resource {
     fn walk(&self, visitor: &mut dyn Visitor) {
