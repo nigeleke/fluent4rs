@@ -101,7 +101,7 @@ impl From<Vec<ResourceItem>> for Resource {
 
 impl From<Vec<Entry>> for Resource {
     fn from(value: Vec<Entry>) -> Self {
-        let items = Vec::from_iter(value.into_iter().map(|e| ResourceItem::Entry(e)));
+        let items = Vec::from_iter(value.into_iter().map(ResourceItem::Entry));
         Self(items)
     }
 }
