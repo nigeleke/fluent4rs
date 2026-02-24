@@ -10,17 +10,8 @@ jobs:
     qa:
         name: Run Rust QA
         uses: nigeleke/github/.github/workflows/rust-qa.yml@main
-
-    rust-publish:
-        name: Rust Publish
-        needs:
-            - qa
-        uses: nigeleke/github/.github/workflows/rust-publish.yml@main
-        secrets: inherit
-
-    crates-io-publish:
-        name: Crates.io Publish
-        needs:
-            - rust-publish
-        uses: nigeleke/github/.github/workflows/crates-io-publish.yml@main
-        secrets: inherit
+        matrix: |
+            [
+              {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
+              {"cargo-extra-args": "--no-default-features --features parser-pom"}
+            ]

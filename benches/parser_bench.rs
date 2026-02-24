@@ -4,7 +4,7 @@ use criterion::{Criterion, criterion_group, criterion_main};
 use fluent4rs::{ast::Resource, prelude::Parser};
 
 fn bench_parse(c: &mut Criterion) {
-    let medium = black_box(include_str!("fixtures/medium.ftl"));
+    let medium = black_box(include_str!("../tests/data/full_grammar_example.ftl"));
 
     let inputs = [("medium", medium)];
 

@@ -30,7 +30,7 @@ criterion = { version = "0.8", features = ["html_reports"] }
 pretty_assertions = "1.4"
 
 [features]
-default = ["parser-chumsky"]
+default = ["parser-chumsky", "walker"]
 parser-pom = ["dep:pom"]
 parser-chumsky = ["dep:chumsky"]
 hash = []
