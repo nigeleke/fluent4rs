@@ -10,6 +10,7 @@ pub use chumsky::*;
 pub use pom::*;
 
 #[cfg(all(feature = "parser-pom", feature = "parser-chumsky"))]
-compile_error!(
-    "Features 'parser-pom' and 'parser-chumsky' are mutually exclusive. Enable only one."
-);
+compile_error!("Use one feature 'parser-pom' or 'parser-chumsky' only.");
+
+#[cfg(not(any(feature = "parser-pom", feature = "parser-chumsky")))]
+compile_error!("One feature 'parser-pom' or 'parser-chumsky' must be enabled.");

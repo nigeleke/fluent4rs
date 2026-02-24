@@ -37,7 +37,9 @@ translation needs, the reader is referred back to that crate.
 
 | __Feature__  | __Description__                                                     |
 |--------------|---------------------------------------------------------------------|
-| default      | All features are disabled                                           |
+| default      | None. Chumsky or Pom parser must be explicitly selected             |
+| chumksy      | Use the chumksy parser; This feature and pom are mutually exclusive |
+| pom          | Use the pom parser; This feature and chumsky are mutually exclusive |
 | hash         | Allow AST nodes to be hashed, for potential usages in `HashMap`s    |
 | serde        | Allow AST nodes to be serialised / deserialised                     |
 | trace        | Include tracing to stderr in the DefaultVisitor implementation      |
@@ -47,6 +49,13 @@ translation needs, the reader is referred back to that crate.
 
 ```bash
 cargo test --all-features
+```
+
+## Benchmarking
+
+```bash
+cargo bench --no-default-features --features parser-pom --bench parser_bench -- --save-baseline pom
+cargo bench --no-default-features --features parser-chumsky --bench parser_bench -- --baseline pom
 ```
 
 ## AST Image View

@@ -1,6 +1,6 @@
 [package]
 name = "fluent4rs"
-version = "2.2.2"
+version = "2.3.0"
 description = """
 Parser / codec for [Fluent FTL files](https://github.com/projectfluent/fluent/blob/master/spec/fluent.ebnf), written for [lingora](https://github.com/nigeleke/lingora)
 (a localization management program), and may be found to be useful outside of that context.
@@ -26,10 +26,11 @@ serde = { version = "1.0", features = ["derive"], optional = true }
 chumsky = { version = "0.12", features = ["debug"], optional = true }
 
 [dev-dependencies]
+criterion = { version = "0.8", features = ["html_reports"] }
 pretty_assertions = "1.4"
 
 [features]
-default = ["parser-chumsky", "walker"]
+default = ["parser-chumsky"]
 parser-pom = ["dep:pom"]
 parser-chumsky = ["dep:chumsky"]
 hash = []
@@ -44,3 +45,7 @@ warn = "deny"
 name = "ast_spec"
 path = "tests/ast_spec.rs"
 required-features = ["walker"]
+
+[[bench]]
+name = "parser_bench"
+harness = false

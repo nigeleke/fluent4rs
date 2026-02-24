@@ -3,7 +3,8 @@
         "rust-analyzer": {
             "initialization_options": {
                 "cargo": {
-                    "allFeatures": false
+                    "allFeatures": false,
+                    "features": ["parser-chumsky", "walker"]
                 }
             }
         }
