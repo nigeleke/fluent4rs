@@ -180,7 +180,7 @@ pub struct Walker;
 
 impl Walker {
     /// Walk the AST.
-    /// Each AST object is [Walkable], however, commonly the initial
+    /// Each AST object is Walkable, however, commonly the initial
     /// ojbect will be the parsed [Resource].
     pub fn walk(walkable: &dyn Walkable, visitor: &mut dyn Visitor) {
         visitor.enter();
