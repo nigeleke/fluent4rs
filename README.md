@@ -62,7 +62,7 @@ cargo bench --no-default-features --features parser-pom --bench parser_bench -- 
 cargo bench --no-default-features --features parser-chumsky --bench parser_bench -- --baseline pom
 ```
 
-```
+```text
 parse_full_grammar_example
                         time:   [651.05 µs 652.30 µs 653.57 µs]
                         change: [−91.189% −91.136% −91.070%] (p = 0.00 < 0.05)
