@@ -6,7 +6,7 @@ use fluent4rs::{ast::Resource, prelude::Parser};
 fn bench_parse(c: &mut Criterion) {
     let medium = black_box(include_str!("../tests/data/full_grammar_example.ftl"));
 
-    let inputs = [("medium", medium)];
+    let inputs = [("full_grammar_example", medium)];
 
     inputs
         .iter()
