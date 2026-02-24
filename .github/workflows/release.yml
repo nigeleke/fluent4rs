@@ -15,19 +15,21 @@ jobs:
     rust-publish:
         needs: [tags]
         uses: nigeleke/github/.github/workflows/rust-publish.yml@main
-        matrix: |
-            [
-              {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
-            ]
+        with:
+            matrix: |
+                [
+                  {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
+                ]
         secrets:
             CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     crates-io-publish:
         needs: [rust-publish]
         uses: nigeleke/github/.github/workflows/crates-io-publish.yml@main
-        matrix: |
-            [
-              {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
-            ]
+        with:
+            matrix: |
+                [
+                  {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
+                ]
         secrets:
             CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}

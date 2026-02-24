@@ -10,8 +10,9 @@ jobs:
     qa:
         name: Run Rust QA
         uses: nigeleke/github/.github/workflows/rust-qa.yml@main
-        matrix: |
-            [
-              {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
-              {"cargo-extra-args": "--no-default-features --features parser-pom"}
-            ]
+        with:
+            matrix: |
+                [
+                  {"cargo-extra-args": "--features parser-chumsky,walker,hash,serde,trace"}
+                  {"cargo-extra-args": "--no-default-features --features parser-pom"}
+                ]
