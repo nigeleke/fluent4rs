@@ -191,13 +191,12 @@ impl Walker {
 
 #[cfg(test)]
 mod test {
+    use std::collections::HashMap;
+
+    use pretty_assertions::{assert_eq, assert_ne};
+
     use super::*;
     use crate::parser::Parser;
-
-    use pretty_assertions::assert_eq;
-    use pretty_assertions::assert_ne;
-
-    use std::collections::HashMap;
 
     #[derive(Default)]
     struct TestVisitor {

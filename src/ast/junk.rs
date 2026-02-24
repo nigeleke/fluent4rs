@@ -1,8 +1,8 @@
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
 
 /// [Junk](crate::ast::Junk) ::= junk_line (junk_line - "#" - "-" - [a-zA-Z])*
 ///

@@ -1,10 +1,9 @@
-use super::{NumberLiteral, StringLiteral};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{NumberLiteral, StringLiteral};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [Literal](crate::ast::Literal) ::= [NumberLiteral](crate::ast::NumberLiteral) | [StringLiteral](crate::ast::StringLiteral)
 ///

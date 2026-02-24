@@ -1,8 +1,8 @@
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
 
 /// [Identifier](crate::ast::Identifier) ::= [a-zA-Z] [a-zA-Z0-9_-]*
 #[derive(Clone, Debug, PartialEq)]

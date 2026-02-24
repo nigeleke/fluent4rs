@@ -1,10 +1,8 @@
 //! The [Parser] enables a Fluent resource string to be parsed and
 //! described in AST structures.
 //!
-use crate::error::Fluent4rsError;
-use crate::grammar;
-
 use super::ast::Resource;
+use crate::{error::Fluent4rsError, grammar};
 
 /// A parser for Fluent Translation List (FTL) files.
 ///
@@ -22,7 +20,7 @@ impl Parser {
     /// Parse the given string, returning the [Junk](crate::ast::Junk)
     /// as items in the [Resource].
     pub fn parse_with_junk(text: &str) -> Result<Resource, Fluent4rsError> {
-        let parsed = grammar::resource().parse(text.as_bytes())?;
+        let parsed = grammar::parse_resource(text)?;
         Ok(parsed)
     }
 }
@@ -46,9 +44,10 @@ fn junk_as_error(resource: Resource) -> Result<Resource, Fluent4rsError> {
 
 #[cfg(test)]
 mod test {
+    use std::collections::HashSet;
+
     use super::*;
     use crate::ast::Entry;
-    use std::collections::HashSet;
 
     #[test]
     fn resource_entries_are_accesible() {
@@ -61,7 +60,8 @@ mod test {
     #[test]
     fn resource_junk_is_accesible() {
         let ftl0 = r#"sdfhkh &(*$%&$(*%&
-$W&(*$&(*%&("#;
+$W&(*$&(*%&(
+"#;
         let ast0 = Parser::parse_with_junk(ftl0).unwrap();
         let junk = ast0.junk();
         assert!(!junk.is_empty());

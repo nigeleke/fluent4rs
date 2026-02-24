@@ -1,10 +1,9 @@
-use super::{Attribute, Identifier, Pattern};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{Attribute, Identifier, Pattern};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 #[derive(Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "hash", derive(Eq, PartialOrd, Ord, Hash))]

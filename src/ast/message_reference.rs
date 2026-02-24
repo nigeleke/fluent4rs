@@ -1,10 +1,9 @@
-use super::{AttributeAccessor, Identifier};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{AttributeAccessor, Identifier};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [MessageReference](crate::ast::MessageReference) ::= [Identifier](crate::ast::Identifier) [AttributeAccessor](crate::ast::AttributeAccessor)?
 #[derive(Clone, Debug, PartialEq)]

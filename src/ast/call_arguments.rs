@@ -1,10 +1,9 @@
-use super::Argument;
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::Argument;
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [CallArguments](crate::ast::CallArguments) ::= blank? "(" blank? argument_list blank? ")"
 #[derive(Clone, Debug, PartialEq)]

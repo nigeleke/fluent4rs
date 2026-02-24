@@ -1,10 +1,9 @@
-use super::{DefaultVariant, Variant};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{DefaultVariant, Variant};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// variant_list ::= [Variant](crate::ast::Variant)* [DefaultVariant](crate::ast::DefaultVariant) [Variant](crate::ast::Variant)* line_end
 #[derive(Clone, Debug, PartialEq)]

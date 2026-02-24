@@ -1,10 +1,9 @@
-use super::{Entry, Junk};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{Entry, Junk};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 // [ResourceItem](crate::ast::ResourceItem) ::= ([Entry](crate::ast::Entry) | blank_block | [Junk](crate::ast::Junk))*
 //

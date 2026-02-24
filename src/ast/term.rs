@@ -1,10 +1,9 @@
-use super::{Attribute, Identifier, Pattern};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{Attribute, Identifier, Pattern};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [Term](crate::ast::Term) ::= "-" [Identifier](crate::ast::Identifier) blank_inline? "=" blank_inline? [Pattern](crate::ast::Pattern) [Attribute](crate::ast::Attribute)*
 #[derive(Clone, Debug, PartialEq)]

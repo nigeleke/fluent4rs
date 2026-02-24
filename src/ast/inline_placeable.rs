@@ -1,10 +1,9 @@
-use super::{InlineExpression, SelectExpression};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{InlineExpression, SelectExpression};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// inline_placeable ::= "{" blank? ([SelectExpression](crate::ast::SelectExpression) | [InlineExpression](crate::ast::InlineExpression)) blank? "}"
 #[derive(Clone, Debug, PartialEq)]

@@ -1,5 +1,4 @@
 use fluent4rs::prelude::{Fluent4rsError, Parser};
-
 use pretty_assertions::assert_eq;
 
 #[test]

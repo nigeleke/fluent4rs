@@ -1,10 +1,9 @@
-use super::{CommentLine, Message, Term};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{CommentLine, Message, Term};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [Entry](crate::ast::Entry) ::= ([Message](crate::ast::Message) line_end)
 ///  | ([Term](crate::ast::Term) line_end)

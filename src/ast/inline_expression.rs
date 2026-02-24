@@ -1,13 +1,12 @@
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 use super::{
     FunctionReference, InlinePlaceable, MessageReference, NumberLiteral, StringLiteral,
     TermReference, VariableReference,
 };
-
 #[cfg(feature = "walker")]
 use crate::walker::{Visitor, Walkable, Walker};
-
-#[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
 
 /// [InlineExpression](crate::ast::InlineExpression) ::= [StringLiteral](crate::ast::StringLiteral)
 ///  | [NumberLiteral](crate::ast::NumberLiteral)

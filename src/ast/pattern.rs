@@ -1,10 +1,9 @@
-use super::PatternElement;
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::PatternElement;
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [Pattern](crate::ast::Pattern) ::= [PatternElement](crate::ast::PatternElement)+
 ///

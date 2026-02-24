@@ -1,6 +1,4 @@
-use fluent4rs::ast::Resource;
-use fluent4rs::prelude::Parser;
-
+use fluent4rs::{ast::Resource, prelude::Parser};
 use pretty_assertions::assert_eq;
 
 #[test]

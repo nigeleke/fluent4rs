@@ -1,8 +1,8 @@
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
 
 /// [NumberLiteral](crate::ast::NumberLiteral) ::= "-"? digits ("." digits)?
 #[derive(Clone, Debug, PartialEq)]

@@ -1,8 +1,8 @@
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable};
 
 /// [CommentLine](crate::ast::CommentLine) ::= ("###" | "##" | "#") ("\u0020" comment_char*)? line_end
 ///

@@ -1,10 +1,9 @@
-use super::{Pattern, VariantKey};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{Pattern, VariantKey};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [Variant](crate::ast::Variant) ::= line_end blank? [VariantKey](crate::ast::VariantKey) blank_inline? [Pattern](crate::ast::Pattern)
 #[derive(Clone, Debug, PartialEq)]

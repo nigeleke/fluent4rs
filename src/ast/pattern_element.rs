@@ -1,10 +1,9 @@
-use super::{BlockPlaceable, BlockText, InlinePlaceable, InlineText};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{BlockPlaceable, BlockText, InlinePlaceable, InlineText};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [PatternElement](crate::ast::PatternElement) ::= [inline_text](crate::ast::InlineText)
 ///  | [block_text](crate::ast::BlockText)

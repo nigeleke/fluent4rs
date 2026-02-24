@@ -1,10 +1,9 @@
-use super::InlinePlaceable;
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::InlinePlaceable;
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// block_placeable ::= blank_block blank_inline? inline_placeable
 #[derive(Clone, Debug, PartialEq)]

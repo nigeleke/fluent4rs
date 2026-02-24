@@ -1,10 +1,9 @@
-use super::{InlineExpression, NamedArgument};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{InlineExpression, NamedArgument};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [Argument](crate::ast::Argument) ::= [NamedArgument](crate::ast::NamedArgument)
 ///  | [InlineExpression](crate::ast::InlineExpression)

@@ -1,10 +1,9 @@
-use super::{Identifier, Literal};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{Identifier, Literal};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [NamedArgument](crate::ast::NamedArgument) ::= [Identifier](crate::ast::Identifier) blank? ":" blank? ([StringLiteral](crate::ast::StringLiteral) | [NumberLiteral](crate::ast::NumberLiteral))
 #[derive(Clone, Debug, PartialEq)]

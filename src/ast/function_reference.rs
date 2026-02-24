@@ -1,10 +1,9 @@
-use super::{CallArguments, Identifier};
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::{CallArguments, Identifier};
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [FunctionReference](crate::ast::FunctionReference) ::= [Identifier](crate::ast::Identifier) [CallArguments](crate::ast::CallArguments)
 #[derive(Clone, Debug, PartialEq)]

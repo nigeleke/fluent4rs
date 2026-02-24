@@ -1,10 +1,9 @@
-use super::Identifier;
-
-#[cfg(feature = "walker")]
-use crate::walker::{Visitor, Walkable, Walker};
-
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+
+use super::Identifier;
+#[cfg(feature = "walker")]
+use crate::walker::{Visitor, Walkable, Walker};
 
 /// [VariableReference](crate::ast::VariableReference) ::= "$" [Identifier](crate::ast::Identifier)
 #[derive(Clone, Debug, PartialEq)]
