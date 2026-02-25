@@ -25,7 +25,7 @@ It has been written for [lingora](https://github.com/nigeleke/lingora) (a locali
 found to be useful outside of that context.
 
 From version 2.3+, the underlying parser crate changed from [pom](https://crates.io/crates/pom) to [chumsky](https://crates.io/crates/chumsky)
-with a 91% performance improvement. The pom parser remains an option (via `--no-default-features --features=parser-pom`) if
+with a 92% performance improvement. The pom parser remains an option (via `--no-default-features --features=parser-pom`) if
 clients need to use it.
 
 It is not intended to replace any aspects of the [fluent-rs](https://github.com/projectfluent/fluent-rs)
@@ -62,10 +62,10 @@ cargo bench --no-default-features --features parser-pom --bench parser_bench -- 
 cargo bench --no-default-features --features parser-chumsky --bench parser_bench -- --baseline pom
 ```
 
-```text
+```bash
 parse_full_grammar_example
-                        time:   [651.05 µs 652.30 µs 653.57 µs]
-                        change: [−91.189% −91.136% −91.070%] (p = 0.00 < 0.05)
+                        time:   [541.35 µs 543.99 µs 546.79 µs]
+                        change: [−92.720% −92.660% −92.603%] (p = 0.00 < 0.05)
                         Performance has improved.
 ```
 
