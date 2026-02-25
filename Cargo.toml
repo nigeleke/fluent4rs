@@ -23,7 +23,7 @@ homepage = "https://nigeleke.github.io/fluent4rs/"
 pom = { version = "3.4", optional = true }
 thiserror = "2.0"
 serde = { version = "1.0", features = ["derive"], optional = true }
-chumsky = { version = "0.12", features = ["debug"], optional = true }
+chumsky = { version = "0.12", optional = true }
 
 [dev-dependencies]
 criterion = { version = "0.8", features = ["html_reports"] }

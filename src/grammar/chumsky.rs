@@ -16,7 +16,10 @@ pub fn parse_resource(text: &str) -> Result<Resource, Fluent4rsError> {
 pub fn resource<'a>() -> impl Parser<'a, &'a str, Resource, extra::Err<Simple<'a, char>>> {
     choice((
         entry().map(ResourceItem::Entry),
-        blank_block().map(ResourceItem::BlankBlock),
+        blank_block().map(|s| {
+            let s = String::from(s);
+            ResourceItem::BlankBlock(s)
+        }),
         junk().map(ResourceItem::Junk),
     ))
     .repeated()
@@ -82,7 +85,7 @@ fn comment_line<'a>() -> impl Parser<'a, &'a str, CommentLine, extra::Err<Simple
         .labelled("comment_line")
 }
 
-fn comment_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn comment_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     line_end().not().ignore_then(any_char())
 }
 
@@ -98,23 +101,14 @@ fn junk<'a>() -> impl Parser<'a, &'a str, Junk, extra::Err<Simple<'a, char>>> {
             .collect::<Vec<_>>(),
         )
         .map(|(head, tail)| {
-            let mut lines = Vec::with_capacity(tail.len() + 1);
-            lines.push(head);
-            lines.extend(tail);
+            let lines = Vec::from_iter(std::iter::once(head).chain(tail).map(str::to_string));
             Junk::from(lines.as_slice())
         })
         .labelled("junk")
 }
 
-fn junk_line<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    none_of('\n')
-        .repeated()
-        .collect::<String>()
-        .then(just('\u{000a}'))
-        .map(|(mut chars, newline)| {
-            chars.push(newline);
-            chars
-        })
+fn junk_line<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    none_of('\n').repeated().then(just('\u{000a}')).to_slice()
 }
 
 fn attribute<'a>() -> impl Parser<'a, &'a str, Attribute, extra::Err<Simple<'a, char>>> {
@@ -429,95 +423,82 @@ fn identifier<'a>() -> impl Parser<'a, &'a str, Identifier, extra::Err<Simple<'a
         .map(|s| Identifier::from(s.as_str()))
 }
 
-fn any_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn any_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     let range = '\u{0000}'..='\u{10ffff}';
     any()
         .filter(move |c| range.contains(c))
-        .map(String::from)
+        .to_slice()
         .labelled("any_char")
 }
 
-fn special_text_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    choice((just("{"), just("}")))
-        .map(String::from)
-        .labelled("special_text_char")
+fn special_text_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    choice((just("{"), just("}"))).labelled("special_text_char")
 }
 
-fn text_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn text_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     (special_text_char().or(line_end()))
         .not()
         .ignore_then(any_char())
         .labelled("text_char")
 }
 
-fn indented_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn indented_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     (one_of("[*.").not())
         .ignore_then(text_char())
+        .to_slice()
         .labelled("indented_char")
 }
 
-fn special_quoted_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    one_of("\"\\")
-        .map(String::from)
-        .labelled("special_quoted_char")
+fn special_quoted_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    one_of("\"\\").to_slice().labelled("special_quoted_char")
 }
 
-fn special_escape<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn special_escape<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     just('\\')
         .ignore_then(special_quoted_char())
         .labelled("special_escape")
 }
 
-fn unicode_escape<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    let hex4 = just("\\u")
-        .ignore_then(text::digits(16).exactly(4).to_slice())
-        .map(|digits| format!("\\u{}", digits));
-
-    let hex6 = just("\\U")
-        .ignore_then(text::digits(16).exactly(6).to_slice())
-        .map(|digits| format!("\\U{}", digits));
-
-    hex4.or(hex6).labelled("unicode_escape")
+fn unicode_escape<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    choice((
+        just("\\u").then(text::digits(16).exactly(4)),
+        just("\\U").then(text::digits(16).exactly(6)),
+    ))
+    .to_slice()
+    .labelled("unicode escape")
 }
 
-fn quoted_char<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn quoted_char<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     ((special_quoted_char().or(line_end()))
         .not()
         .ignore_then(any_char()))
     .or(special_escape())
     .or(unicode_escape())
+    .to_slice()
 }
 
-fn digits<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    text::digits(10).collect::<String>().labelled("digits")
+fn digits<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    text::digits(10).to_slice().labelled("digits")
 }
 
-fn blank_inline<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    just('\u{0020}')
-        .repeated()
-        .at_least(1)
-        .to_slice()
-        .map(String::from)
+fn blank_inline<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    just('\u{0020}').repeated().at_least(1).to_slice()
 }
 
-fn line_end<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
-    choice((just("\u{000d}\u{000a}"), just("\u{000a}"))).map(String::from)
+fn line_end<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
+    choice((just("\u{000d}\u{000a}"), just("\u{000a}")))
 }
 
-fn blank_block<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn blank_block<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     (blank_inline().or_not().then(line_end()))
         .repeated()
         .at_least(1)
         .to_slice()
-        .map(String::from)
-        .boxed()
 }
 
-fn blank<'a>() -> impl Parser<'a, &'a str, String, extra::Err<Simple<'a, char>>> {
+fn blank<'a>() -> impl Parser<'a, &'a str, &'a str, extra::Err<Simple<'a, char>>> {
     choice((blank_inline(), line_end()))
         .repeated()
         .at_least(1)
         .to_slice()
-        .map(String::from)
-        .boxed()
 }
